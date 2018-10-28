@@ -17,4 +17,8 @@ class Persona extends Model
     public function empresas(){
         return $this->HasMany('App\Empresa');
     }
+
+    public function carreras(){
+        return $this->belongsToMany('App\Carrera');
+    }
 }

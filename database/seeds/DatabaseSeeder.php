@@ -14,10 +14,13 @@ class DatabaseSeeder extends Seeder
 
         // $this->call(UsersTableSeeder::class);
         factory(App\Tipo_empresa::class, 20)->create();
-        factory(App\Persona::class, 50)->create()->each(function ($u) {
+        factory(App\Universidad::class, 20)->create();
+        factory(App\Carrera::class, 10)->create();
 
+        factory(App\Persona::class, 50)->create()->each(function ($u) {
             $u->postgrados()->save(factory(App\Postgrado::class)->make());
             $u->empresas()->save(factory(App\Empresa::class)->make());
+            $u->carreras()->attach(\App\Carrera::inRandomOrder()->first());
         });
     }
 }

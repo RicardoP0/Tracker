@@ -4,11 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Postgrado extends Model
+class Carrera extends Model
 {
-    public function persona(){
-        return $this->BelongsTo('App\Postgrado');
+    public function personas(){
+        return $this->belongsToMany('App\Carrera');
     }
+
     public function universidad(){
         return $this->belongsTo('App\Universidad');
     }
