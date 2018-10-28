@@ -13,4 +13,8 @@ class Persona extends Model
     public function postgrados(){
         return $this->HasMany('App\Postgrado');
     }
+
+    public function empresas(){
+        return $this->HasMany('App\Empresa');
+    }
 }
