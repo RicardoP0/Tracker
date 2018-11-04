@@ -18,7 +18,7 @@
                 ['Apples',  new Date (1988,0,1), 1000, 300, 'East'],
                 ['Oranges', new Date (1988,0,1), 1150, 200, 'West'],
                 ['Bananas', new Date (1988,0,1), 300,  250, 'West'],
-                ['Apples',  new Date (1989,6,1), 1200, 400, 'East'],
+                ['Apples',  new Date (1988,6,1), 1200, 400, 'East'],
                 ['Oranges', new Date (1989,6,1), 750,  150, 'West'],
                 ['Bananas', new Date (1989,6,1), 788,  617, 'West']
             ]);
@@ -28,7 +28,8 @@
             chart.draw(data, {width: 600, height:300});
         }
         var sites = {!! $personas !!};
-
+        var dat = new Date( sites[0].fecha_ingreso);
+        console.log(dat);
     </script>
 
     <body>
