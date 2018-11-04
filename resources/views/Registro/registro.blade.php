@@ -35,14 +35,6 @@
                             </div>
                         </div>
 
-                        <div id="div_id_gender" class="form-group required">
-                            <label for="id_gender"  class="control-label col-md-4  requiredField"> Genero<span class="asteriskField">*</span> </label>
-                            <div class="controls col-md-8 "  style="margin-bottom: 10px">
-                                <label class="radio-inline"> <input type="radio" name="gender" id="id_gender_1" value="M"  style="margin-bottom: 10px">Masculino</label>
-                                <label class="radio-inline"> <input type="radio" name="gender" id="id_gender_2" value="F"  style="margin-bottom: 10px">Femenino </label>
-                            </div>
-                        </div>
-
                         <div id="div_id_email" class="form-group required">
                             <label for="id_email" class="control-label col-md-4  requiredField"> E-mail<span class="asteriskField">*</span> </label>
                             <div class="controls col-md-8 ">
@@ -64,50 +56,26 @@
                             </div>
                         </div>
 
+                        <div id="div_id_gender" class="form-group required">
+                            <label for="id_gender"  class="control-label col-md-4  requiredField"> Genero<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "  style="margin-bottom: 15px">
+                                <label class="radio-inline"> <input type="radio" name="gender" id="id_gender_1" value="M"  style="margin-bottom: 10px">Masculino</label>
+                                <label class="radio-inline"> <input type="radio" name="gender" id="id_gender_2" value="F"  style="margin-bottom: 10px">Femenino </label>
+                            </div>
+                        </div>
+
                         <div id="div_id_date" class="form-group required">
-                            <label for="id_date" class="control-label col-md-4  requiredField"> fecha de nacimiento<span class="asteriskField">*</span> </label>
+                            <label for="id_date" class="control-label col-md-4  requiredField"> Fecha de nacimiento<span class="asteriskField">*</span> </label>
                             <div class="controls col-md-8 ">
                                 <input id="date" type="date" style="margin-bottom: 10px">
                             </div>
                         </div>
 
-                        <div id="div_id_year_in" class="form-group required">
-                            <label for="id_year_in" class="control-label col-md-4  requiredField"> año de ingreso<span class="asteriskField">*</span> </label>
-                            <div class="controls col-md-8 ">
-                                <input type="number" placeholder="YYYY" min="1940" max="2100" style="margin-bottom: 10px">
-                            </div>
-                        </div>
 
-                        <div id="div_id_year_out" class="form-group required">
-                            <label for="id_year_out" class="control-label col-md-4  requiredField"> año de egreso<span class="asteriskField">*</span> </label>
-                            <div class="controls col-md-8 ">
-                                <input type="number" placeholder="YYYY" min="1940" max="2100" style="margin-bottom: 10px">
-                            </div>
-                        </div>
-
-                        <div id="div_id_year_gra" class="form-group required">
-                            <label for="id_year_gra" class="control-label col-md-4  requiredField"> año de titulación<span class="asteriskField">*</span> </label>
-                            <div class="controls col-md-8 ">
-                                <input type="number" placeholder="YYYY" min="1940" max="2100" style="margin-bottom: 10px">
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <div class="controls col-md-offset-4 col-md-8 ">
-                                <div id="div_id_terms" class="checkbox required">
-                                    <label for="id_terms" class=" requiredField">
-                                         <input class="input-ms checkboxinput" id="id_terms" name="terms" style="margin-bottom: 10px" type="checkbox" />
-                                         Agree with the terms and conditions
-                                    </label>
-                                </div>
-
-                            </div>
-                        </div>
                         <div class="form-group">
                             <div class="aab controls col-md-4 "></div>
                             <div class="controls col-md-8 ">
-                                <input type="submit" name="Signup" value="Signup" class="btn btn-primary btn btn-info" id="submit-id-signup" />
+                                <input type="submit" name="Signup" value="Registrarse" class="btn btn-primary btn btn-info" id="submit-id-signup" />
                             </div>
                         </div>
 

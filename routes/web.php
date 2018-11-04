@@ -19,6 +19,14 @@ Route::get('/registro', function () {
     return view('Registro/registro');
 });
 
+Route::get('/config', function () {
+    return view('Registro/config');
+});
+
+Route::get('/datos', function () {
+    return view('Registro/datos');
+});
+
 Auth::routes();
 Route::get('/home1', function () {
     return view('home');
