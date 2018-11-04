@@ -12,4 +12,7 @@ class Empresa extends Model
     public function tipo_empresa(){
         return $this->BelongsTo('App\Tipo_empresa');
     }
+    public function cargos(){
+        return $this->HasMany('App\Cargo');
+    }
 }

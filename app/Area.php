@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Area extends Model
 {
-    public function Cargos(){
+    public function cargos(){
         return $this->hasMany('App\Cargo');
     }
 }
