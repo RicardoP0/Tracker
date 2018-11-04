@@ -20,7 +20,9 @@ Route::get('/registro', function () {
 });
 
 Auth::routes();
-
+Route::get('/home1', function () {
+    return view('home');
+});
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('persona','PersonaController');
