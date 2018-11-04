@@ -38,6 +38,20 @@
     <!-- Custom Fonts
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
  -->
+    <script src={{asset("vendor/jquery/jquery.min.js")}}></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src={{asset("vendor/bootstrap/js/bootstrap.min.js")}}></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src={{asset("vendor/metisMenu/metisMenu.min.js")}}></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src={{asset("vendor/raphael/raphael.min.js")}}></script>
+    <script src={{asset("vendor/morrisjs/morris.min.js")}}></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src={{asset("js/sb-admin-2.min.js")}}></script>
 
 </head>
 
@@ -67,20 +81,8 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src={{asset("vendor/jquery/jquery.min.js")}}></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src={{asset("vendor/bootstrap/js/bootstrap.min.js")}}></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src={{asset("vendor/metisMenu/metisMenu.min.js")}}></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src={{asset("vendor/raphael/raphael.min.js")}}></script>
-    <script src={{asset("vendor/morrisjs/morris.min.js")}}></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src={{asset("js/sb-admin-2.min.js")}}></script>
+    
 
 </body>
 

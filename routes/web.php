@@ -25,4 +25,5 @@ Route::get('/home1', function () {
 });
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::resource('graph', 'GraphController');
 Route::resource('persona','PersonaController');
