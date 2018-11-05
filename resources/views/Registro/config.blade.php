@@ -1,10 +1,10 @@
 
-/**
+<!--
  * Created by PhpStorm.
  * User: Naitsirc
  * Date: 04-11-2018
  * Time: 16:06
- */
+-->
 
 @extends('layouts.master')
 

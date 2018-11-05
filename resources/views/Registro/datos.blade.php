@@ -1,10 +1,10 @@
 
-/**
+<!--
  * Created by PhpStorm.
  * User: Laptop
  * Date: 04-11-2018
  * Time: 16:21
- */
+-->
 
 @extends('layouts.master')
 
@@ -30,13 +30,51 @@
 
                             <form action="form_sent.php" method="post">
                                 <ul id="fieldList">
+
                                     <li>
-                                        <select>
-                                            <option value="ICCI">ICCI</option>
-                                            <option value="ICI">ICI</option>
-                                            <option value="IZI">IZI</option>
-                                            <option value="PIZI" selected>PIZI</option>
-                                        </select>
+                                        <div id="div_id_career" class="form-group required">
+                                            <label for="id_career" class="control-label col-md-4  requiredField"> Carrera<span class="asteriskField">*</span> </label>
+                                            <div class="controls col-md-8 ">
+                                                <select style="margin-bottom: 10px">
+                                                    <option value="ICCI" selected>ICCI</option>
+                                                    <option value="ICI">ICI</option>
+                                                    <option value="IZI">IZI</option>
+                                                    <option value="PIZI" >PIZI</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div id="div_id_year_in" class="form-group required">
+                                            <label for="id_year_in" class="control-label col-md-4  requiredField"> Año de ingreso<span class="asteriskField">*</span> </label>
+                                            <div class="controls col-md-8 ">
+                                                <input type="number" placeholder="YYYY" min="1940" max="2100" style="margin-bottom: 10px">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_year_out" class="form-group required">
+                                            <label for="id_year_out" class="control-label col-md-4  requiredField"> Año de egreso<span class="asteriskField">*</span> </label>
+                                            <div class="controls col-md-8 ">
+                                                <input type="number" placeholder="YYYY" min="1940" max="2100" style="margin-bottom: 10px">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_year_gra" class="form-group required">
+                                            <label for="id_year_gra" class="control-label col-md-4  requiredField"> Año de titulación<span class="asteriskField">*</span> </label>
+                                            <div class="controls col-md-8 ">
+                                                <input type="number" placeholder="YYYY" min="1940" max="2100" style="margin-bottom: 10px">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_sede" class="form-group required">
+                                            <label for="id_sede" class="control-label col-md-4  requiredField"> Sede<span class="asteriskField">*</span> </label>
+                                            <div class="controls col-md-8 ">
+                                                <select style="margin-bottom: 10px">
+                                                    <option value="Antofagasta">Antofagasta</option>
+                                                    <option value="Coquimbo">Coquimbo</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </li>
                                 </ul>
                                 <button id="addMore">Agregar otra carrera</button>
@@ -58,13 +96,36 @@
                             <form action="form_sent.php" method="post">
                                 <ul id="fieldList2">
                                     <li>
-                                        <input name="name[]" type="text" placeholder="Nombre" />
-                                    </li>
-                                    <li>
-                                        <input name="phone[]" type="text" placeholder="Tipo" />
-                                    </li>
-                                    <li>
-                                        <input id="year" type="year">
+                                        <div id="div_id_namep" class="form-group required">
+                                            <label for="id_namep" class="control-label col-md-4  requiredField"> Nombre<span class="asteriskField">*</span> </label>
+                                            <div class="controls col-md-8 ">
+                                                <input name="name[]" type="text" style="margin-bottom: 10px" />
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_type" class="form-group required">
+                                            <label for="id_type" class="control-label col-md-4  requiredField"> Tipo<span class="asteriskField">*</span> </label>
+                                            <div class="controls col-md-8 ">
+                                                <input name="type[]" type="text" style="margin-bottom: 10px"/>
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_yearp" class="form-group required">
+                                            <label for="id_yearp" class="control-label col-md-4  requiredField"> Año<span class="asteriskField">*</span> </label>
+                                            <div class="controls col-md-8 ">
+                                                <input type="number" placeholder="YYYY" min="1940" max="2100" style="margin-bottom: 10px">
+                                            </div>
+                                        </div>
+
+                                        <div id="div_id_unip" class="form-group required">
+                                            <label for="id_unip" class="control-label col-md-4  requiredField"> Universidad<span class="asteriskField">*</span> </label>
+                                            <div class="controls col-md-8 ">
+                                                <select style="margin-bottom: 10px">
+                                                    <option value="uni1">Universidad1</option>
+                                                    <option value="uni2">Universidad2</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </li>
                                 </ul>
                                 <button id="addMore2">Add more fields</button>
@@ -94,12 +155,47 @@
             $("#addMore").click(function(e) {
                 e.preventDefault();
                 $("#fieldList").append("<li>&nbsp;</li>");
-                $("#fieldList").append("<li><select>\n" +
-                    "  <option value=\"ICCI\">ICCI</option>\n" +
-                    "  <option value=\"ICI\">ICI</option>\n" +
-                    "  <option value=\"IZI\">IZI</option>\n" +
-                    "  <option value=\"PIZI\" selected>PIZI</option>\n" +
-                    "</select></li>");
+                $("#fieldList").append("<li><div id=\"div_id_career\" class=\"form-group required\">\n" +
+                    "<label for=\"id_career\" class=\"control-label col-md-4  requiredField\"> Carrera<span class=\"asteriskField\">*</span> </label>\n" +
+                    "<div class=\"controls col-md-8 \">\n" +
+                    "<select style=\"margin-bottom: 10px\">\n" +
+                    "<option value=\"ICCI\">ICCI selected</option>\n" +
+                    "<option value=\"ICI\">ICI</option>\n" +
+                    "<option value=\"IZI\">IZI</option>\n" +
+                    "<option value=\"PIZI\">PIZI</option>\n" +
+                    "</select>\n" +
+                    "</div>\n" +
+                    "</div></li>");
+                $("#fieldList").append("<li><div id=\"div_id_year_in\" class=\"form-group required\">\n" +
+                    "<label for=\"id_year_in\" class=\"control-label col-md-4  requiredField\"> Año de ingreso<span class=\"asteriskField\">*</span> </label>\n" +
+                    "<div class=\"controls col-md-8 \">\n" +
+                    "<input type=\"number\" placeholder=\"YYYY\" min=\"1940\" max=\"2100\" style=\"margin-bottom: 10px\">\n" +
+                    "</div>\n" +
+                    "</div>\n" +
+                    "\n" +
+                    "<div id=\"div_id_year_out\" class=\"form-group required\">\n" +
+                    "<label for=\"id_year_out\" class=\"control-label col-md-4  requiredField\"> Año de egreso<span class=\"asteriskField\">*</span> </label>\n" +
+                    "<div class=\"controls col-md-8 \">\n" +
+                    "<input type=\"number\" placeholder=\"YYYY\" min=\"1940\" max=\"2100\" style=\"margin-bottom: 10px\">\n" +
+                    "</div>\n" +
+                    "</div>\n" +
+                    "\n" +
+                    "<div id=\"div_id_year_gra\" class=\"form-group required\">\n" +
+                    "<label for=\"id_year_gra\" class=\"control-label col-md-4  requiredField\"> Año de titulación<span class=\"asteriskField\">*</span> </label>\n" +
+                    "<div class=\"controls col-md-8 \">\n" +
+                    "<input type=\"number\" placeholder=\"YYYY\" min=\"1940\" max=\"2100\" style=\"margin-bottom: 10px\">\n" +
+                    "</div>\n" +
+                    "</div>\n" +
+                    "\n" +
+                    "<div id=\"div_id_year_gra\" class=\"form-group required\">\n" +
+                    "<label for=\"id_year_gra\" class=\"control-label col-md-4  requiredField\"> Sede<span class=\"asteriskField\">*</span> </label>\n" +
+                    "<div class=\"controls col-md-8 \">\n" +
+                    "<select style=\"margin-bottom: 10px\">\n" +
+                    "<option value=\"Antofagasta\">Antofagasta</option>\n" +
+                    "<option value=\"Coquimbo\">Coquimbo</option>\n" +
+                    "</select>\n" +
+                    "</div>\n" +
+                    "</div></li>");
             });
         });
     </script>
@@ -109,9 +205,36 @@
             $("#addMore2").click(function(e) {
                 e.preventDefault();
                 $("#fieldList2").append("<li>&nbsp;</li>");
-                $("#fieldList2").append("<li><input name=\"name[]\" type=\"text\" placeholder=\"Nombre\" /></li>");
-                $("#fieldList2").append("<li><input name=\"year[]\" type=\"text\" placeholder=\"Año\" /></li>");
-                $("#fieldList2").append("<li><input id=\"year\" type=\"year\"></li>");
+                $("#fieldList2").append("<li><div id=\"div_id_namep\" class=\"form-group required\">\n" +
+                    "                                            <label for=\"id_namep\" class=\"control-label col-md-4  requiredField\"> Nombre<span class=\"asteriskField\">*</span> </label>\n" +
+                    "                                            <div class=\"controls col-md-8 \">\n" +
+                    "                                                <input name=\"name[]\" type=\"text\" style=\"margin-bottom: 10px\" />\n" +
+                    "                                            </div>\n" +
+                    "                                        </div>\n" +
+                    "\n" +
+                    "                                        <div id=\"div_id_type\" class=\"form-group required\">\n" +
+                    "                                            <label for=\"id_type\" class=\"control-label col-md-4  requiredField\"> Tipo<span class=\"asteriskField\">*</span> </label>\n" +
+                    "                                            <div class=\"controls col-md-8 \">\n" +
+                    "                                                <input name=\"type[]\" type=\"text\" style=\"margin-bottom: 10px\"/>\n" +
+                    "                                            </div>\n" +
+                    "                                        </div>\n" +
+                    "\n" +
+                    "                                        <div id=\"div_id_yearp\" class=\"form-group required\">\n" +
+                    "                                            <label for=\"id_yearp\" class=\"control-label col-md-4  requiredField\"> Año<span class=\"asteriskField\">*</span> </label>\n" +
+                    "                                            <div class=\"controls col-md-8 \">\n" +
+                    "                                                <input type=\"number\" placeholder=\"YYYY\" min=\"1940\" max=\"2100\" style=\"margin-bottom: 10px\">\n" +
+                    "                                            </div>\n" +
+                    "                                        </div>\n" +
+                    "\n" +
+                    "                                        <div id=\"div_id_unip\" class=\"form-group required\">\n" +
+                    "                                            <label for=\"id_unip\" class=\"control-label col-md-4  requiredField\"> Universidad<span class=\"asteriskField\">*</span> </label>\n" +
+                    "                                            <div class=\"controls col-md-8 \">\n" +
+                    "                                                <select style=\"margin-bottom: 10px\">\n" +
+                    "                                                    <option value=\"uni1\">Universidad1</option>\n" +
+                    "                                                    <option value=\"uni2\">Universidad2</option>\n" +
+                    "                                                </select>\n" +
+                    "                                            </div>\n" +
+                    "                                        </div></li>");
             });
         });
     </script>
