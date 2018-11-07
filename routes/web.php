@@ -27,6 +27,10 @@ Route::get('/datos', function () {
     return view('Registro/datos');
 });
 
+Route::get('/datost', function () {
+    return view('Registro/datost');
+});
+
 Auth::routes();
 Route::get('/home1', function () {
     return view('home');

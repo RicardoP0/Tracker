@@ -65,6 +65,17 @@
                                 </div>
                             </div>
 
+                            <div id="div_id_sede" class="form-group required">
+                                <label for="id_sede" class="control-label col-md-4  requiredField"> Situacion laboral actual<span class="asteriskField">*</span> </label>
+                                <div class="controls col-md-8 ">
+                                    <select style="margin-bottom: 10px">
+                                        <option value="TrabajoD">Trabajo dependiente</option>
+                                        <option value="TrabajoI">Trabajo independiente</option>
+                                        <option value="Desempleado">Desempleado</option>
+                                    </select>
+                                </div>
+                            </div>
+
 
                             <div class="form-group">
                                 <div class="aab controls col-md-4 "></div>
