@@ -31,4 +31,5 @@
             </div>
             <!-- /.panel-body -->
         </div>
+    </div>
 @endsection

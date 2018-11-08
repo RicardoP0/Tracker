@@ -14,7 +14,10 @@ class GraphController extends Controller
     public function index()
     {
         $personas =  \App\Persona::all();
-        return view('Graficos.motion', compact('personas'));
+        $empresas = \App\Empresa::all();
+        $areas = \App\Area::all();
+        $cargos = \App\Cargo::all();
+        return view('Graficos.motion', compact('personas','cargos','empresas','areas'));
     }
 
     /**
