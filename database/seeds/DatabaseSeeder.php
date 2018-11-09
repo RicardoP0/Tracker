@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         factory(App\Tipo_empresa::class, 20)->create();
         factory(App\Universidad::class, 20)->create();
         factory(App\Carrera::class, 10)->create();
+        factory(App\Rubro::class, 10)->create();
+
 
         factory(App\Persona::class, 50)->create()->each(function ($u) {
             $cant = rand(0,3);

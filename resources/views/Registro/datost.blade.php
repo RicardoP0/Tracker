@@ -7,6 +7,18 @@
  TODO terminar y mejorar datos normal
 -->
 
+<style type="text/css">
+
+    #otraArea {
+        display: none;
+    }
+
+    #otraArea.show {
+        display: block;
+    }
+
+</style>
+
 @extends('layouts.master')
 
 @section('content')
@@ -43,15 +55,9 @@
                                             <label for="id_sede" class="control-label col-md-4  requiredField"> Tipo de empresa<span class="asteriskField">*</span> </label>
                                             <div class="controls col-md-8 ">
                                                 <select style="margin-bottom: 10px">
-                                                    <option value="EIRL">EIRL</option>
-                                                    <option value="LTDA">LTDA</option>
-                                                    <option value="S.A.">S.A.</option>
-                                                    <option value="SpA">SpA</option>
-                                                    <option value="ONG">ONG</option>
-                                                    <option value="Privada">Privada</option>
-                                                    <option value="Publica">Publica</option>
-                                                    <option value="Propia">Propia</option>
-                                                    <option value="Sfl">Sin fines de lucro</option>
+                                                    @foreach( $tipoEmp as $emp)
+                                                        <option value={{$emp->id}}> {{$emp->nombre}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -102,8 +108,6 @@
 
                     <form method="post" action=".">
                         <input type='hidden' name='csrfmiddlewaretoken' value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
-
-
                         <form  class="form-horizontal" method="post" >
                             <input type='hidden' name='csrfmiddlewaretoken' value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
 
@@ -114,51 +118,52 @@
                                         <div id="div_id_unip" class="form-group required">
                                             <label for="id_unip" class="control-label col-md-4  requiredField"> Area<span class="asteriskField">*</span> </label>
                                             <div class="controls col-md-8 ">
-                                                <select style="margin-bottom: 10px">
-                                                    <option value="Desarrollo">Desarrollo</option>
-                                                    <option value="Redes">Redes</option>
-                                                    <option value="Servidores">Servidores</option>
-                                                    <option value="Robotica">Robotica</option>
+                                                <select id="area" style="margin-bottom: 10px">
+                                                    @foreach( $area as $ar)
+                                                        <option value={{$ar->id}}> {{$ar->nombre}}</option>
+                                                    @endforeach
                                                 </select>
+                                            </div>
+
+                                        </div>
+
+                                        <div id="otraArea" class="form-group required">
+                                            <label for="id_emp" class="control-label col-md-4  requiredField"> Otro:<span class="asteriskField">*</span> </label>
+                                            <div class="controls col-md-8 ">
+                                                <input name="emp[]" type="text" style="margin-bottom: 10px" />
                                             </div>
                                         </div>
 
+                                        <script>
+                                            const source = document.querySelector("#area");
+                                            const target = document.querySelector("#otraArea");
+
+                                            const displayWhenSelected = (source, value, target) => {
+                                                const selectedIndex = source.selectedIndex;
+                                                const isSelected = source[selectedIndex].value === value;
+                                                target.classList[isSelected
+                                                    ? "add"
+                                                    : "remove"
+                                                    ]("show");
+                                            };
+                                            source.addEventListener("change", (evt) =>
+                                                displayWhenSelected(source, "5", target)
+                                            );
+                                        </script>
 
                                         <div id="div_id_unip" class="form-group required">
                                             <label for="id_unip" class="control-label col-md-4  requiredField"> Rubro<span class="asteriskField">*</span> </label>
                                             <div class="controls col-md-8 ">
                                                 <select style="margin-bottom: 10px">
-                                                    <option value="r1">r1</option>
-                                                    <option value="r2">r2</option>
-                                                    <option value="...">...</option>
+                                                    @foreach( $rubro as $ru)
+                                                        <option value={{$ru->id}}> {{$ru->nombre}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
 
                                     </li>
                                 </ul>
-                                <br>
-                            </form>
-
-                        </form>
-
-                    </form>
-
-                    <form method="post" action=".">
-                        <input type='hidden' name='csrfmiddlewaretoken' value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
-
-
-                        <form  class="form-horizontal" method="post" >
-                            <input type='hidden' name='csrfmiddlewaretoken' value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
-
-                            <form action="form_sent.php" method="post">
-                                <ul id="fieldList3">
-                                    <li>
-
-                                    </li>
-                                </ul>
-                                <button id="addMore2">Agregar otro empresa</button>
-                                <br>
                                 <br>
                             </form>
 
@@ -172,7 +177,7 @@
             <div class="form-group">
                 <div class="aab controls col-md-4 "></div>
                 <div class="controls col-md-8 ">
-                    <input type="submit" name="Signup" value="Guardar" class="btn btn-primary btn btn-info" id="submit-id-signup" />
+                    <input type="submit" name="Signup" value="Agregar" class="btn btn-primary btn btn-info" id="submit-id-signup" />
                 </div>
             </div>
         </div>
@@ -219,14 +224,5 @@
         });
     </script>
 
-    <script>
-        $(function() {
-            $("#addMore2").click(function(e) {
-                e.preventDefault();
-                $("#fieldList3").append("<li>&nbsp;</li>");
-                $("#fieldList3").append("<li></li>");
-            });
-        });
-    </script>
 
 @endsection

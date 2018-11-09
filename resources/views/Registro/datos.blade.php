@@ -38,8 +38,6 @@
                                                 <select style="margin-bottom: 10px">
                                                     <option value="ICCI">ICCI</option>
                                                     <option value="ICI">ICI</option>
-                                                    <option value="IZI">IZI</option>
-                                                    <option value="PIZI">PIZI</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -48,7 +46,7 @@
                                         <div id="div_id_year_in" class="form-group required">
                                             <label for="id_year_in" class="control-label col-md-4  requiredField"> Año de ingreso<span class="asteriskField">*</span> </label>
                                             <div class="controls col-md-8 ">
-                                                <input type="number" placeholder="YYYY" min="1940" max="2100" style="margin-bottom: 10px">
+                                                <input type="number" placeholder="YYYY" min="1940" max="2018" style="margin-bottom: 10px">
                                             </div>
                                         </div>
 
@@ -89,7 +87,6 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <button id="addMore">Agregar otra carrera</button>
                                 <br>
                             </form>
 
@@ -133,8 +130,9 @@
                                             <label for="id_unip" class="control-label col-md-4  requiredField"> Universidad<span class="asteriskField">*</span> </label>
                                             <div class="controls col-md-8 ">
                                                 <select style="margin-bottom: 10px">
-                                                    <option value="uni1">Universidad1</option>
-                                                    <option value="uni2">Universidad2</option>
+                                                    @foreach( $universidades as $uni)
+                                                        <option value={{$uni->id}}> {{$uni->nombre}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -161,68 +159,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        $(function() {
-            $("#addMore").click(function(e) {
-                e.preventDefault();
-                $("#fieldList").append("<li>&nbsp;</li>");
-                $("#fieldList").append("<li><div id=\"div_id_career\" class=\"form-group required\">\n" +
-                    "<label for=\"id_career\" class=\"control-label col-md-4  requiredField\"> Carrera<span class=\"asteriskField\">*</span> </label>\n" +
-                    "<div class=\"controls col-md-8 \">\n" +
-                    "<select style=\"margin-bottom: 10px\">\n" +
-                    "<option value=\"ICCI\">ICCI</option>\n" +
-                    "<option value=\"ICI\">ICI</option>\n" +
-                    "<option value=\"IZI\">IZI</option>\n" +
-                    "<option value=\"PIZI\">PIZI</option>\n" +
-                    "</select>\n" +
-                    "</div>\n" +
-                    "</div></li>");
-                $("#fieldList").append("<li><div id=\"div_id_year_in\" class=\"form-group required\">\n" +
-                    "                                            <label for=\"id_year_in\" class=\"control-label col-md-4  requiredField\"> Año de ingreso<span class=\"asteriskField\">*</span> </label>\n" +
-                    "                                            <div class=\"controls col-md-8 \">\n" +
-                    "                                                <input type=\"number\" placeholder=\"YYYY\" min=\"1940\" max=\"2100\" style=\"margin-bottom: 10px\">\n" +
-                    "                                            </div>\n" +
-                    "                                        </div>\n" +
-                    "\n" +
-                    "                                        <div id=\"div_id_year_out\" class=\"form-group required\">\n" +
-                    "                                            <label for=\"id_year_out\" class=\"control-label col-md-4  requiredField\"> Año de egreso<span class=\"asteriskField\">*</span> </label>\n" +
-                    "                                            <div class=\"controls col-md-8 \">\n" +
-                    "                                                <input type=\"number\" placeholder=\"YYYY\" min=\"1940\" max=\"2100\" style=\"margin-bottom: 10px\">\n" +
-                    "                                            </div>\n" +
-                    "                                        </div>\n" +
-                    "\n" +
-                    "                                        <div id=\"div_id_year_gra\" class=\"form-group required\">\n" +
-                    "                                            <label for=\"id_year_gra\" class=\"control-label col-md-4  requiredField\"> Año de titulación<span class=\"asteriskField\">*</span> </label>\n" +
-                    "                                            <div class=\"controls col-md-8 \">\n" +
-                    "                                                <input type=\"number\" placeholder=\"YYYY\" min=\"1940\" max=\"2100\" style=\"margin-bottom: 10px\">\n" +
-                    "                                            </div>\n" +
-                    "                                        </div>\n" +
-                    "\n" +
-                    "                                        <div id=\"div_id_sede\" class=\"form-group required\">\n" +
-                    "                                            <label for=\"id_sede\" class=\"control-label col-md-4  requiredField\"> Tipo de tesis<span class=\"asteriskField\">*</span> </label>\n" +
-                    "                                            <div class=\"controls col-md-8 \">\n" +
-                    "                                                <select style=\"margin-bottom: 10px\">\n" +
-                    "                                                    <option value=\"Proyecto\">Proyecto</option>\n" +
-                    "                                                    <option value=\"Investigacion\">Investigacion</option>\n" +
-                    "                                                    <option value=\"Capstone\">Capstone</option>\n" +
-                    "                                                    <option value=\"Trabajo\">Trabajo</option>\n" +
-                    "                                                </select>\n" +
-                    "                                            </div>\n" +
-                    "                                        </div>\n" +
-                    "\n" +
-                    "                                        <div id=\"div_id_sede\" class=\"form-group required\">\n" +
-                    "                                            <label for=\"id_sede\" class=\"control-label col-md-4  requiredField\"> Sede<span class=\"asteriskField\">*</span> </label>\n" +
-                    "                                            <div class=\"controls col-md-8 \">\n" +
-                    "                                                <select style=\"margin-bottom: 10px\">\n" +
-                    "                                                    <option value=\"Antofagasta\">Antofagasta</option>\n" +
-                    "                                                    <option value=\"Coquimbo\">Coquimbo</option>\n" +
-                    "                                                </select>\n" +
-                    "                                            </div>\n" +
-                    "                                        </div></li>");
-            });
-        });
-    </script>
 
     <script>
         $(function() {
@@ -254,8 +190,9 @@
                     "                                            <label for=\"id_unip\" class=\"control-label col-md-4  requiredField\"> Universidad<span class=\"asteriskField\">*</span> </label>\n" +
                     "                                            <div class=\"controls col-md-8 \">\n" +
                     "                                                <select style=\"margin-bottom: 10px\">\n" +
-                    "                                                    <option value=\"uni1\">Universidad1</option>\n" +
-                    "                                                    <option value=\"uni2\">Universidad2</option>\n" +
+                    "                                                    @foreach( $universidades as $uni)\n" +
+                    "                                                        <option value={{$uni->id}}> {{$uni->nombre}}</option>\n" +
+                    "                                                    @endforeach\n" +
                     "                                                </select>\n" +
                     "                                            </div>\n" +
                     "                                        </div></li>");

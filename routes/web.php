@@ -19,13 +19,8 @@ Route::get('/registro', function () {
     return view('Registro/registro');
 });
 
-Route::get('/config', function () {
-    return view('Registro/config');
-});
 
-Route::get('/datos', function () {
-    return view('Registro/datos');
-});
+
 
 Route::get('/datost', function () {
     return view('Registro/datost');
@@ -36,6 +31,9 @@ Route::get('/home1', function () {
     return view('home');
 });
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('datos', 'UniversidadController@index');
+Route::get('datost', 'DatosController@index');
+Route::get('config', 'DatosController@indexPost');
 
 Route::resource('graph', 'GraphController');
 Route::resource('persona','PersonaController');

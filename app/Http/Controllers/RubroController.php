@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Universidad;
+use App\Rubro;
 use Illuminate\Http\Request;
 
-class UniversidadController extends Controller
+class RubroController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class UniversidadController extends Controller
      */
     public function index()
     {
-        $universidades =  \App\Universidad::all();
-        return view('Registro.datos', compact('universidades'));
+        //
     }
 
     /**
@@ -42,10 +41,10 @@ class UniversidadController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Universidad  $universidad
+     * @param  \App\Rubro  $rubro
      * @return \Illuminate\Http\Response
      */
-    public function show(Universidad $universidad)
+    public function show(Rubro $rubro)
     {
         //
     }
@@ -53,10 +52,10 @@ class UniversidadController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Universidad  $universidad
+     * @param  \App\Rubro  $rubro
      * @return \Illuminate\Http\Response
      */
-    public function edit(Universidad $universidad)
+    public function edit(Rubro $rubro)
     {
         //
     }
@@ -65,10 +64,10 @@ class UniversidadController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Universidad  $universidad
+     * @param  \App\Rubro  $rubro
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Universidad $universidad)
+    public function update(Request $request, Rubro $rubro)
     {
         //
     }
@@ -76,10 +75,10 @@ class UniversidadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Universidad  $universidad
+     * @param  \App\Rubro  $rubro
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Universidad $universidad)
+    public function destroy(Rubro $rubro)
     {
         //
     }

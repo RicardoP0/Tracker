@@ -23,5 +23,8 @@ class AreasTableSeeder extends Seeder
         DB::table('areas')->insert([
             'nombre' => 'Robotica',
         ]);
+        DB::table('areas')->insert([
+            'nombre' => 'Otro',
+        ]);
     }
 }

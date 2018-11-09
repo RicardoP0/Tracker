@@ -86,10 +86,7 @@
                     break;
             }
         }
-        function test(array){
-            array.push(14156);
-            return true;
-        }
+
     </script>
 
     <body>

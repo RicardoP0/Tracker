@@ -76,6 +76,9 @@
                                 </div>
                             </div>
 
+                            <h3>Historial academico</h3>
+                            <h3>Historial Laboral</h3>
+
 
                             <div class="form-group">
                                 <div class="aab controls col-md-4 "></div>
