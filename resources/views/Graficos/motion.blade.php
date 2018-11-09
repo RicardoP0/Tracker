@@ -34,17 +34,6 @@
 
             window.motChart.draw(window.chartData, {width: 600, height:300});
         }
-        function drawChart2() {
-
-            window.chartData.addRows([
-                ['adssa',  new Date (1998,0,1), 10500, 3400, 'East'],
-                ['dfgdf', new Date (1999,6,1), 7858,  6417, 'West']
-            ]);
-
-            window.motChart.draw(window.chartData);
-
-        }
-
         function drawChart3() {
             var personData = new google.visualization.DataTable();
             personData.addColumn('string', 'Areas');
@@ -52,61 +41,62 @@
             personData.addColumn('number', 'Sueldo');
             personData.addColumn('string', 'Location');
             var rows = [];
-            /*
-            rows.push([window.areas[0].nombre,
-                new Date(2000,0,2),
-                2000]);
-            rows.push([window.areas[0].nombre,
-                new Date(2001,0,2),
-                4000]);
-
-            rows.push([window.areas[0].nombre,
-                new Date(2002,0,2),
-                2000]);
-            rows.push([window.areas[1].nombre,
-                new Date(2000,0,2),
-                5000]);
-
-            rows.push([window.areas[1].nombre,
-                new Date(2001,0,2),
-                3000]);
-            rows.push([window.areas[2].nombre,
-                new Date(2000,0,2),
-                1000]);
-
-            rows.push([window.areas[0].nombre,
-                new Date(2002,0,2),
-                5000]);
-
-*/
-            for(var i=0;i<window.cargos.length;++i){
-                for(var j=0;j<window.areas.length;++j){
-                    if(window.cargos[i].area_id == window.areas[j].id ){
+            for(var i=0;i<window.cargos.length;++i) {
+                for (var j = 0; j < window.areas.length; ++j) {
+                    if (window.cargos[i].area_id == window.areas[j].id) {
                         rows.push([window.areas[j].nombre,
                             new Date(window.cargos[i].fecha_inicio),
-                            window.cargos[i].sueldo,"West"]);
+                            window.cargos[i].sueldo, "Testx"]);
                         rows.push([window.areas[j].nombre,
                             new Date(window.cargos[i].fecha_termino),
-                            window.cargos[i].sueldo,"East"]);
+                            window.cargos[i].sueldo, "Testy"]);
                     }
 
                 }
             }
-
             personData.addRows(rows);
-
             window.motChart.draw(personData);
-
         }
 
-        console.log(areas[0]);
+        function graphCol(){
+            var main_col = $('#main-col').val();
+            var selected = [];
+            checkVal(main_col,selected);
+            $('#col-checkboxes input:checked').each(function() {
+                checkVal($(this).attr('name'),selected);
+            });
+
+            var chartData = new google.visualization.DataTable();
+            for(var i=0;i<selected.length;++i){
+                chartData.addColumns(selected[i][0],selected[i][1]);
+            }
+
+
+        }
+        function checkVal(val,arr){
+            switch (val) {
+                case "persona":
+                    arr.push(['string','Persona']);
+                    break;
+                case "area":
+                    arr.push(['string','Area']);
+                    break;
+                case "sueldo":
+                    arr.push(['number','Sueldo']);
+                    break;
+            }
+        }
+        function test(array){
+            array.push(14156);
+            return true;
+        }
     </script>
 
     <body>
     <div class="col-lg-8">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
+                <i class="fa fa-bar-chart-o fa-fw"></i> Atributos
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -114,21 +104,25 @@
                 <select id="main-col" name="main-col">
                     <option value="persona">Persona</option>
                     <option value="area">Area</option>
-                    <option value="nivel-cargo">Persona</option>
+                    <option value="nivel-cargo">Nivel cargo</option>
                 </select>
-                Columnas secundarias
+                <br>
+
                 <div id="col-checkboxes">
-                    <input id="chkbx_0" type="checkbox" name="ersona" checked="checked" />Option 1
-                    <input id="chkbx_1" type="checkbox" name="c_n_1" />Option 2
-                    <input id="chkbx_2" type="checkbox" name="c_n_2" />Option 3
-                    <input id="chkbx_3" type="checkbox" name="c_n_3" checked="checked" />Option 4
+                    Columnas secundarias
+                    <input id="chkbx_0" type="checkbox" name="persona"/>Persona
+                    <input id="chkbx_1" type="checkbox" name="area" />Area
+                    <input id="chkbx_2" type="checkbox" name="nivel-cargo" />Nivel cargo
+                    <input id="chkbx_3" type="checkbox" name="sueldo"/>Sueldo
                 </div>
+                <button onclick="graphCol()">Graficar</button>
+                <button onclick="drawChart3()">test</button>
             </div>
             <!-- /.panel-body -->
         </div>
     </div>
     <div id="chart_div" style="width: 600px; height: 300px;"></div>
-    <button onclick="drawChart3()">test</button>
+
     </body>
 
 @endsection
