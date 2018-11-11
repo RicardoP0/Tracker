@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Faker\Generator as Faker;
+use Faker\Factory as Faker;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
 
 
         factory(App\Persona::class, 50)->create()->each(function ($u) {
+
+            $faker = Faker::create();
             $cant = rand(0,3);
             for($i=0;$i<$cant;++$i){
                 $u->postgrados()->save(factory(App\Postgrado::class)->make());
@@ -43,7 +45,15 @@ class DatabaseSeeder extends Seeder
             }
             $cant = rand(0,3);
             for($i=0;$i<$cant;++$i){
-                $u->carreras()->attach(\App\Carrera::inRandomOrder()->first());
+                $init_date = $faker->dateTimeBetween($startDate = '-15 years', $endDate = 'now', $timezone = null);
+                $end_date=$faker->dateTimeBetween($init_date, strtotime('+3 years'));
+                $title_date=$faker->dateTimeBetween($init_date, strtotime('+5 years'));
+                $u->carreras()->attach([\App\Carrera::inRandomOrder()->first()->id
+                    =>['fecha_ingreso' =>$init_date,
+                        'fecha_egreso' =>$end_date,
+                        'fecha_titulacion' =>$title_date,
+                        'tipo_tesis' => $faker->randomElement(['proyecto','memoria','capstone','trabajo'])]
+                ]);
             }
 
 
