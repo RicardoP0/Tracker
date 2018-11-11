@@ -21,6 +21,10 @@ class CreatePersonaCarreraTable extends Migration
             $table->integer('carrera_id')->unsigned()->index();
             $table->foreign('carrera_id')->references('id')
                 ->on('carreras')->onDelete('cascade');
+            $table->string("tipo_tesis")->nullable();
+            $table->date("fecha_ingreso");
+            $table->date("fecha_egreso");
+            $table->date("fecha_titulacion");
             $table->timestamps();
         });
     }

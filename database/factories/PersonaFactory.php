@@ -8,8 +8,6 @@ $factory->define(App\Persona::class, function (Faker $faker) {
         'rut' =>$faker->postcode,
         'genero' =>$faker->randomElement(['hombre', 'mujer']),
         'fecha_nacimiento' =>$faker->dateTime($max = 'now', $timezone = null),
-        'fecha_ingreso' =>$faker->dateTime($max = 'now', $timezone = null),
-        'fecha_egreso' =>$faker->dateTime($max = 'now', $timezone = null),
-        'fecha_titulacion' =>$faker->dateTime($max = 'now', $timezone = null),
+
     ];
 });

@@ -19,6 +19,7 @@ class Persona extends Model
     }
 
     public function carreras(){
-        return $this->belongsToMany('App\Carrera');
+        return $this->belongsToMany('App\Carrera')->withPivot('tipo_tesis',
+            'fecha_ingreso','fecha_egreso','fecha_titulacion');
     }
 }

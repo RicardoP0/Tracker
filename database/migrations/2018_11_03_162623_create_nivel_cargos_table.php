@@ -17,6 +17,7 @@ class CreateNivelCargosTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('nombre');
+            $table->integer('nivel')->unsigned()->default(0);
         });
     }
 
