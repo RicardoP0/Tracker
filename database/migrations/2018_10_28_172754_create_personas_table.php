@@ -23,6 +23,9 @@ class CreatePersonasTable extends Migration
             $table->date("fecha_ingreso");
             $table->date("fecha_egreso");
             $table->date("fecha_titulacion")->nullable();
+            $table->integer("user_id")->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')
+                ->on('users');
         });
     }
 

@@ -15,12 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/registro', function () {
-    return view('Registro/registro');
-});
-
-
-
+Route::resource('user', 'UserController');
 
 Route::get('/datost', function () {
     return view('Registro/datost');
