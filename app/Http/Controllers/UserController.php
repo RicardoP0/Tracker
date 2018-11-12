@@ -41,6 +41,8 @@ class UserController extends Controller
             'password'=>'required|min:6'
         ]);
         $user = \App\User::create($request->only('email', 'name', 'password'));
+        $persona= new \App\Persona(['nombre'=>$request->name,'rut'=>$request->rut,'genero'=>$request->gender,'fecha_nacimiento'=>$request->bdate]);
+        $user->persona()->save($persona);
         return redirect()->route('home');
     }
 
