@@ -31,4 +31,5 @@ Route::get('datost', 'DatosController@index');
 Route::get('config', 'DatosController@indexPost');
 
 Route::resource('graph', 'GraphController');
+
 Route::resource('persona','PersonaController');

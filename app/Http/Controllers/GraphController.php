@@ -17,7 +17,7 @@ class GraphController extends Controller
         $empresas = \App\Empresa::all();
         $areas = \App\Area::all();
         $cargos = \App\Cargo::all();
-        return view('Graficos.motion', compact('personas','cargos','empresas','areas'));
+        return view('Graficos.d3motion2', compact('personas','cargos','empresas','areas'));
     }
 
     /**

@@ -20,6 +20,7 @@ class CreatePersonasTable extends Migration
             $table->string("rut")->unique();
             $table->string("genero");
             $table->date("fecha_nacimiento");
+            $table->string("situacion_laboral");
             $table->integer("user_id")->unsigned()->nullable();
             $table->foreign('user_id')->references('id')
                 ->on('users');

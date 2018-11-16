@@ -8,6 +8,7 @@ $factory->define(App\Persona::class, function (Faker $faker) {
         'rut' =>$faker->postcode,
         'genero' =>$faker->randomElement(['hombre', 'mujer']),
         'fecha_nacimiento' =>$faker->dateTime($max = 'now', $timezone = null),
+        'situacion_laboral' =>$faker->randomElement(['desempleado', 'trabajo dependiente','trabajo independiente']),
 
     ];
 });
