@@ -16,19 +16,15 @@ Route::get('/', function () {
 });
 
 Route::resource('user', 'UserController');
+Route::resource('empresa','EmpresaController');
 
-Route::get('/datost', function () {
-    return view('Registro/datost');
-});
+Route::get('config', 'UserController@config');
 
 Auth::routes();
 Route::get('/home1', function () {
     return view('home');
 });
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('datos', 'UniversidadController@index');
-Route::get('datost', 'DatosController@index');
-Route::get('config', 'DatosController@indexPost');
 
 Route::resource('graph', 'GraphController');
 

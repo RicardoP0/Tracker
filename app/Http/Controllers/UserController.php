@@ -34,7 +34,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name'=>'required|max:120',
             'email'=>'required|email|unique:users',
@@ -90,4 +89,11 @@ class UserController extends Controller
     {
         //
     }
+    //agregar id
+    public function config(){
+        $post = \App\Postgrado::all();
+        return view('Registro.config', compact('post'));
+    }
+
+
 }

@@ -24,8 +24,13 @@ class EmpresaController extends Controller
      */
     public function create()
     {
-        //
+        $area = \App\Area::all();
+        $rubro =  \App\Rubro::all();
+        $tipoEmp =  \App\Tipo_empresa::all();
+        $nivel= \App\Nivel_cargo::all();
+        return view('Registro.datost', compact('tipoEmp','rubro','area','nivel'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +40,18 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->only('emp','typeEmp','rubro','lvl','years','yeare','sal'));
+        $request->validate([
+            'emp'=>'required',
+            'lvl'=>'required',
+            'years'=>'required',
+            'yeare'=>'required',
+            'sal'=>'required'
+        ]);
+        $emp = \App\Empresa::create($request->only('emp','typeEmp','rubro'));
+        $cargo= new \App\Cargo(['years'=>$request->fecha_inicio,'yeare'=>$request->fecha_termino,'sal'=>$request->sueldo,'lvl'=>$request->nivel_cago_id,'area'=>$request->area_id]);
+        $emp->persona()->save($cargo);
+        return redirect()->route('home');
     }
 
     /**

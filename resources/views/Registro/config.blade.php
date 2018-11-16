@@ -97,21 +97,21 @@
                                 <div id="div_id_year_in" class="form-group required">
                                     <label for="id_year_in" class="control-label col-md-4  requiredField"> Año de ingreso<span class="asteriskField">*</span> </label>
                                     <div class="controls col-md-8 ">
-                                        <input type="number" placeholder="YYYY" min="1940" max="2018" style="margin-bottom: 10px">
+                                        <input type="number" placeholder="YYYY" min="1980" max="2018" style="margin-bottom: 10px">
                                     </div>
                                 </div>
 
                                 <div id="div_id_year_out" class="form-group required">
                                     <label for="id_year_out" class="control-label col-md-4  requiredField"> Año de egreso<span class="asteriskField">*</span> </label>
                                     <div class="controls col-md-8 ">
-                                        <input type="number" placeholder="YYYY" min="1940" max="2100" style="margin-bottom: 10px">
+                                        <input type="number" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
                                     </div>
                                 </div>
 
                                 <div id="div_id_year_gra" class="form-group required">
                                     <label for="id_year_gra" class="control-label col-md-4  requiredField"> Año de titulación<span class="asteriskField">*</span> </label>
                                     <div class="controls col-md-8 ">
-                                        <input type="number" placeholder="YYYY" min="1940" max="2100" style="margin-bottom: 10px">
+                                        <input type="number" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
                                     </div>
                                 </div>
 
