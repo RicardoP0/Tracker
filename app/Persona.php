@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Persona extends Model
 {
+    protected $fillable = [
+        'nombre', 'rut', 'genero','fecha_nacimiento','user_id'
+    ];
+
     public function user(){
         return $this->BelongsTo('App\User');
     }
