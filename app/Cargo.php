@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cargo extends Model
 {
+    protected $fillable = [
+        'fecha_inicio', 'fecha_termino', 'sueldo', 'nivel_cargo_id', 'empresa_id', 'area_id'
+    ];
+
     public function empresa(){
         return $this->belongsTo('App\Empresa');
     }

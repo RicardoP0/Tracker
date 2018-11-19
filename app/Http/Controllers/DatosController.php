@@ -8,10 +8,10 @@ class DatosController extends Controller
 {
     public function index()
     {
-        $area = \App\Area::all();
+        $areaT = \App\Area::all();
         $rubro =  \App\Rubro::all();
         $tipoEmp =  \App\Tipo_empresa::all();
-        return view('Registro.datost', compact('tipoEmp','rubro','area'));
+        return view('Registro.datost', compact('tipoEmp','rubro','areaT'));
     }
 
     public function indexPost()

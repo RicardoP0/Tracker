@@ -16,12 +16,16 @@ class CreateEmpresasTable extends Migration
         Schema::create('empresas', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->string('nombre');
             $table->integer('persona_id')->unsigned();
             $table->foreign('persona_id')->references('id')
                 ->on('personas')->onDelete('cascade');
             $table->integer('tipo_empresa_id')->unsigned();
             $table->foreign('tipo_empresa_id')->references('id')
                 ->on('tipo_empresas')->onDelete('cascade');
+            $table->integer('rubro_id')->unsigned();
+            $table->foreign('rubro_id')->references('id')
+                ->on('rubros')->onDelete('cascade');
         });
     }
 

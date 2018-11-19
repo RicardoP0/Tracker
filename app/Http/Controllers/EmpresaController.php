@@ -24,11 +24,11 @@ class EmpresaController extends Controller
      */
     public function create()
     {
-        $area = \App\Area::all();
+        $areaT = \App\Area::all();
         $rubro =  \App\Rubro::all();
         $tipoEmp =  \App\Tipo_empresa::all();
         $nivel= \App\Nivel_cargo::all();
-        return view('Registro.datost', compact('tipoEmp','rubro','area','nivel'));
+        return view('Registro.datost', compact('tipoEmp','rubro','areaT','nivel'));
     }
 
 
@@ -40,7 +40,8 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->only('emp','typeEmp','rubro','lvl','years','yeare','sal'));
+        $idp=2;
+        //($request->only('emp','typeEmp','rubro','lvl','years','yeare','sal'));
         $request->validate([
             'emp'=>'required',
             'lvl'=>'required',
@@ -48,9 +49,16 @@ class EmpresaController extends Controller
             'yeare'=>'required',
             'sal'=>'required'
         ]);
-        $emp = \App\Empresa::create($request->only('emp','typeEmp','rubro'));
-        $cargo= new \App\Cargo(['years'=>$request->fecha_inicio,'yeare'=>$request->fecha_termino,'sal'=>$request->sueldo,'lvl'=>$request->nivel_cago_id,'area'=>$request->area_id]);
-        $emp->persona()->save($cargo);
+        $persona = \App\Persona::findOrFail($idp)->first();
+        $emp = new \App\Empresa(['nombre'=>$request->emp[0]]);
+        $emp->persona()->associate($persona->id);
+        $emp->tipo_empresa()->associate(\App\Tipo_empresa::findOrFail($request->typeEmp)->first()->id);
+        $emp->rubro()->associate(\App\Rubro::findOrFail($request->rubro)->first()->id);
+        $emp->save();
+        $cargo= new \App\Cargo(['fecha_inicio'=>$request->years[0],'fecha_termino'=>$request->yeare[0],'sueldo'=>$request->sal[0]]);
+        $cargo->area()->associate(\App\Area::findOrFail($request->area)->first()->id);
+        $cargo->nivel_cargo()->associate(\App\Nivel_cargo::find($request->area)->first()->id);
+        $emp->cargos()->save($cargo);
         return redirect()->route('home');
     }
 

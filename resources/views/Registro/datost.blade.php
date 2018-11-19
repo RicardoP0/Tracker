@@ -4,11 +4,11 @@
 @section('content')
 <style>
 
-    #otraArea {
+    #otraArea0 {
         display: none;
     }
 
-    #otraArea.show {
+    #otraArea0.show {
         display: block;
     }
 
@@ -81,37 +81,22 @@
                                 <div id="div_id_unip" class="form-group required">
                                     <label for="id_unip" class="control-label col-md-4  requiredField"> Area<span class="asteriskField">*</span> </label>
                                     <div class="controls col-md-8 ">
-                                        <select id="area" style="margin-bottom: 10px" name="area[]">
-                                            @foreach( $area as $ar)
+                                        <select id="Area0" onClick="refresh(this.id)" style="margin-bottom: 10px" name="area[]">
+                                            @foreach( $areaT as $ar)
                                                 <option value={{$ar->id}}> {{$ar->nombre}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
 
-                                <div id="otraArea" class="form-group required">
+                                <div id="otraArea0" class="form-group required">
                                     <label for="id_emp" class="control-label col-md-4  requiredField"> Otro:<span class="asteriskField">*</span> </label>
                                     <div class="controls col-md-8 ">
                                         <input name="oarea[]" type="text" style="margin-bottom: 10px" />
                                     </div>
                                 </div>
 
-                                <script>
-                                    const source = document.querySelector("#area");
-                                    const target = document.querySelector("#otraArea");
 
-                                    const displayWhenSelected = (source, value, target) => {
-                                        const selectedIndex = source.selectedIndex;
-                                        const isSelected = source[selectedIndex].value === value;
-                                        target.classList[isSelected
-                                            ? "add"
-                                            : "remove"
-                                            ]("show");
-                                    };
-                                    source.addEventListener("change", (evt) =>
-                                        displayWhenSelected(source, "5", target)
-                                    );
-                                </script>
 
                                 <div id="div_id_unip" class="form-group required">
                                     <label for="id_unip" class="control-label col-md-4  requiredField"> Rubro<span class="asteriskField">*</span> </label>
@@ -143,8 +128,40 @@
         </div>
     </div>
 
+<script>
+    var so="#Area0";
+    var tg="#otraArea0";
+</script>
+
+<script>
+    function refresh(id) {
+        so="#"+id;
+        tg="#"+"otra"+id;
+
+        const source = document.querySelector(so);
+        const target = document.querySelector(tg);
+
+        const displayWhenSelected = (source, value, target) => {
+            const selectedIndex = source.selectedIndex;
+            const isSelected = source[selectedIndex].value === value;
+            target.classList[isSelected
+                ? "add"
+                : "remove"
+                ]("show");
+        };
+        source.addEventListener("change", (evt) =>
+            displayWhenSelected(source, "5", target)
+        );
+    }
+</script>
+
     <script>
+        var n=1;
         var tipoEmp = {!! $tipoEmp !!}
+        var nivel = {!! $nivel !!}
+        var areaT = {!! $areaT !!}
+        var rubro = {!! $rubro !!}
+
         $(function() {
             $("#addMore").click(function(e) {
                 e.preventDefault();
@@ -170,7 +187,101 @@
                 }
                 doc+="</select>\n" +
                     "                                    </div>\n" +
-                    "                                </div>";
+                    "                                </div>\n" +
+                    "\n" +
+                    "                                <div id=\"div_id_sede\" class=\"form-group required\">\n" +
+                    "                                    <label for=\"id_sede\" class=\"control-label col-md-4  requiredField\"> Nivel del cargo<span class=\"asteriskField\">*</span> </label>\n" +
+                    "                                    <div class=\"controls col-md-8 \">\n" +
+                    "                                        <select style=\"margin-bottom: 10px\" name=\"lvl[]\">";
+                for($i=0;$i<window.nivel.length;$i++){
+                    doc += "<option value=";
+                    doc += nivel[$i].id;
+                    doc += ">";
+                    doc += nivel[$i].nombre;
+                    doc+="</option>";
+                }
+                var area="Area"+n;
+                doc+="</select>\n" +
+                    "                                    </div>\n" +
+                    "                                </div>\n" +
+                    "\n" +
+                    "                                <div id=\"div_id_dates\" class=\"form-group required\">\n" +
+                    "                                    <label for=\"id_dates\" class=\"control-label col-md-4  requiredField\"> Fecha de inico<span class=\"asteriskField\">*</span> </label>\n" +
+                    "                                    <div class=\"controls col-md-8 \">\n" +
+                    "                                        <input id=\"date\" name=\"years[]\" type=\"date\" style=\"margin-bottom: 10px\">\n" +
+                    "                                    </div>\n" +
+                    "                                </div>\n" +
+                    "\n" +
+                    "                                <div id=\"div_id_datee\" class=\"form-group required\">\n" +
+                    "                                    <label for=\"id_datee\" class=\"control-label col-md-4  requiredField\"> Fecha de termino<span class=\"asteriskField\">*</span> </label>\n" +
+                    "                                    <div class=\"controls col-md-8 \">\n" +
+                    "                                        <input id=\"date\" name=\"yeare[]\" type=\"date\" style=\"margin-bottom: 10px\">\n" +
+                    "                                    </div>\n" +
+                    "                                </div>\n" +
+                    "\n" +
+                    "                                <div id=\"div_id_year_gra\" class=\"form-group required\">\n" +
+                    "                                    <label for=\"id_year_gra\" class=\"control-label col-md-4  requiredField\"> Sueldo<span class=\"asteriskField\">*</span> </label>\n" +
+                    "                                    <div class=\"controls col-md-8 \">\n" +
+                    "                                        <input type=\"number\" name=\"sal[]\" name=\"quantity\" min=\"100000\" max=\"9000000\" style=\"margin-bottom: 10px\">\n" +
+                    "                                    </div>\n" +
+                    "                                </div>\n" +
+                    "\n" +
+                    "                                <div id=\"div_id_unip\" class=\"form-group required\">\n" +
+                    "                                    <label for=\"id_unip\" class=\"control-label col-md-4  requiredField\"> Area<span class=\"asteriskField\">*</span> </label>\n" +
+                    "                                    <div class=\"controls col-md-8 \">\n" +
+                    "                                        <select id="+area+" onClick=\"refresh(this.id)\" style=\"margin-bottom: 10px\" name=\"area[]\">"
+                for($i=0;$i<window.areaT.length;$i++){
+                    doc += "<option value=";
+                    doc += areaT[$i].id;
+                    doc += ">";
+                    doc += areaT[$i].nombre;
+                    doc+="</option>";
+                }
+                var otraArea="otra"+area;
+                doc+="</select>\n" +
+                    "                                    </div>\n" +
+                    "                                </div>\n" +
+                    "\n" +
+                    "                                <div id="+otraArea+" class=\"form-group required\">\n" +
+                    "                                    <label for=\"id_emp\" class=\"control-label col-md-4  requiredField\"> Otro:<span class=\"asteriskField\">*</span> </label>\n" +
+                    "                                    <div class=\"controls col-md-8 \">\n" +
+                    "                                        <input name=\"oarea[]\" type=\"text\" style=\"margin-bottom: 10px\" />\n" +
+                    "                                    </div>\n" +
+                    "                                </div>\n" +
+                    "\n" +
+                    "                                \n" +
+                    "\n" +
+                    "                                <div id=\"div_id_unip\" class=\"form-group required\">\n" +
+                    "                                    <label for=\"id_unip\" class=\"control-label col-md-4  requiredField\"> Rubro<span class=\"asteriskField\">*</span> </label>\n" +
+                    "                                    <div class=\"controls col-md-8 \">\n" +
+                    "                                        <select style=\"margin-bottom: 10px\" name=\"rubro[]\">";
+
+                for($i=0;$i<window.rubro.length;$i++){
+                    doc += "<option value=";
+                    doc += rubro[$i].id;
+                    doc += ">";
+                    doc += rubro[$i].nombre;
+                    doc+="</option>";
+                }
+                doc+="</select>\n" +
+                    "                                    </div>\n" +
+                    "                                </div>\n" +
+                    "                            </div>\n" +
+                    "\n" +
+                    "\n" +
+                    "                        <br>";
+                doc+="<style>\n" +
+                    "\n" +
+                    "    #"+otraArea+" {\n" +
+                    "        display: none;\n" +
+                    "    }\n" +
+                    "\n" +
+                    "    #"+otraArea+".show {\n" +
+                    "        display: block;\n" +
+                    "    }\n" +
+                    "\n" +
+                    "</style>";
+                n++;
                 $("#fieldList").append(doc);
             });
         });
