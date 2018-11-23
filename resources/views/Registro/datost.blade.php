@@ -177,7 +177,7 @@
                     "                                <div id=\"div_id_sede\" class=\"form-group required\">\n" +
                     "                                    <label for=\"id_sede\" class=\"control-label col-md-4  requiredField\"> Tipo de empresa<span class=\"asteriskField\">*</span> </label>\n" +
                     "                                    <div class=\"controls col-md-8 \">\n" +
-                    "                                        <select style=\"margin-bottom: 10px\" name=\"typeEmp\">";
+                    "                                        <select style=\"margin-bottom: 10px\" name=\"typeEmp[]\">";
                 for($i=0;$i<window.tipoEmp.length;$i++){
                     doc += "<option value=";
                     doc += tipoEmp[$i].id;

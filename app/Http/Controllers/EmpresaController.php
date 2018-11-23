@@ -49,16 +49,36 @@ class EmpresaController extends Controller
             'yeare'=>'required',
             'sal'=>'required'
         ]);
+
+        $empresas_nombre = $request->emp;
+        $niveles_cargo= $request->lvl;
+        $anios_inicio= $request->years;
+        $anios_termino = $request->yeare;
+        $sueldos = $request->sal;
+        $rubros = $request->rubro;
+        $tipos_empr = $request->typeEmp;
+        $areas = $request->area;
+
+        // TODO
+        // AGREGAR PERSONA LOGIN
         $persona = \App\Persona::findOrFail($idp)->first();
-        $emp = new \App\Empresa(['nombre'=>$request->emp[0]]);
-        $emp->persona()->associate($persona->id);
-        $emp->tipo_empresa()->associate(\App\Tipo_empresa::findOrFail($request->typeEmp)->first()->id);
-        $emp->rubro()->associate(\App\Rubro::findOrFail($request->rubro)->first()->id);
-        $emp->save();
-        $cargo= new \App\Cargo(['fecha_inicio'=>$request->years[0],'fecha_termino'=>$request->yeare[0],'sueldo'=>$request->sal[0]]);
-        $cargo->area()->associate(\App\Area::findOrFail($request->area)->first()->id);
-        $cargo->nivel_cargo()->associate(\App\Nivel_cargo::find($request->area)->first()->id);
-        $emp->cargos()->save($cargo);
+        $num_emprs = count($empresas_nombre);
+        for($i = 0; $i<$num_emprs; ++$i){
+            $emp = new \App\Empresa(['nombre'=>$empresas_nombre[$i]]);
+
+            $emp->persona()->associate($persona->id);
+            $emp->tipo_empresa()->associate(\App\Tipo_empresa::findOrFail($tipos_empr[$i])->id);
+            $emp->rubro()->associate(\App\Rubro::findOrFail($rubros[$i])->id);
+
+            $emp->save();
+
+            $cargo= new \App\Cargo(['fecha_inicio'=>$anios_inicio[$i],'fecha_termino'=>$anios_termino[$i],'sueldo'=>$sueldos[$i]]);
+            $cargo->area()->associate(\App\Area::findOrFail($areas[$i])->id);
+            $cargo->nivel_cargo()->associate(\App\Nivel_cargo::findOrFail($niveles_cargo[$i])->id);
+            $emp->cargos()->save($cargo);
+        }
+
+
         return redirect()->route('home');
     }
 

@@ -15,75 +15,11 @@ class GraphController extends Controller
      */
     public function index()
     {
-        $personas =  \App\Persona::all();
-        $empresas = \App\Empresa::all();
-        $areas = \App\Area::all();
-        $cargos = \App\Cargo::all();
-        $nivel = \App\Nivel_cargo::all()->first();
-        $qr = DB::table('nivel_cargos')
-            ->join('cargos','nivel_cargos.id','=','cargos.nivel_cargo_id')
-            ->join('areas','cargos.area_id','=','areas.id')
-            ->whereYear('fecha_inicio',2009)
-            ->orWhereYear('fecha_termino',2010);
-        $av = $qr->avg('sueldo');
-        $myVar = $qr->get()->push($av);
-        //dd(\App\Cargo::whereYear('fecha_inicio',2009)->get());
-
-        $startYear = Carbon::createFromFormat('Y-m-d',DB::table('cargos')->min('fecha_inicio'))->year;
-        $endYear =  Carbon::createFromFormat('Y-m-d',DB::table('cargos')->max('fecha_termino'))->year;
-        $dataCollect = collect();
-        $dataCounter = 0;
-        for($i=$startYear; $i<$endYear; $i++){
-            $idxs = \App\Nivel_cargo::all()->pluck(['id']);
-            foreach ($idxs as $niv_cargo_id){
-                $qry = DB::table('nivel_cargos')
-                    ->join('cargos',function($join) use($niv_cargo_id){
-                        $join->on('nivel_cargos.id','=','cargos.nivel_cargo_id')
-                            ->where('nivel_cargos.id','=',$niv_cargo_id);
-                    })
-                    ->join('areas','cargos.area_id','=','areas.id')
-                    ->where(function($query) use($i){
-                        $query->whereYear('fecha_termino','>=',$i)
-                            ->whereYear('fecha_inicio','<=',$i);
-
-                    })
-
-                    ->select('nivel_cargos.nombre',
-                        'nivel_cargos.nivel',
-                        'cargos.fecha_inicio',
-                        'cargos.sueldo',
-                        'areas.nombre as nombre_area')->get();
-                if($qry->count()>0){
-                    $itm = $qry[0];
-                    $itm->fecha_inicio = strval($i);
-                    $arr = array_values((array)$itm);
-                    array_unshift ($arr,$dataCounter);
-                    $dataCounter +=1;
-                    array_push($arr,round($qry->avg('sueldo')));
-                    $dataCollect->push($arr);
-
-                }
 
 
-//                foreach ($areas as $itm){
-//                    $temp =$qry->where('nombre_area','=','Otro')
-//                        ->count();
-//                    dd($qry,$temp);
-//                }
+        $dataArr=$this->data_by_nivel_cargo();
 
-
-
-            }
-
-
-            //FIX START AND END DATE ON SAME YEAR
-            //ADD AVERAGE SUELDO
-
-        }
-
-        $dataArr=$dataCollect->toArray();
-
-        return view('Graficos.soc', compact('personas','cargos','empresas','areas','dataArr'));
+        return view('Graficos.soc', compact('dataArr'));
     }
 
     /**
@@ -152,5 +88,163 @@ class GraphController extends Controller
         //
     }
 
+    public  function jsonResponse(Request $request)
+    {
+        $data_key = $request->data_key;
+        $dataArr = array();
+        if($data_key=='nivel'){
+            $dataArr=$this->data_by_nivel_cargo();
+        }
+        else{
+            $dataArr=$this->data_by_area();
+        }
 
+        return response()->json($dataArr, 200);
+    }
+
+    private function data_by_nivel_cargo(){
+
+        $areas = \App\Area::all();
+        $nivel = \App\Nivel_cargo::all();
+
+        $startYear = Carbon::createFromFormat('Y-m-d',DB::table('cargos')->min('fecha_inicio'))->year;
+        $endYear =  Carbon::createFromFormat('Y-m-d',DB::table('cargos')->max('fecha_termino'))->year;
+        //Arreglo con informacion de la forma:
+        //["nombre_nivel_cargo","nivel_cargo","fecha","avg_sueldo","area","cantidad"]
+        //Area es determinada por la mayor cantidad de esa area en el nivel de cargo actual
+        $dataCollect = collect();
+        $idxs = $nivel->pluck(['id']);
+
+        for($i=$startYear; $i<$endYear; $i++){
+            //Buscar por nivel de cargo como clave primaria
+            foreach ($idxs as $niv_cargo_id){
+                $qry = DB::table('nivel_cargos')
+                    ->join('cargos',function($join) use($niv_cargo_id){
+                        $join->on('nivel_cargos.id','=','cargos.nivel_cargo_id')
+                            ->where('cargos.nivel_cargo_id','=',$niv_cargo_id);
+                    })
+                    ->join('areas','cargos.area_id','=','areas.id')
+                    ->where(function($query) use($i){
+                        $query->whereYear('fecha_termino','>=',$i)
+                            ->whereYear('fecha_inicio','<=',$i);
+                    })
+                    ->select('nivel_cargos.nombre',
+                        'nivel_cargos.nivel',
+                        'cargos.fecha_inicio',
+                        'cargos.sueldo',
+                        'areas.nombre as nombre_area')->get();
+
+                //Si hay mas de un record agregar al arreglo
+                if($qry->count()>0){
+                    $itm = $qry[0];
+                    $itm->fecha_inicio = strval($i);
+                    $itm->sueldo = $qry->avg('sueldo');
+
+                    $max_area = "Otro";
+                    $num_max = -1;
+                    foreach ($areas as $area){
+
+                        $num_aux = $qry->where('nombre_area',$area->nombre)->count();
+                        if($num_aux > $num_max){
+                            $num_max = $num_aux;
+                            $max_area = $area->nombre;
+                        }
+                    }
+                    $itm->nombre_area = $max_area;
+                    $arr = array_values((array)$itm);
+                    array_push($arr,$qry->count());
+                    $dataCollect->push($arr);
+
+                }
+                //En caso contrario agregar al arreglo datos dummy
+                //Necesario para el correcto funcionamiento de grafico
+                //ya que necesita datos continuos
+                else{
+                    $temp = \App\Nivel_cargo::find($niv_cargo_id);
+                    $dataCollect->push([$temp->nombre,
+                        $temp->nivel,
+                        strval($i),
+                        1,
+                        "Otro",
+                        1,
+                    ]);
+                }
+            }
+        }
+
+        $dataArr=$dataCollect->toArray();
+        $dataArr=array_prepend($dataArr,["nombre_nivel_cargo","nivel_cargo","fecha","avg_sueldo","area","cantidad"]);
+        return $dataArr;
+    }
+
+    private function data_by_area(){
+        $areas = \App\Area::all();
+        $niveles = \App\Nivel_cargo::all();
+
+        $startYear = Carbon::createFromFormat('Y-m-d',DB::table('cargos')->min('fecha_inicio'))->year;
+        $endYear =  Carbon::createFromFormat('Y-m-d',DB::table('cargos')->max('fecha_termino'))->year;
+        //Arreglo con informacion de la forma:
+        //["nombre_area","cantidad","fecha","avg_sueldo","nivel_cargo"]
+
+        $dataCollect = collect();
+        $idxs = $areas->pluck(['id']);
+
+        for($i=$startYear; $i<$endYear; $i++){
+            //Buscar por nivel de cargo como clave primaria
+            foreach ($idxs as $area_id){
+                $qry = DB::table('areas')
+                    ->join('cargos',function($join) use($area_id){
+                        $join->on('areas.id','=','cargos.area_id')
+                            ->where('cargos.area_id','=',$area_id);
+                    })
+                    ->join('nivel_cargos','cargos.nivel_cargo_id','=','nivel_cargos.id')
+                    ->where(function($query) use($i){
+                        $query->whereYear('fecha_termino','>=',$i)
+                            ->whereYear('fecha_inicio','<=',$i);
+                    })
+                    ->select('areas.nombre',
+                        'cargos.fecha_inicio',
+                        'cargos.sueldo',
+                        'nivel_cargos.nombre as nombre_nivel_cargo')->get();
+
+                //Si hay mas de un record agregar al arreglo
+                if($qry->count()>0){
+                    $itm = $qry[0];
+                    $itm->fecha_inicio = strval($i);
+                    $itm->sueldo = $qry->avg('sueldo');
+
+                    $max_nivel_cargo = "Soporte";
+                    $num_max = -1;
+                    foreach ($niveles as $nivel){
+                        $num_aux = $qry->where('nombre_nivel_cargo',$nivel->nombre)->count();
+                        if($num_aux > $num_max){
+                            $num_max = $num_aux;
+                            $max_nivel_cargo = $nivel->nombre;
+                        }
+                    }
+                    $itm->nombre_nivel_cargo = $max_nivel_cargo;
+                    $arr = array_values((array)$itm);
+                    array_push($arr,$qry->count());
+                    $dataCollect->push($arr);
+
+                }
+                //En caso contrario agregar al arreglo datos dummy
+                //Necesario para el correcto funcionamiento de grafico
+                //ya que necesita datos continuos
+                else{
+                    $temp = \App\Area::find($area_id);
+                    $dataCollect->push([$temp->nombre,
+                        strval($i),
+                        1,
+                        "Soporte",
+                        1,
+                    ]);
+                }
+            }
+        }
+
+        $dataArr=$dataCollect->toArray();
+        $dataArr=array_prepend($dataArr,["nombre_area","fecha","avg_sueldo","nivel_cargo","cantidad"]);
+        return $dataArr;
+    }
 }

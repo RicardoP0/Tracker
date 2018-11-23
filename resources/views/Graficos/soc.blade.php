@@ -20,10 +20,80 @@
     <script>
         var dataArr = @json($dataArr) ;
         console.log(dataArr);
-        dataArr.unshift(["index","nombre_nivel_cargo","nivel_cargo","fecha_inicio","sueldo","area","avg_nivel_cargo"]) ;
         var data = [["index","fruit","time","sales","price","temperature","location"], [0,"Apples",570672000000,1000,300,44,"East"],[1,"Oranges",567993600000,1150,200,42,"West"],[2,"Bananas",581126400000,300,250,35,"West"],[3,"Apples",612662400000,1200,400,48,"East"],[4,"Oranges",612662400000,750,150,47,"West"],[5,"Bananas",612662400000,788,617,45,"West"]];
+        console.log(data);
 
+        function change_data() {
+            var data_key =$('#data_select').val();
+            $.ajax({
+                type: 'POST',
+                url: "{{url('/graph/json')}}",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    data_key: data_key
+                },
+                success: function (data) {
+
+                    switch(data_key){
+                        case "area":
+                            area_chart(data);
+                            break;
+                        case "nivel":
+                            nivel_chart(data);
+                    }
+
+                }
+            });
+
+        }
+        //dibuja grafico con respecto a area
+        function area_chart(data) {
+            console.log(data);
+            $('.motionchart').motionchart('destroy');
+
+            $('.motionchart').motionchart({
+                title: "Motion Chart",
+                'data': data,
+                mappings: {key: 1, x: 1, y: 2,
+                    size: 5,  color: 4, category: 0 },
+                scalings: { x: 'linear', y: 'linear' },
+                colorPalette: {"Blue-Red": {from: "rgb(100,150,255)", to: "rgb(200,255,100)"}},
+                color: "Blue-Red",
+                play: true,
+                loop: false
+            });
+        }
+
+        function nivel_chart(data) {
+            $('.motionchart').motionchart('destroy');
+            $('.motionchart').motionchart({
+                title: "Motion Chart",
+                'data': dataArr,
+                mappings: {key: 2, x: 2, y: 3,
+                    size: 5,  color: 4, category: 0 },
+                scalings: { x: 'linear', y: 'linear' },
+                colorPalette: {"Blue-Red": {from: "rgb(100,150,255)", to: "rgb(200,255,100)"}},
+                color: "Blue-Red",
+                play: true,
+                loop: false
+            });
+        }
     </script>
+    <div class="container">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">Dato principal</div>
+            </div>
+            <div class="panel-body" >
+            <select id="data_select">
+                <option value="nivel">Nivel de cargo</option>
+                <option value="area">Area</option>
+            </select>
+                <button onclick="change_data()">Seleccionar</button>
+            </div>
+        </div>
+    </div>
+
     <div id="content" align="center">
         <div class="motionchart" style="width:800px; height:600px;"></div>
         <script>
@@ -44,15 +114,16 @@
             $('.motionchart').motionchart({
                 title: "Motion Chart",
                 'data': dataArr,
-                mappings: {key: 3, x: 3, y: 6,
-                    size: 6,  color: 2, category: 1 },
+                mappings: {key: 2, x: 2, y: 3,
+                    size: 5,  color: 4, category: 0 },
                 scalings: { x: 'linear', y: 'linear' },
-                colorPalette: {"Blue-Red": {from: "rgb(0,0,255)", to: "rgb(255,0,0)"}},
-                color: "Red-Blue",
+                colorPalette: {"Blue-Red": {from: "rgb(100,150,255)", to: "rgb(200,255,100)"}},
+                color: "Blue-Red",
                 play: true,
                 loop: false
             });
         </script>
     </div>
+
     </body>
 @endsection
