@@ -5,18 +5,17 @@
     <!-- Meta Needed to force IE out of Quirks mode -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <!--StyleSheets-->
-    <link href="http://socr.ucla.edu/htmls/HTML5/MotionChart/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href={{asset("vendor/MotionChart/css/bootstrap/bootstrap.min.css")}} rel="stylesheet">
     <link href="http://socr.ucla.edu/htmls/HTML5/MotionChart/css/jquery-ui-1.8.20.custom.css" rel="stylesheet">
-    <link href="http://socr.ucla.edu/htmls/HTML5/MotionChart/css/jquery.handsontable.css" rel="stylesheet">
-    <link href="http://socr.ucla.edu/htmls/HTML5/MotionChart/css/jquery.motionchart.css" rel="stylesheet">
-    <link href="http://socr.ucla.edu/htmls/HTML5/MotionChart/css/jquery.contextMenu.css" rel="stylesheet">
+    <link href={{asset("vendor/MotionChart/css/jquery.handsontable.css")}} rel="stylesheet">
+    <link href={{asset("vendor/MotionChart/css/jquery.motionchart.css")}} rel="stylesheet">
+    <link href={{asset("vendor/MotionChart/css/jquery.contextMenu.css")}} rel="stylesheet">
     <!--Scripts-->
-    <script src="http://socr.ucla.edu/htmls/HTML5/MotionChart/js/jquery-1.7.2.min.js"></script>
-    <script src="http://socr.ucla.edu/htmls/HTML5/MotionChart/js/dependencies.min.js"></script>
-    <script src="http://socr.ucla.edu/htmls/HTML5/MotionChart/js/bootstrap.js"></script>
-    <script src="http://socr.ucla.edu/htmls/HTML5/MotionChart/js/jquery.handsontable.js"></script>
-    <script src="http://socr.ucla.edu/htmls/HTML5/MotionChart/js/jquery.motionchart.js"></script>
-
+    <script src={{asset("vendor/MotionChart/js/jquery-1.7.2.min.js")}}></script>
+    <script src={{asset("vendor/MotionChart/js/dependencies.min.js")}}></script>
+    <script src={{asset("vendor/MotionChart/js/custom-bootstrap.js")}}></script>
+    <script src={{asset("vendor/MotionChart/js/jquery.handsontable.js")}}></script>
+    <script src={{asset("vendor/MotionChart/js/jquery.motionchart.js")}}></script>
     <script>
         var dataArr = @json($dataArr) ;
         console.log(dataArr);
@@ -40,6 +39,7 @@
                             break;
                         case "nivel":
                             nivel_chart(data);
+                            break;
                     }
 
                 }
@@ -60,7 +60,7 @@
                 colorPalette: {"Blue-Red": {from: "rgb(100,150,255)", to: "rgb(200,255,100)"}},
                 color: "Blue-Red",
                 play: true,
-                loop: false
+                loop: true
             });
         }
 
@@ -68,14 +68,14 @@
             $('.motionchart').motionchart('destroy');
             $('.motionchart').motionchart({
                 title: "Motion Chart",
-                'data': dataArr,
+                'data': data,
                 mappings: {key: 2, x: 2, y: 3,
                     size: 5,  color: 4, category: 0 },
                 scalings: { x: 'linear', y: 'linear' },
                 colorPalette: {"Blue-Red": {from: "rgb(100,150,255)", to: "rgb(200,255,100)"}},
                 color: "Blue-Red",
                 play: true,
-                loop: false
+                loop: true
             });
         }
     </script>
@@ -101,15 +101,15 @@
             // $('.motionchart').motionchart({
             //     title: "Motion Chart",
             //     'data': data,
-            //     mappings: {key: 2, x: 4, y: 3,
-            //         size: 5,  color: 1, category: 6 },
+            //     mappings: {key: 1, x: 2, y: 3,
+            //         size: 4,  color: 5, category: 5 },
             //     scalings: { x: 'linear', y: 'linear' },
             //     colorPalette: {"Blue-Red": {from: "rgb(0,0,255)", to: "rgb(255,0,0)"}},
             //     color: "Red-Blue",
             //     play: true,
             //     loop: false
             // });
-            //
+
 
             $('.motionchart').motionchart({
                 title: "Motion Chart",
@@ -120,10 +120,11 @@
                 colorPalette: {"Blue-Red": {from: "rgb(100,150,255)", to: "rgb(200,255,100)"}},
                 color: "Blue-Red",
                 play: true,
-                loop: false
+                loop: true
             });
         </script>
     </div>
+
 
     </body>
 @endsection
