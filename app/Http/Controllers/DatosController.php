@@ -17,7 +17,8 @@ class DatosController extends Controller
     public function indexPost()
     {
         $post = \App\Postgrado::all();
-        return view('Registro.config', compact('post'));
+        $uni =\App\Universidad::all();
+        return view('Registro.config', compact('post','uni'));
     }
 
 }

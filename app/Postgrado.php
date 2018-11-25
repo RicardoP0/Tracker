@@ -12,4 +12,7 @@ class Postgrado extends Model
     public function universidad(){
         return $this->belongsTo('App\Universidad');
     }
+    public function tipo(){
+        return $this->belongsTo('App\TipoPostgrado','tipoPostgrado_id');
+    }
 }

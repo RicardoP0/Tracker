@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\TipoPostgrado;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class TipoPostgradoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('registro.create');
+        //
     }
 
     /**
@@ -34,24 +35,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'=>'required|max:120',
-            'email'=>'required|email|unique:users',
-            'password'=>'required|min:6'
-        ]);
-        $user = \App\User::create($request->only('email', 'name', 'password'));
-        $persona= new \App\Persona(['nombre'=>$request->name,'rut'=>$request->rut,'genero'=>$request->gender,'fecha_nacimiento'=>$request->bdate]);
-        $user->persona()->save($persona);
-        return redirect()->route('home');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\TipoPostgrado  $tipoPostgrado
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(TipoPostgrado $tipoPostgrado)
     {
         //
     }
@@ -59,10 +52,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\TipoPostgrado  $tipoPostgrado
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(TipoPostgrado $tipoPostgrado)
     {
         //
     }
@@ -71,10 +64,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\TipoPostgrado  $tipoPostgrado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, TipoPostgrado $tipoPostgrado)
     {
         //
     }
@@ -82,20 +75,11 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\TipoPostgrado  $tipoPostgrado
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TipoPostgrado $tipoPostgrado)
     {
         //
     }
-    //agregar id
-    public function config(){
-        $post = \App\Postgrado::all();
-        $tipo = \App\TipoPostgrado::all();
-        $universidades=\App\Universidad::all();
-        return view('Registro.config', compact('post','tipo','universidades'));
-    }
-
-
 }
