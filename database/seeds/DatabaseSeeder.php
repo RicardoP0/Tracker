@@ -14,10 +14,10 @@ class DatabaseSeeder extends Seeder
 
          $this->call([NivelCargosTableSeeder::class,
              AreasTableSeeder::class,
+             TipoPostgradosTableSeeder::class,
          ]);
-        $this->call([NivelCargosTableSeeder::class,
-            TipoPostgradosTableSeeder::class,
-        ]);
+
+        factory(App\User::class, 1)->create();
         factory(App\Tipo_empresa::class, 20)->create();
         factory(App\Universidad::class, 20)->create();
         factory(App\Carrera::class, 10)->create();

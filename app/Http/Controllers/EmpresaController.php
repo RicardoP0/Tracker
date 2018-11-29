@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Empresa;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class EmpresaController extends Controller
 {
     /**
@@ -28,7 +28,7 @@ class EmpresaController extends Controller
         $rubro =  \App\Rubro::all();
         $tipoEmp =  \App\Tipo_empresa::all();
         $nivel= \App\Nivel_cargo::all();
-        return view('Registro.datost', compact('tipoEmp','rubro','areaT','nivel'));
+        return view('Historico_usuario.create', compact('tipoEmp','rubro','areaT','nivel'));
     }
 
 
@@ -40,14 +40,16 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
-        $idp=2;
-        //($request->only('emp','typeEmp','rubro','lvl','years','yeare','sal'));
+        $idp=Auth::user()->id;
+        //TODO
+        //LLENAR VALIDACION
         $request->validate([
-            'emp'=>'required',
-            'lvl'=>'required',
-            'years'=>'required',
-            'yeare'=>'required',
-            'sal'=>'required'
+            'emp'=>'required|array|min:1',
+            'emp.*' => 'required|string|min:3',
+            'lvl'=>'required|array|min:1',
+            'years'=>'required|array|min:1',
+            'yeare'=>'required|array|min:1',
+            'sal'=>'required|array|min:1'
         ]);
 
         $empresas_nombre = $request->emp;

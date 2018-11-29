@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
@@ -11,6 +12,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('guest')->only('create');
+    }
     public function index()
     {
         //
@@ -39,10 +44,26 @@ class UserController extends Controller
             'email'=>'required|email|unique:users',
             'password'=>'required|min:6'
         ]);
-        $user = \App\User::create($request->only('email', 'name', 'password'));
-        $persona= new \App\Persona(['nombre'=>$request->name,'rut'=>$request->rut,'genero'=>$request->gender,'fecha_nacimiento'=>$request->bdate]);
+
+        $persona= new \App\Persona(['nombre'=>$request->name,
+            'situacion_laboral' => 'temp',
+            'rut'=>$request->rut,'genero'=>$request->gender,
+            'fecha_nacimiento'=>$request->bdate,
+        ]);
+
+        $user = \App\User::create(['email'=>$request->email,
+            'name'=>$request->name,
+            'password'=>Hash::make($request->password)
+        ]);
+
         $user->persona()->save($persona);
-        return redirect()->route('home');
+        if(Auth::attempt($request->only('email','password'))){
+            return redirect('persona/'.$persona->id);
+        }
+        else{
+            abort('401');
+        }
+
     }
 
     /**
@@ -89,19 +110,7 @@ class UserController extends Controller
     {
         //
     }
-    //agregar id
-    public function config(){
-        $post = \App\Postgrado::all();
-        $tipo = \App\TipoPostgrado::all();
-        $universidades=\App\Universidad::all();
-        $areaT = \App\Area::all();
-        $rubro =  \App\Rubro::all();
-        $tipoEmp =  \App\Tipo_empresa::all();
-        $nivel= \App\Nivel_cargo::all();
-        $emp= \App\Empresa::all();
-        return view('Registro.config', compact
-        ('post','tipo','universidades','areaT','rubro','tipoEmp','nivel','emp'));
-    }
+
 
 
 }

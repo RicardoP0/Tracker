@@ -32,8 +32,6 @@ class User extends Authenticatable
     public function persona(){
         return $this->hasOne('App\Persona');
     }
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
-    }
+
+
 }

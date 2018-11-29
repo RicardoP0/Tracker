@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::resource('user', 'UserController');
 Route::resource('empresa','EmpresaController');
 
-Route::get('config', 'UserController@config');
+
 
 Auth::routes();
 Route::get('/home1', function () {
@@ -30,3 +30,6 @@ Route::resource('graph', 'GraphController');
 Route::post('graph/json', 'GraphController@jsonResponse');
 
 Route::resource('persona','PersonaController');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

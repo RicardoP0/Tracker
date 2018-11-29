@@ -50,46 +50,48 @@
                         <div id="div_id_username" class="form-group required">
                             <label for="id_username" class="control-label col-md-4  requiredField">Nombre<span class="asteriskField">*</span> </label>
                             <div class="controls col-md-8 ">
-                                <input class="input-md  textinput textInput form-control" id="id_username" maxlength="30" name="username" placeholder="Cargar nombre" style="margin-bottom: 10px" type="text" />
+                                <input class="input-md  textinput textInput form-control" id="id_username" maxlength="30" name="username" value="{{$nombre}}" style="margin-bottom: 10px" type="text" />
                             </div>
                         </div>
 
                         <div id="div_id_rut" class="form-group required">
                             <label for="id_rut" class="control-label col-md-4  requiredField"> Rut<span class="asteriskField">*</span> </label>
                             <div class="controls col-md-8 ">
-                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> cargar rut<span class="asteriskField">*</span> </label>
+                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> {{$rut}}<span class="asteriskField">*</span> </label>
                             </div>
                         </div>
 
                         <div id="div_id_email" class="form-group required">
                             <label for="id_email" class="control-label col-md-4  requiredField"> E-mail<span class="asteriskField">*</span> </label>
                             <div class="controls col-md-8 ">
-                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> cargar email<span class="asteriskField">*</span> </label>
+                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> {{$email}}<span class="asteriskField">*</span> </label>
                             </div>
                         </div>
 
                         <div id="div_id_gender" class="form-group required">
                             <label for="id_gender"  class="control-label col-md-4  requiredField"> Genero<span class="asteriskField">*</span> </label>
                             <div class="controls col-md-8 "  style="margin-bottom: 10px">
-                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> genero<span class="asteriskField">*</span> </label>
+                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> {{$genero}}<span class="asteriskField">*</span> </label>
                             </div>
                         </div>
 
 
                         <div id="div_id_date" class="form-group required">
-                            <label for="id_date" class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> fecha de nacimiento<span class="asteriskField">*</span> </label>
+                            <label for="id_date" class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> Fecha de nacimiento<span class="asteriskField">*</span> </label>
                             <div class="controls col-md-8 ">
-                                <input id="date" type="date" style="margin-bottom: 10px">
+                                <input id="date" type="date" value="{{$fecha_nacimiento}}" style="margin-bottom: 10px">
                             </div>
                         </div>
 
                         <div id="div_id_sede" class="form-group required">
                             <label for="id_sede" class="control-label col-md-4  requiredField"> Situacion laboral actual<span class="asteriskField">*</span> </label>
                             <div class="controls col-md-8 ">
+
+
                                 <select style="margin-bottom: 10px">
-                                    <option value="TrabajoD">Trabajo dependiente</option>
-                                    <option value="TrabajoI">Trabajo independiente</option>
-                                    <option value="Desempleado">Desempleado</option>
+                                    <option value="trabajo dependiente" <?php if($situacion == "trabajo dependiente") echo('selected');?> >Trabajo dependiente</option>
+                                    <option value="trabajo independiente"  <?php if($situacion == 'trabajo independiente') echo('selected');?> >Trabajo independiente</option>
+                                    <option value="desempleado" <?php if($situacion == "desempleado") echo('selected');?> >Desempleado</option>
                                 </select>
                             </div>
                         </div>
@@ -97,9 +99,8 @@
                         <h3>Historial academico</h3>
 
 
-                        <ul id="fieldList">
+                        <div id="fieldList">
 
-                            <li>
                                 <div id="div_id_career" class="form-group required">
                                     <label for="id_career" class="control-label col-md-4  requiredField"> Carrera<span class="asteriskField">*</span> </label>
                                     <div class="controls col-md-8 ">
@@ -109,8 +110,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </li>
-                            <li>
+
                                 <div id="div_id_year_in" class="form-group required">
                                     <label for="id_year_in" class="control-label col-md-4  requiredField"> Año de ingreso<span class="asteriskField">*</span> </label>
                                     <div class="controls col-md-8 ">
@@ -143,8 +143,8 @@
                                         </select>
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
+
+                        </div>
 
                         <!---tabla-->
 
@@ -165,7 +165,7 @@
                                     <th class="tg-73oq"></th>
                                 </tr>
                                 <tr>
-                                @foreach( $post as $p)
+                                @foreach( $postgrados as $p)
                                     <tr>
                                         <td class="tg-73oq">{{$p->nombre}}</td>
                                         <td class="tg-73oq">{{$p->tipo->nombre}}</td>
@@ -187,7 +187,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                    </tr>
+
                                     <tr class="hide">
                                         <td class="tg-73oq">
                                             <p id="inName"></p>

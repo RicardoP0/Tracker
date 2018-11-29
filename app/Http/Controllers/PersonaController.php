@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Persona;
 use Illuminate\Http\Request;
+
 class PersonaController extends Controller
 {
     /**
@@ -11,6 +12,12 @@ class PersonaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('checkPersona')->only('show');
+    }
     public function index()
     {
         $personas = Persona::all();
@@ -46,7 +53,23 @@ class PersonaController extends Controller
      */
     public function show(Persona $persona)
     {
-        //
+        $nombre =$persona->nombre;
+        $rut = $persona->rut;
+        $email ="test@test.com";
+        if(!is_null($persona->user)){
+            $email=$persona->user->email;
+        }
+        $genero = $persona->genero;
+        $fecha_nacimiento = $persona->fecha_nacimiento;
+        $situacion = $persona->situacion_laboral;
+        $carreras = $persona->carreras;
+        $postgrados = $persona->postgrados;
+        $tipo = \App\TipoPostgrado::all();
+        $universidades=\App\Universidad::all();
+
+        return view('Persona.update', compact('nombre','rut',
+            'email', 'genero','fecha_nacimiento','carreras',
+            'postgrados','tipo','universidades','situacion'));
     }
 
     /**
@@ -69,7 +92,9 @@ class PersonaController extends Controller
      */
     public function update(Request $request, Persona $persona)
     {
-        //
+
+
+
     }
 
     /**
