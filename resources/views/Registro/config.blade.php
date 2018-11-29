@@ -38,7 +38,7 @@
 
     <div class="container">
 
-        <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-8 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-11 col-md-offset-0 col-sm-8 col-sm-offset-2">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title">Configuracion de perfil</div>
@@ -155,9 +155,6 @@
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             </button>
 
-                            <span class="table-add float-right mb-3 mr-2">
-                                <a href="#!" class="text-success"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
-                            </span>
                             <table class="tg" id="table">
 
                                 <tr>
@@ -175,9 +172,12 @@
                                         <td class="tg-73oq">{{$p->universidad->nombre}}</td>
                                         <td class="tg-73oq">{{$p->fecha_obtencion}}</td>
                                         <td class="tg-vlcj">
-                                            <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modEdit">
-                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                            </button>
+
+                                            <span class="table-edit">
+                                                <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modEdit">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                </button>
+                                            </span>
 
                                             <span class="table-remove">
                                             <button type="button" class="btn btn-primary">
@@ -202,15 +202,18 @@
                                             <p id="inDate"></p>
                                         </td>
                                         <td class="tg-vlcj">
-                                            <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modEdit">
-                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                            </button>
+
+                                            <span class="table-edit">
+                                                <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modEdit">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                </button>
+                                            </span>
 
                                             <span class="table-remove">
-                                            <button type="button" class="btn btn-primary">
-                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                            </button>
-                                    </span>
+                                                <button type="button" class="btn btn-primary">
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                </button>
+                                            </span>
                                         </td>
                                     </tr>
                             </table>
@@ -220,7 +223,7 @@
                         <br>
 
                         <!---modal---->
-                        <div class="modal fade addNewInputs" id="modAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd"
+                        <div method="post" action="/Postgrado" class="modal fade addNewInputs" id="modAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd"
                              aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -256,12 +259,12 @@
 
                                         <div class="md-form mb-5">
                                             <label data-error="wrong" data-success="right" for="inputAge">Fecha de obtencion</label>
-                                            <input type="date" id="inputDate" class="form-control" placeholder="Select Date">
+                                            <input type="date" id="inputDate" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
                                         </div>
                                     </div>
                                     <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
                                         <span class="table-add float-right mb-3 mr-2">
-                                            <button class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal">Agregar
+                                            <button type="submit" class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal">Agregar
                                                 <i class="glyphicon glyphicon-ok"></i>
                                             </button>
                                         </span>
@@ -274,42 +277,39 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header text-center">
-                                        <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit form</h4>
+                                        <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Editar Postgrado</h4>
                                         <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body mx-3">
                                         <div class="md-form mb-5">
-                                            <input type="text" id="formNameEdit" class="form-control validate">
-                                            <label data-error="wrong" data-success="right" for="formNameEdit">Name</label>
+                                            <label data-error="wrong" data-success="right" for="formNameEdit">Nombre</label>
+                                            <input type="text" id="NameEdit" class="form-control validate">
+                                        </div>
+
+                                        <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
+                                        <div class="md-form mb-5">
+                                            <select id="inputTipo" style="margin-bottom: 10px">
+                                                @foreach($tipo as $t)
+                                                    <option value={{$t->id}}> {{$t->nombre}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <label data-error="wrong" data-success="right" for="inputOfficeInput">Universidad</label>
+                                        <div class="md-form mb-5">
+                                            <select id="inputUni" style="margin-bottom: 10px">
+                                                @foreach($universidades as $uni)
+                                                    <option value={{$uni->id}}> {{$uni->nombre}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
                                         <div class="md-form mb-5">
-                                            <input type="text" id="formPositionEdit" class="form-control validate">
-                                            <label data-error="wrong" data-success="right" for="formPositionEdit">Position</label>
+                                            <label data-error="wrong" data-success="right" for="inputAge">Fecha de obtencion</label>
+                                            <input type="date" id="inputDate" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
                                         </div>
-
-                                        <div class="md-form mb-5">
-                                            <input type="text" id="formOfficeEdit" class="form-control validate">
-                                            <label data-error="wrong" data-success="right" for="formOfficeEdit">Office</label>
-                                        </div>
-
-                                        <div class="md-form mb-5">
-                                            <input type="text" id="formAgeEdit" class="form-control validate">
-                                            <label data-error="wrong" data-success="right" for="formAgeEdit">Age</label>
-                                        </div>
-
-                                        <div class="md-form mb-5">
-                                            <input type="text" id="formDateEdit" class="form-control datepicker">
-                                            <label data-error="wrong" data-success="right" for="formDateEdit">Date</label>
-                                        </div>
-
-                                        <div class="md-form mb-5">
-                                            <input type="text" id="formSalaryEdit" class="form-control validate">
-                                            <label data-error="wrong" data-success="right" for="formSalaryEdit">Salary</label>
-                                        </div>
-
 
                                     </div>
                                     <div class="modal-footer d-flex justify-content-center editInsideWrapper">
@@ -323,6 +323,7 @@
                         </div>
 
                         <script>
+
                             var $TABLE = $('#postGrados');
                             var $BTN = $('#export-btn');
                             var $EXPORT = $('#export');
@@ -339,6 +340,20 @@
 
                                 var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
                                 $TABLE.find('table').append($clone);
+                            });
+
+                            //need fix
+                            $('.table-edit').click(function(){
+                                $("#postGrados tr").run(function(){
+                                    var eName=$(this).find('td:first').html();
+                                    var eTipo=$(this).find('td:nth-child(2)').html();
+                                    var eUni=$(this).find('td:nth-child(3)').html();
+                                    var eDat=$(this).find('td:nth-child(4)').html();
+                                    $('#modEdit').val($('#NameEdit').val(eName));
+                                    $('#modEdit').val($('#inputTipo').val(eTipo));
+                                    $('#modEdit').val($('#inputUni').val(eUni));
+                                    $('#modEdit').val($('#inputDate').val(eDat));
+                                });
                             });
 
 
@@ -386,6 +401,313 @@
 
 
                         <h3>Historial Laboral</h3>
+
+                        <!--tabla tabrajos-->
+
+                        <div id="laboral" class="table-editable">
+
+                            <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modAdd2">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            </button>
+
+                            <table class="tg" id="table">
+
+                                <tr>
+                                    <th class="tg-73oq">Empresa</th>
+                                    <th class="tg-73oq">Tipo de Empresa<br></th>
+                                    <th class="tg-73oq">NIvel del cargo</th>
+                                    <th class="tg-73oq">Fecha de inicio</th>
+                                    <th class="tg-73oq">Fecha de termino</th>
+                                    <th class="tg-73oq">Sueldo</th>
+                                    <th class="tg-73oq">Area</th>
+                                    <th class="tg-73oq">Rubro</th>
+                                    <th class="tg-73oq"></th>
+                                </tr>
+                                <tr>
+                                @foreach( $emp as $e)
+                                    <tr>
+                                        <td class="tg-73oq">{{$e->nombre}}</td>
+                                        <td class="tg-73oq">{{$e->tipo_empresa->nombre}}</td>
+                                        <td class="tg-73oq">..</td>
+                                        <td class="tg-73oq">..</td>
+                                        <td class="tg-73oq">..</td>
+                                        <td class="tg-73oq">..</td>
+                                        <td class="tg-73oq">..</td>
+                                        <td class="tg-73oq">..</td>
+                                        <td class="tg-vlcj">
+
+                                            <span class="table-edit2">
+                                                <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modEdit2">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                </button>
+                                            </span>
+
+                                            <span class="table-remove2">
+                                            <button type="button" class="btn btn-primary">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    </tr>
+                                    <tr class="hide">
+                                        <td class="tg-73oq">
+                                            <p id="inNameT"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="inTipoT"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="inLvl"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="inDateS"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="inDateE"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="inSal"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="Area"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="Rubro"></p>
+                                        </td>
+                                        <td class="tg-vlcj">
+
+                                            <span class="table-edit2">
+                                                <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modEdit">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                </button>
+                                            </span>
+
+                                            <span class="table-remove2">
+                                                <button type="button" class="btn btn-primary">
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                </button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                            </table>
+                        </div>
+
+
+                        <!---modal---->
+                        <div method="post" action="/Empresa" class="modal fade addNewInputs" id="modAdd2" tabindex="-1" role="dialog" aria-labelledby="modalAdd"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new form</h4>
+                                        <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body mx-3">
+                                        <div class="md-form mb-5">
+                                            <label data-error="wrong" data-success="right" for="inputName">Empresa</label>
+                                            <input type="text" id="inputEName" class="form-control validate" style="margin-bottom: 10px">
+                                        </div>
+
+                                        <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
+                                        <div class="md-form mb-5">
+                                            <select id="inputETipo" style="margin-bottom: 10px">
+                                                @foreach($tipoEmp as $te)
+                                                    <option value={{$te->id}}> {{$te->nombre}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <label data-error="wrong" data-success="right" for="inputOfficeInput">Nivel del cargo</label>
+                                        <div class="md-form mb-5">
+                                            <select id="inputNivel" style="margin-bottom: 10px">
+                                                @foreach($nivel as $n)
+                                                    <option value={{$n->id}}> {{$n->nombre}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="md-form mb-5">
+                                            <label data-error="wrong" data-success="right" for="inputAge">Fecha de inicio</label>
+                                            <input type="date" id="inputDateS" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
+                                        </div>
+
+                                        <div class="md-form mb-5">
+                                            <label data-error="wrong" data-success="right" for="inputAge">Fecha de termino</label>
+                                            <input type="date" id="inputDateE" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
+                                        </div>
+
+                                        <div class="md-form mb-5">
+                                            <label data-error="wrong" data-success="right" for="inputAge">Sueldo</label><br>
+                                            <input type="number" name="inputSal" name="quantity" min="100000" max="9000000" style="margin-bottom: 10px">
+                                        </div>
+
+                                        <label data-error="wrong" data-success="right" for="inputOfficeInput">Area</label>
+                                        <div class="md-form mb-5">
+                                            <select id="inputArea" style="margin-bottom: 10px">
+                                                @foreach( $areaT as $ar)
+                                                    <option value={{$ar->id}}> {{$ar->nombre}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <label data-error="wrong" data-success="right" for="inputOfficeInput">Rubro</label>
+                                        <div class="md-form mb-5">
+                                            <select id="inputRubro" style="margin-bottom: 10px">
+                                                @foreach($rubro as $ru)
+                                                    <option value={{$ru->id}}> {{$ru->nombre}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+                                        <span class="table-add2 float-right mb-3 mr-2">
+                                            <button type="submit" class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal">Agregar
+                                                <i class="glyphicon glyphicon-ok"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade modalEditClass" id="modEdit2" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Editar Postgrado</h4>
+                                        <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body mx-3">
+                                        <div class="md-form mb-5">
+                                            <label data-error="wrong" data-success="right" for="inputName">Empresa</label>
+                                            <input type="text" id="inputEName" class="form-control validate" style="margin-bottom: 10px">
+                                        </div>
+
+                                        <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
+                                        <div class="md-form mb-5">
+                                            <select id="inputETipo" style="margin-bottom: 10px">
+                                                @foreach($tipoEmp as $te)
+                                                    <option value={{$te->id}}> {{$te->nombre}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <label data-error="wrong" data-success="right" for="inputOfficeInput">Nivel del cargo</label>
+                                        <div class="md-form mb-5">
+                                            <select id="inputNivel" style="margin-bottom: 10px">
+                                                @foreach($nivel as $n)
+                                                    <option value={{$n->id}}> {{$n->nombre}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="md-form mb-5">
+                                            <label data-error="wrong" data-success="right" for="inputAge">Fecha de inicio</label>
+                                            <input type="date" id="inputDateS" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
+                                        </div>
+
+                                        <div class="md-form mb-5">
+                                            <label data-error="wrong" data-success="right" for="inputAge">Fecha de termino</label>
+                                            <input type="date" id="inputDateE" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
+                                        </div>
+
+                                        <div class="md-form mb-5">
+                                            <label data-error="wrong" data-success="right" for="inputAge">Sueldo</label><br>
+                                            <input type="number" name="inputSal" name="quantity" min="100000" max="9000000" style="margin-bottom: 10px">
+                                        </div>
+
+                                        <label data-error="wrong" data-success="right" for="inputOfficeInput">Area</label>
+                                        <div class="md-form mb-5">
+                                            <select id="inputArea" style="margin-bottom: 10px">
+                                                @foreach( $areaT as $ar)
+                                                    <option value={{$ar->id}}> {{$ar->nombre}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <label data-error="wrong" data-success="right" for="inputOfficeInput">Rubro</label>
+                                        <div class="md-form mb-5">
+                                            <select id="inputRubro" style="margin-bottom: 10px">
+                                                @foreach($rubro as $ru)
+                                                    <option value={{$ru->id}}> {{$ru->nombre}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-center editInsideWrapper">
+                                        <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Edit
+                                            form
+                                            <i class="fa fa-paper-plane-o ml-1"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <script>
+
+                            var $TABLE = $('#laboral');
+
+                            $('.table-add2').click(function () {
+                                var iEName = $('#inputEName').val();
+                                var iTipoE = $("#inputETipo option:selected").text();
+                                var iTipoT = $("#inputNivel option:selected").text();
+                                var iDatS = $('#inputDateS').val();
+                                var iDatE = $('#inputDateE').val();
+                                var iSal = $('#inputSal').val();
+                                var iArea = $('#inputArea option:selected').text();
+                                var iRubro = $('#inputRubro option:selected').text();
+                                document.getElementById("inNameT").innerHTML=iEName;
+                                document.getElementById("inTipoT").innerHTML=iTipoE;
+                                document.getElementById("inLvl").innerHTML=iTipoT;
+                                document.getElementById("inDateS").innerHTML=iDatS;
+                                document.getElementById("inDateE").innerHTML=iDatE;
+                                document.getElementById("inSal").innerHTML=iSal;
+                                document.getElementById("Area").innerHTML=iArea;
+                                document.getElementById("Rubro").innerHTML=iRubro;
+
+                                var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
+                                $TABLE.find('table').append($clone);
+                            });
+
+                            //need fix
+                            $('.table-edit2').click(function(){
+                                $("#laboral tr").run(function(){
+                                    var eName=$(this).find('td:first').html();
+                                    var eTipo=$(this).find('td:nth-child(2)').html();
+                                    var eUni=$(this).find('td:nth-child(3)').html();
+                                    var eDat=$(this).find('td:nth-child(4)').html();
+                                    $('#modEdit').val($('#NameEdit').val(eName));
+                                    $('#modEdit').val($('#inputTipo').val(eTipo));
+                                    $('#modEdit').val($('#inputUni').val(eUni));
+                                    $('#modEdit').val($('#inputDate').val(eDat));
+                                });
+                            });
+
+
+                            $('.table-remove2').click(function () {
+                                var result = confirm("Esta seguro de eliminarlo?");
+                                if (result) {
+                                    //Logic to delete the item
+                                    $(this).parents('tr').detach();
+                                }
+
+                            });
+                        </script>
+
+
+                        <br>
+                        <br>
+
 
 
                         <div class="form-group">

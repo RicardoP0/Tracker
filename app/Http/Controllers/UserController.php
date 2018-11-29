@@ -94,7 +94,13 @@ class UserController extends Controller
         $post = \App\Postgrado::all();
         $tipo = \App\TipoPostgrado::all();
         $universidades=\App\Universidad::all();
-        return view('Registro.config', compact('post','tipo','universidades'));
+        $areaT = \App\Area::all();
+        $rubro =  \App\Rubro::all();
+        $tipoEmp =  \App\Tipo_empresa::all();
+        $nivel= \App\Nivel_cargo::all();
+        $emp= \App\Empresa::all();
+        return view('Registro.config', compact
+        ('post','tipo','universidades','areaT','rubro','tipoEmp','nivel','emp'));
     }
 
 
