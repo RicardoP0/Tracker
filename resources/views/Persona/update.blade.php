@@ -424,7 +424,7 @@
                                     <th class="tg-73oq"></th>
                                 </tr>
                                 <tr>
-                                @foreach( $emp as $e)
+                                @foreach( $empresas as $e)
                                     <tr>
                                         <td class="tg-73oq">{{$e->nombre}}</td>
                                         <td class="tg-73oq">{{$e->tipo_empresa->nombre}}</td>
@@ -515,7 +515,7 @@
                                         <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
                                         <div class="md-form mb-5">
                                             <select id="inputETipo" style="margin-bottom: 10px">
-                                                @foreach($tipoEmp as $te)
+                                                @foreach($tipoEmpresas as $te)
                                                     <option value={{$te->id}}> {{$te->nombre}}</option>
                                                 @endforeach
                                             </select>
@@ -548,7 +548,7 @@
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Area</label>
                                         <div class="md-form mb-5">
                                             <select id="inputArea" style="margin-bottom: 10px">
-                                                @foreach( $areaT as $ar)
+                                                @foreach( $areas_trabajo as $ar)
                                                     <option value={{$ar->id}}> {{$ar->nombre}}</option>
                                                 @endforeach
                                             </select>
@@ -557,7 +557,7 @@
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Rubro</label>
                                         <div class="md-form mb-5">
                                             <select id="inputRubro" style="margin-bottom: 10px">
-                                                @foreach($rubro as $ru)
+                                                @foreach($rubros as $ru)
                                                     <option value={{$ru->id}}> {{$ru->nombre}}</option>
                                                 @endforeach
                                             </select>
@@ -594,7 +594,7 @@
                                         <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
                                         <div class="md-form mb-5">
                                             <select id="inputETipo" style="margin-bottom: 10px">
-                                                @foreach($tipoEmp as $te)
+                                                @foreach($tipoEmpresas as $te)
                                                     <option value={{$te->id}}> {{$te->nombre}}</option>
                                                 @endforeach
                                             </select>
@@ -627,7 +627,7 @@
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Area</label>
                                         <div class="md-form mb-5">
                                             <select id="inputArea" style="margin-bottom: 10px">
-                                                @foreach( $areaT as $ar)
+                                                @foreach( $areas_trabajo as $ar)
                                                     <option value={{$ar->id}}> {{$ar->nombre}}</option>
                                                 @endforeach
                                             </select>
@@ -636,7 +636,7 @@
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Rubro</label>
                                         <div class="md-form mb-5">
                                             <select id="inputRubro" style="margin-bottom: 10px">
-                                                @foreach($rubro as $ru)
+                                                @foreach($rubros as $ru)
                                                     <option value={{$ru->id}}> {{$ru->nombre}}</option>
                                                 @endforeach
                                             </select>

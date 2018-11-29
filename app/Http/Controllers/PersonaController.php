@@ -66,10 +66,15 @@ class PersonaController extends Controller
         $postgrados = $persona->postgrados;
         $tipo = \App\TipoPostgrado::all();
         $universidades=\App\Universidad::all();
-
+        $empresas = \App\Empresa::all();
+        $tipoEmpresas = \App\Tipo_empresa::all();
+        $nivel = \App\Nivel_cargo::all();
+        $areas_trabajo =  \App\Area::all();
+        $rubros = \App\Rubro::all();
         return view('Persona.update', compact('nombre','rut',
             'email', 'genero','fecha_nacimiento','carreras',
-            'postgrados','tipo','universidades','situacion'));
+            'postgrados','tipo','universidades','situacion',
+            'empresas','tipoEmpresas','nivel','areas_trabajo','rubros'));
     }
 
     /**
