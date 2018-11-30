@@ -187,7 +187,6 @@
                                         </td>
                                     </tr>
                                     @endforeach
-
                                     <tr class="hide">
                                         <td class="tg-73oq">
                                             <p id="inName"></p>
@@ -228,7 +227,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header text-center">
-                                        <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new form</h4>
+                                        <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Agregar Postgrado</h4>
                                         <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true"></span>
                                         </button>
@@ -313,8 +312,7 @@
 
                                     </div>
                                     <div class="modal-footer d-flex justify-content-center editInsideWrapper">
-                                        <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Edit
-                                            form
+                                        <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Aceptar
                                             <i class="fa fa-paper-plane-o ml-1"></i>
                                         </button>
                                     </div>
@@ -344,16 +342,15 @@
 
                             //need fix
                             $('.table-edit').click(function(){
-                                $("#postGrados tr").run(function(){
-                                    var eName=$(this).find('td:first').html();
-                                    var eTipo=$(this).find('td:nth-child(2)').html();
-                                    var eUni=$(this).find('td:nth-child(3)').html();
-                                    var eDat=$(this).find('td:nth-child(4)').html();
-                                    $('#modEdit').val($('#NameEdit').val(eName));
-                                    $('#modEdit').val($('#inputTipo').val(eTipo));
-                                    $('#modEdit').val($('#inputUni').val(eUni));
-                                    $('#modEdit').val($('#inputDate').val(eDat));
-                                });
+                                var eName=$("#postGrados tr").find('td:first').children().text();
+                                var eTipo=$("#postGrados tr").find('td:nth-child(2)').children().text();
+                                confirm(eTipo);
+                                var eUni=$("#postGrados tr").find('td:nth-child(3)').html();
+                                var eDat=$("#postGrados tr").find('td:nth-child(4)').html();
+                                $('#modEdit').val($('#NameEdit').val(eName));
+                                $('#modEdit').val($('#inputTipo').val($(this).data('2')));
+                                $('#modEdit').val($('#inputUni').val(eUni));
+                                $('#modEdit').val($('#inputDate').val(eDat));
                             });
 
 
@@ -501,7 +498,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header text-center">
-                                        <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new form</h4>
+                                        <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Agregar nuevo trabajo</h4>
                                         <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true"></span>
                                         </button>
@@ -580,7 +577,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header text-center">
-                                        <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Editar Postgrado</h4>
+                                        <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Editar Trabajo</h4>
                                         <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -643,8 +640,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer d-flex justify-content-center editInsideWrapper">
-                                        <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Edit
-                                            form
+                                        <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Aceptar
                                             <i class="fa fa-paper-plane-o ml-1"></i>
                                         </button>
                                     </div>
@@ -655,7 +651,7 @@
 
                         <script>
 
-                            var $TABLE = $('#laboral');
+                            var $TABLE2 = $('#laboral');
 
                             $('.table-add2').click(function () {
                                 var iEName = $('#inputEName').val();
@@ -675,8 +671,8 @@
                                 document.getElementById("Area").innerHTML=iArea;
                                 document.getElementById("Rubro").innerHTML=iRubro;
 
-                                var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
-                                $TABLE.find('table').append($clone);
+                                var $clone = $TABLE2.find('tr.hide').clone(true).removeClass('hide table-line');
+                                $TABLE2.find('table').append($clone);
                             });
 
                             //need fix
