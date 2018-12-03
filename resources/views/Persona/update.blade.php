@@ -221,6 +221,8 @@
                         <br>
                         <br>
 
+
+
                         <!---modal---->
                         <div method="post" action="/Postgrado" class="modal fade addNewInputs" id="modAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd"
                              aria-hidden="true">
@@ -290,6 +292,7 @@
                                         <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
                                         <div class="md-form mb-5">
                                             <select id="inputTipo" style="margin-bottom: 10px">
+                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($tipo as $t)
                                                     <option value={{$t->id}}> {{$t->nombre}}</option>
                                                 @endforeach
@@ -299,6 +302,7 @@
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Universidad</label>
                                         <div class="md-form mb-5">
                                             <select id="inputUni" style="margin-bottom: 10px">
+                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($universidades as $uni)
                                                     <option value={{$uni->id}}> {{$uni->nombre}}</option>
                                                 @endforeach
@@ -342,16 +346,12 @@
 
                             //need fix
                             $('.table-edit').click(function(){
-                                var eName=$("#postGrados tr").find('td:first').children().text();
-                                var eTipo=$("#postGrados tr").find('td:nth-child(2)').children().text();
-                                confirm(eTipo);
-                                var eUni=$("#postGrados tr").find('td:nth-child(3)').html();
-                                var eDat=$("#postGrados tr").find('td:nth-child(4)').html();
+                                var eName=$("#postGrados tr").find('td:first').children().html();
+                                //var eTipo=$("#postGrados tr").find('td:nth-child(2)').children().html();
                                 $('#modEdit').val($('#NameEdit').val(eName));
-                                $('#modEdit').val($('#inputTipo').val($(this).data('2')));
-                                $('#modEdit').val($('#inputUni').val(eUni));
-                                $('#modEdit').val($('#inputDate').val(eDat));
                             });
+
+
 
 
                             $('.table-remove').click(function () {
@@ -591,6 +591,7 @@
                                         <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
                                         <div class="md-form mb-5">
                                             <select id="inputETipo" style="margin-bottom: 10px">
+                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($tipoEmpresas as $te)
                                                     <option value={{$te->id}}> {{$te->nombre}}</option>
                                                 @endforeach
@@ -600,6 +601,7 @@
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Nivel del cargo</label>
                                         <div class="md-form mb-5">
                                             <select id="inputNivel" style="margin-bottom: 10px">
+                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($nivel as $n)
                                                     <option value={{$n->id}}> {{$n->nombre}}</option>
                                                 @endforeach
