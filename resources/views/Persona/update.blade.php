@@ -243,6 +243,7 @@
                                         <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
                                         <div class="md-form mb-5">
                                             <select id="inputTipo" style="margin-bottom: 10px">
+                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($tipo as $t)
                                                     <option value={{$t->id}}> {{$t->nombre}}</option>
                                                 @endforeach
@@ -252,6 +253,7 @@
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Universidad</label>
                                         <div class="md-form mb-5">
                                             <select id="inputUni" style="margin-bottom: 10px">
+                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($universidades as $uni)
                                                     <option value={{$uni->id}}> {{$uni->nombre}}</option>
                                                 @endforeach
@@ -264,6 +266,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+
+
                                         <span class="table-add float-right mb-3 mr-2">
                                             <button type="submit" class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal">Agregar
                                                 <i class="glyphicon glyphicon-ok"></i>
@@ -291,8 +295,8 @@
 
                                         <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
                                         <div class="md-form mb-5">
-                                            <select id="inputTipo" style="margin-bottom: 10px">
-                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
+                                            <select id="inputTipoe" style="margin-bottom: 10px">
+
                                                 @foreach($tipo as $t)
                                                     <option value={{$t->id}}> {{$t->nombre}}</option>
                                                 @endforeach
@@ -301,8 +305,8 @@
 
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Universidad</label>
                                         <div class="md-form mb-5">
-                                            <select id="inputUni" style="margin-bottom: 10px">
-                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
+                                            <select id="inputUnie" style="margin-bottom: 10px">
+                                                <!--<option disabled selected value> -- Seleccionar una opcion -- </option>-->
                                                 @foreach($universidades as $uni)
                                                     <option value={{$uni->id}}> {{$uni->nombre}}</option>
                                                 @endforeach
@@ -311,14 +315,16 @@
 
                                         <div class="md-form mb-5">
                                             <label data-error="wrong" data-success="right" for="inputAge">Fecha de obtencion</label>
-                                            <input type="date" id="inputDate" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
+                                            <input type="date" id="inputDateE" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
                                         </div>
 
                                     </div>
                                     <div class="modal-footer d-flex justify-content-center editInsideWrapper">
-                                        <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Aceptar
-                                            <i class="fa fa-paper-plane-o ml-1"></i>
-                                        </button>
+                                        <span class="table-editm1 float-right mb-3 mr-2">
+                                            <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Aceptar
+                                                <i class="fa fa-paper-plane-o ml-1"></i>
+                                            </button>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -329,6 +335,8 @@
                             var $TABLE = $('#postGrados');
                             var $BTN = $('#export-btn');
                             var $EXPORT = $('#export');
+                            var tipo = {!! $tipo !!};
+                            var uni={!! $universidades !!};
 
                             $('.table-add').click(function () {
                                 var iName = $('#inputName').val();
@@ -344,11 +352,36 @@
                                 $TABLE.find('table').append($clone);
                             });
 
-                            //need fix
                             $('.table-edit').click(function(){
+
                                 var eName=$("#postGrados tr").find('td:first').children().html();
-                                //var eTipo=$("#postGrados tr").find('td:nth-child(2)').children().html();
+                                var eTipo=$("#postGrados tr").find('td:nth-child(2)').children().html();
+                                var eUni=$("#postGrados tr").find('td:nth-child(3)').children().html();
+                                var eDat=$("#postGrados tr").find('td:nth-child(4)').children().html()
                                 $('#modEdit').val($('#NameEdit').val(eName));
+                                var aux = eTipo.replace(" ", "");
+                                for($i=0;$i<window.tipo.length;$i++){
+                                    if(tipo[$i].nombre == aux){
+                                        $('#modEdit').val($('#inputTipoe').val(tipo[$i].id));
+                                        break;
+                                    }
+                                }
+                                aux = eUni.replace(" ", "");
+                                for($i=0;$i<window.uni.length;$i++){
+                                    if(uni[$i].nombre == aux){
+                                        $('#modEdit').val($('#inputUnie').val(uni[$i].id));
+                                        break;
+                                    }
+                                }
+                                $('#modEdit').val($('#inputDateE').val(eDat));
+
+                            });
+
+                            $('.table-editm1').click(function(){
+                                $("#postGrados tr").find('td:first').text($('#NameEdit').val());
+                                $("#postGrados tr").find('td:nth-child(2)').text($('#inputTipoe option:selected').text());
+                                $("#postGrados tr").find('td:nth-child(3)').text($('#inputUnie option:selected').text());
+                                $("#postGrados tr").find('td:nth-child(4)').text($('#inputDateE').val());
                             });
 
 
@@ -407,7 +440,7 @@
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             </button>
 
-                            <table class="tg" id="table">
+                            <table class="tg" id="table2">
 
                                 <tr>
                                     <th class="tg-73oq">Empresa</th>
@@ -476,7 +509,7 @@
                                         <td class="tg-vlcj">
 
                                             <span class="table-edit2">
-                                                <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modEdit">
+                                                <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modEdit2">
                                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                 </button>
                                             </span>
@@ -512,6 +545,7 @@
                                         <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
                                         <div class="md-form mb-5">
                                             <select id="inputETipo" style="margin-bottom: 10px">
+                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($tipoEmpresas as $te)
                                                     <option value={{$te->id}}> {{$te->nombre}}</option>
                                                 @endforeach
@@ -521,6 +555,7 @@
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Nivel del cargo</label>
                                         <div class="md-form mb-5">
                                             <select id="inputNivel" style="margin-bottom: 10px">
+                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($nivel as $n)
                                                     <option value={{$n->id}}> {{$n->nombre}}</option>
                                                 @endforeach
@@ -528,23 +563,24 @@
                                         </div>
 
                                         <div class="md-form mb-5">
-                                            <label data-error="wrong" data-success="right" for="inputAge">Fecha de inicio</label>
+                                            <label data-error="wrong" data-success="right" for="inputStart">Fecha de inicio</label>
                                             <input type="date" id="inputDateS" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
                                         </div>
 
                                         <div class="md-form mb-5">
-                                            <label data-error="wrong" data-success="right" for="inputAge">Fecha de termino</label>
-                                            <input type="date" id="inputDateE" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
+                                            <label data-error="wrong" data-success="right" for="inputEnd">Fecha de termino</label>
+                                            <input type="date" id="inputDateEn" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
                                         </div>
 
                                         <div class="md-form mb-5">
                                             <label data-error="wrong" data-success="right" for="inputAge">Sueldo</label><br>
-                                            <input type="number" name="inputSal" name="quantity" min="100000" max="9000000" style="margin-bottom: 10px">
+                                            <input type="number" id="inputSalIn" name="quantity" min="100000" max="9000000" style="margin-bottom: 10px">
                                         </div>
 
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Area</label>
                                         <div class="md-form mb-5">
                                             <select id="inputArea" style="margin-bottom: 10px">
+                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach( $areas_trabajo as $ar)
                                                     <option value={{$ar->id}}> {{$ar->nombre}}</option>
                                                 @endforeach
@@ -554,6 +590,7 @@
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Rubro</label>
                                         <div class="md-form mb-5">
                                             <select id="inputRubro" style="margin-bottom: 10px">
+                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($rubros as $ru)
                                                     <option value={{$ru->id}}> {{$ru->nombre}}</option>
                                                 @endforeach
@@ -585,13 +622,12 @@
                                     <div class="modal-body mx-3">
                                         <div class="md-form mb-5">
                                             <label data-error="wrong" data-success="right" for="inputName">Empresa</label>
-                                            <input type="text" id="inputEName" class="form-control validate" style="margin-bottom: 10px">
+                                            <input type="text" id="edEName" class="form-control validate" style="margin-bottom: 10px">
                                         </div>
 
                                         <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
                                         <div class="md-form mb-5">
-                                            <select id="inputETipo" style="margin-bottom: 10px">
-                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
+                                            <select id="edETipo" style="margin-bottom: 10px">
                                                 @foreach($tipoEmpresas as $te)
                                                     <option value={{$te->id}}> {{$te->nombre}}</option>
                                                 @endforeach
@@ -600,8 +636,7 @@
 
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Nivel del cargo</label>
                                         <div class="md-form mb-5">
-                                            <select id="inputNivel" style="margin-bottom: 10px">
-                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
+                                            <select id="edNivel" style="margin-bottom: 10px">
                                                 @foreach($nivel as $n)
                                                     <option value={{$n->id}}> {{$n->nombre}}</option>
                                                 @endforeach
@@ -610,22 +645,22 @@
 
                                         <div class="md-form mb-5">
                                             <label data-error="wrong" data-success="right" for="inputAge">Fecha de inicio</label>
-                                            <input type="date" id="inputDateS" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
+                                            <input type="date" id="edDateS" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
                                         </div>
 
                                         <div class="md-form mb-5">
                                             <label data-error="wrong" data-success="right" for="inputAge">Fecha de termino</label>
-                                            <input type="date" id="inputDateE" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
+                                            <input type="date" id="edDateE" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
                                         </div>
 
                                         <div class="md-form mb-5">
                                             <label data-error="wrong" data-success="right" for="inputAge">Sueldo</label><br>
-                                            <input type="number" name="inputSal" name="quantity" min="100000" max="9000000" style="margin-bottom: 10px">
+                                            <input type="number" id="edSal" name="quantity" min="100000" max="9000000" style="margin-bottom: 10px">
                                         </div>
 
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Area</label>
                                         <div class="md-form mb-5">
-                                            <select id="inputArea" style="margin-bottom: 10px">
+                                            <select id="edArea" style="margin-bottom: 10px">
                                                 @foreach( $areas_trabajo as $ar)
                                                     <option value={{$ar->id}}> {{$ar->nombre}}</option>
                                                 @endforeach
@@ -634,7 +669,7 @@
 
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Rubro</label>
                                         <div class="md-form mb-5">
-                                            <select id="inputRubro" style="margin-bottom: 10px">
+                                            <select id="edRubro" style="margin-bottom: 10px">
                                                 @foreach($rubros as $ru)
                                                     <option value={{$ru->id}}> {{$ru->nombre}}</option>
                                                 @endforeach
@@ -642,9 +677,11 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer d-flex justify-content-center editInsideWrapper">
-                                        <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Aceptar
-                                            <i class="fa fa-paper-plane-o ml-1"></i>
-                                        </button>
+                                        <span class="table-editm2 float-right mb-3 mr-2">
+                                            <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Aceptar
+                                                <i class="fa fa-paper-plane-o ml-1"></i>
+                                            </button>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -654,14 +691,19 @@
                         <script>
 
                             var $TABLE2 = $('#laboral');
+                            var emp={!! $tipoEmpresas !!};
+                            var lvl={!! $nivel !!};
+                            var areat={!! $areas_trabajo !!};
+                            var rubrost={!! $rubros !!};
+
 
                             $('.table-add2').click(function () {
                                 var iEName = $('#inputEName').val();
                                 var iTipoE = $("#inputETipo option:selected").text();
                                 var iTipoT = $("#inputNivel option:selected").text();
                                 var iDatS = $('#inputDateS').val();
-                                var iDatE = $('#inputDateE').val();
-                                var iSal = $('#inputSal').val();
+                                var iDatE = $('#inputDateEn').val();
+                                var iSal = $('#inputSalIn').val();
                                 var iArea = $('#inputArea option:selected').text();
                                 var iRubro = $('#inputRubro option:selected').text();
                                 document.getElementById("inNameT").innerHTML=iEName;
@@ -677,19 +719,60 @@
                                 $TABLE2.find('table').append($clone);
                             });
 
-                            //need fix
                             $('.table-edit2').click(function(){
-                                $("#laboral tr").run(function(){
-                                    var eName=$(this).find('td:first').html();
-                                    var eTipo=$(this).find('td:nth-child(2)').html();
-                                    var eUni=$(this).find('td:nth-child(3)').html();
-                                    var eDat=$(this).find('td:nth-child(4)').html();
-                                    $('#modEdit').val($('#NameEdit').val(eName));
-                                    $('#modEdit').val($('#inputTipo').val(eTipo));
-                                    $('#modEdit').val($('#inputUni').val(eUni));
-                                    $('#modEdit').val($('#inputDate').val(eDat));
-                                });
+                                var edName=$("#laboral tr").find('td:first').children().html();
+                                var eTipoE=$("#laboral tr").find('td:nth-child(2)').children().html();
+                                var eTipoT=$("#laboral tr").find('td:nth-child(3)').children().html();
+                                var eDatS=$("#laboral tr").find('td:nth-child(4)').children().html()
+                                var eDatE=$("#laboral tr").find('td:nth-child(5)').children().html()
+                                var eSal=$("#laboral tr").find('td:nth-child(6)').children().html()
+                                var eArea=$("#laboral tr").find('td:nth-child(7)').children().html()
+                                var eRubro=$("#laboral tr").find('td:nth-child(8)').children().html()
+                                $('#modEdit2').val($('#edEName').val(edName));
+                                var aux = eTipoE.replace(" ", "");
+                                for($i=0;$i<window.emp.length;$i++){
+                                    if(emp[$i].nombre == aux){
+                                        $('#modEdit2').val($('#edETipo').val(emp[$i].id));
+                                        break;
+                                    }
+                                }
+                                aux = eTipoT.replace(" ", "");
+                                for($i=0;$i<window.lvl.length;$i++){
+                                    if(lvl[$i].nombre == aux){
+                                        $('#modEdit2').val($('#edNivel').val(lvl[$i].id));
+                                        break;
+                                    }
+                                }
+                                $('#modEdit2').val($('#edDateS').val(eDatS));
+                                $('#modEdit2').val($('#edDateE').val(eDatE));
+                                $('#modEdit2').val($('#edSal').val(eSal));
+                                aux = eArea.replace(" ", "");
+                                for($i=0;$i<window.areat.length;$i++){
+                                    if(areat[$i].nombre == aux){
+                                        $('#modEdit2').val($('#edArea').val(areat[$i].id));
+                                        break;
+                                    }
+                                }
+                                aux = eRubro.replace(" ", "");
+                                for($i=0;$i<window.rubrost.length;$i++){
+                                    if(rubrost[$i].nombre == aux){
+                                        $('#modEdit2').val($('#edRubro').val(rubrost[$i].id));
+                                        break;
+                                    }
+                                }
+
                             });
+                            $('.table-editm2').click(function(){
+                                $("#laboral tr").find('td:first').text($('#edEName').val());
+                                $("#laboral tr").find('td:nth-child(2)').text($('#edETipo option:selected').text());
+                                $("#laboral tr").find('td:nth-child(3)').text($('#edNivel option:selected').text());
+                                $("#laboral tr").find('td:nth-child(4)').text($('#edDateS').val());
+                                $("#laboral tr").find('td:nth-child(5)').text($('#edDateE').val());
+                                $("#laboral tr").find('td:nth-child(6)').text($('#edSal').val());
+                                $("#laboral tr").find('td:nth-child(7)').text($('#edArea option:selected').text());
+                                $("#laboral tr").find('td:nth-child(8)').text($('#edRubro option:selected').text());
+                            });
+
 
 
                             $('.table-remove2').click(function () {
