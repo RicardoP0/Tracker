@@ -186,7 +186,7 @@
                                         </span>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                @endforeach
                                     <tr class="hide">
                                         <td class="tg-73oq">
                                             <p id="inName"></p>
@@ -243,7 +243,7 @@
                                         <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
                                         <div class="md-form mb-5">
                                             <select id="inputTipo" style="margin-bottom: 10px">
-                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
+                                                <option value="0" disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($tipo as $t)
                                                     <option value={{$t->id}}> {{$t->nombre}}</option>
                                                 @endforeach
@@ -253,7 +253,7 @@
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Universidad</label>
                                         <div class="md-form mb-5">
                                             <select id="inputUni" style="margin-bottom: 10px">
-                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
+                                                <option value="0" disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($universidades as $uni)
                                                     <option value={{$uni->id}}> {{$uni->nombre}}</option>
                                                 @endforeach
@@ -337,6 +337,7 @@
                             var $EXPORT = $('#export');
                             var tipo = {!! $tipo !!};
                             var uni={!! $universidades !!};
+                            var pos;
 
                             $('.table-add').click(function () {
                                 var iName = $('#inputName').val();
@@ -350,23 +351,28 @@
 
                                 var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
                                 $TABLE.find('table').append($clone);
+                                $('#modAdd').val($('#inputName').val(""));
+                                $('#modAdd').val($('#inputTipo').val(0));
+                                $('#modAdd').val($('#inputUni').val(0));
+                                $('#modAdd').val($('#inputDate').val("dd-mm-aaaa"));
                             });
 
                             $('.table-edit').click(function(){
 
-                                var eName=$("#postGrados tr").find('td:first').children().html();
-                                var eTipo=$("#postGrados tr").find('td:nth-child(2)').children().html();
-                                var eUni=$("#postGrados tr").find('td:nth-child(3)').children().html();
-                                var eDat=$("#postGrados tr").find('td:nth-child(4)').children().html()
-                                $('#modEdit').val($('#NameEdit').val(eName));
-                                var aux = eTipo.replace(" ", "");
+                                var eName=$(this).parents('tr').find('td:first').children().html();
+                                var eTipo=$(this).parents('tr').find('td:nth-child(2)').children().html();
+                                var eUni=$(this).parents('tr').find('td:nth-child(3)').children().html();
+                                var eDat=$(this).parents('tr').find('td:nth-child(4)').children().html();
+                                var aux = $.trim(eName);
+                                $('#modEdit').val($('#NameEdit').val(aux));
+                                aux = $.trim(eTipo);
                                 for($i=0;$i<window.tipo.length;$i++){
                                     if(tipo[$i].nombre == aux){
                                         $('#modEdit').val($('#inputTipoe').val(tipo[$i].id));
                                         break;
                                     }
                                 }
-                                aux = eUni.replace(" ", "");
+                                aux = $.trim(eUni);
                                 for($i=0;$i<window.uni.length;$i++){
                                     if(uni[$i].nombre == aux){
                                         $('#modEdit').val($('#inputUnie').val(uni[$i].id));
@@ -374,14 +380,15 @@
                                     }
                                 }
                                 $('#modEdit').val($('#inputDateE').val(eDat));
+                                pos=this;
 
                             });
 
                             $('.table-editm1').click(function(){
-                                $("#postGrados tr").find('td:first').text($('#NameEdit').val());
-                                $("#postGrados tr").find('td:nth-child(2)').text($('#inputTipoe option:selected').text());
-                                $("#postGrados tr").find('td:nth-child(3)').text($('#inputUnie option:selected').text());
-                                $("#postGrados tr").find('td:nth-child(4)').text($('#inputDateE').val());
+                                $(pos).parents('tr').find('td:first').text($('#NameEdit').val());
+                                $(pos).parents('tr').find('td:nth-child(2)').text($('#inputTipoe option:selected').text());
+                                $(pos).parents('tr').find('td:nth-child(3)').text($('#inputUnie option:selected').text());
+                                $(pos).parents('tr').find('td:nth-child(4)').text($('#inputDateE').val());
                             });
 
 
@@ -439,9 +446,8 @@
                             <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modAdd2">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             </button>
-
+                            <!-- tabla por defecto sufijo d-->
                             <table class="tg" id="table2">
-
                                 <tr>
                                     <th class="tg-73oq">Empresa</th>
                                     <th class="tg-73oq">Tipo de Empresa<br></th>
@@ -456,14 +462,30 @@
                                 <tr>
                                 @foreach( $empresas as $e)
                                     <tr>
-                                        <td class="tg-73oq">{{$e->nombre}}</td>
-                                        <td class="tg-73oq">{{$e->tipo_empresa->nombre}}</td>
-                                        <td class="tg-73oq">..</td>
-                                        <td class="tg-73oq">..</td>
-                                        <td class="tg-73oq">..</td>
-                                        <td class="tg-73oq">..</td>
-                                        <td class="tg-73oq">..</td>
-                                        <td class="tg-73oq">..</td>
+                                        <td class="tg-73oq">
+                                            <p id="inNameTd">{{$e->nombre}}</p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="inTipoTd">{{$e->tipo_empresa->nombre}}</p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="inLvld"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="inDateSd"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="inDateEd"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="inSald"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="Aread"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="Rubrod"></p>
+                                        </td>
                                         <td class="tg-vlcj">
 
                                             <span class="table-edit2">
@@ -479,9 +501,9 @@
                                         </span>
                                         </td>
                                     </tr>
-                                    @endforeach
-                                    </tr>
-                                    <tr class="hide">
+                                @endforeach
+                                    <!--tabla clonable-->
+                                    <tr class="hide" id="tn">
                                         <td class="tg-73oq">
                                             <p id="inNameT"></p>
                                         </td>
@@ -545,7 +567,7 @@
                                         <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
                                         <div class="md-form mb-5">
                                             <select id="inputETipo" style="margin-bottom: 10px">
-                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
+                                                <option value="0" disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($tipoEmpresas as $te)
                                                     <option value={{$te->id}}> {{$te->nombre}}</option>
                                                 @endforeach
@@ -555,7 +577,7 @@
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Nivel del cargo</label>
                                         <div class="md-form mb-5">
                                             <select id="inputNivel" style="margin-bottom: 10px">
-                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
+                                                <option value="0" disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($nivel as $n)
                                                     <option value={{$n->id}}> {{$n->nombre}}</option>
                                                 @endforeach
@@ -580,7 +602,7 @@
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Area</label>
                                         <div class="md-form mb-5">
                                             <select id="inputArea" style="margin-bottom: 10px">
-                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
+                                                <option value="0" disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach( $areas_trabajo as $ar)
                                                     <option value={{$ar->id}}> {{$ar->nombre}}</option>
                                                 @endforeach
@@ -590,7 +612,7 @@
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Rubro</label>
                                         <div class="md-form mb-5">
                                             <select id="inputRubro" style="margin-bottom: 10px">
-                                                <option disabled selected value> -- Seleccionar una opcion -- </option>
+                                                <option value="0" disabled selected value> -- Seleccionar una opcion -- </option>
                                                 @foreach($rubros as $ru)
                                                     <option value={{$ru->id}}> {{$ru->nombre}}</option>
                                                 @endforeach
@@ -687,7 +709,6 @@
                             </div>
                         </div>
 
-
                         <script>
 
                             var $TABLE2 = $('#laboral');
@@ -695,6 +716,7 @@
                             var lvl={!! $nivel !!};
                             var areat={!! $areas_trabajo !!};
                             var rubrost={!! $rubros !!};
+                            var pos2=null;
 
 
                             $('.table-add2').click(function () {
@@ -717,26 +739,34 @@
 
                                 var $clone = $TABLE2.find('tr.hide').clone(true).removeClass('hide table-line');
                                 $TABLE2.find('table').append($clone);
+                                $('#modEdit2').val($('#inputEName').val(""));
+                                $('#modEdit2').val($('#inputETipo').val(0));
+                                $('#modEdit2').val($('#inputNivel').val(0));
+                                $('#modEdit2').val($('#inputDateS').val("dd-mm-aaaa"));
+                                $('#modEdit2').val($('#inputDateEn').val("dd-mm-aaaa"));
+                                $('#modEdit2').val($('#inputSalIn').val(""));
+                                $('#modEdit2').val($('#inputArea').val(0));
+                                $('#modEdit2').val($('#inputRubro').val(0));
                             });
 
                             $('.table-edit2').click(function(){
-                                var edName=$("#laboral tr").find('td:first').children().html();
-                                var eTipoE=$("#laboral tr").find('td:nth-child(2)').children().html();
-                                var eTipoT=$("#laboral tr").find('td:nth-child(3)').children().html();
-                                var eDatS=$("#laboral tr").find('td:nth-child(4)').children().html()
-                                var eDatE=$("#laboral tr").find('td:nth-child(5)').children().html()
-                                var eSal=$("#laboral tr").find('td:nth-child(6)').children().html()
-                                var eArea=$("#laboral tr").find('td:nth-child(7)').children().html()
-                                var eRubro=$("#laboral tr").find('td:nth-child(8)').children().html()
+                                var edName=$(this).parents('tr').find('td:first').children().html();
+                                var eTipoE=$(this).parents('tr').find('td:nth-child(2)').children().html();
+                                var eTipoT=$(this).parents('tr').find('td:nth-child(3)').children().html();
+                                var eDatS=$(this).parents('tr').find('td:nth-child(4)').children().html();
+                                var eDatE=$(this).parents('tr').find('td:nth-child(5)').children().html();
+                                var eSal=$(this).parents('tr').find('td:nth-child(6)').children().html();
+                                var eArea=$(this).parents('tr').find('td:nth-child(7)').children().html();
+                                var eRubro=$(this).parents('tr').find('td:nth-child(8)').children().html();
                                 $('#modEdit2').val($('#edEName').val(edName));
-                                var aux = eTipoE.replace(" ", "");
+                                var aux = $.trim(eTipoE);
                                 for($i=0;$i<window.emp.length;$i++){
                                     if(emp[$i].nombre == aux){
                                         $('#modEdit2').val($('#edETipo').val(emp[$i].id));
                                         break;
                                     }
                                 }
-                                aux = eTipoT.replace(" ", "");
+                                aux = $.trim(eTipoT);
                                 for($i=0;$i<window.lvl.length;$i++){
                                     if(lvl[$i].nombre == aux){
                                         $('#modEdit2').val($('#edNivel').val(lvl[$i].id));
@@ -746,31 +776,32 @@
                                 $('#modEdit2').val($('#edDateS').val(eDatS));
                                 $('#modEdit2').val($('#edDateE').val(eDatE));
                                 $('#modEdit2').val($('#edSal').val(eSal));
-                                aux = eArea.replace(" ", "");
+                                aux = $.trim(eArea);
                                 for($i=0;$i<window.areat.length;$i++){
                                     if(areat[$i].nombre == aux){
                                         $('#modEdit2').val($('#edArea').val(areat[$i].id));
                                         break;
                                     }
                                 }
-                                aux = eRubro.replace(" ", "");
+                                aux = $.trim(eRubro);
                                 for($i=0;$i<window.rubrost.length;$i++){
                                     if(rubrost[$i].nombre == aux){
                                         $('#modEdit2').val($('#edRubro').val(rubrost[$i].id));
                                         break;
                                     }
                                 }
-
+                                pos2=this;
                             });
+
                             $('.table-editm2').click(function(){
-                                $("#laboral tr").find('td:first').text($('#edEName').val());
-                                $("#laboral tr").find('td:nth-child(2)').text($('#edETipo option:selected').text());
-                                $("#laboral tr").find('td:nth-child(3)').text($('#edNivel option:selected').text());
-                                $("#laboral tr").find('td:nth-child(4)').text($('#edDateS').val());
-                                $("#laboral tr").find('td:nth-child(5)').text($('#edDateE').val());
-                                $("#laboral tr").find('td:nth-child(6)').text($('#edSal').val());
-                                $("#laboral tr").find('td:nth-child(7)').text($('#edArea option:selected').text());
-                                $("#laboral tr").find('td:nth-child(8)').text($('#edRubro option:selected').text());
+                                $(pos2).parents('tr').find('td:first').text($('#edEName').val());
+                                $(pos2).parents('tr').find('td:nth-child(2)').text($('#edETipo option:selected').text());
+                                $(pos2).parents('tr').find('td:nth-child(3)').text($('#edNivel option:selected').text());
+                                $(pos2).parents('tr').find('td:nth-child(4)').text($('#edDateS').val());
+                                $(pos2).parents('tr').find('td:nth-child(5)').text($('#edDateE').val());
+                                $(pos2).parents('tr').find('td:nth-child(6)').text($('#edSal').val());
+                                $(pos2).parents('tr').find('td:nth-child(7)').text($('#edArea option:selected').text());
+                                $(pos2).parents('tr').find('td:nth-child(8)').text($('#edRubro option:selected').text());
                             });
 
 
@@ -783,7 +814,10 @@
                                 }
 
                             });
+
+
                         </script>
+
 
 
                         <br>
