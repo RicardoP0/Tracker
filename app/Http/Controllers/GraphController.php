@@ -18,6 +18,16 @@ class GraphController extends Controller
 
 
         $dataArr=$this->data_by_nivel_cargo();
+        $dataView = \App\DataView::all()->groupBy('nombre_tipo_empresa');
+        $qry = DB::table('data_view')->select('*',DB::raw('COUNT(nombre_carrera) as count'))->
+        groupBy('nombre_area')->get();
+//        dd($dataView->first()->filter(function ($item) {
+//            return (data_get($item, 'fecha_ingreso') > '2010');
+//        })->avg('sueldo_cargo'));
+
+
+        $dataArr = $this->data_array('nombre_cargo','nombre_area');
+
 
         return view('Graficos.soc', compact('dataArr'));
     }
@@ -102,10 +112,58 @@ class GraphController extends Controller
         return response()->json($dataArr, 200);
     }
 
+    private function data_array(string $maingroup,string $colorGroup){
+        $startYear = Carbon::createFromFormat('Y-m-d',DB::table('cargos')->min('fecha_inicio'))->year;
+        $endYear =  Carbon::createFromFormat('Y-m-d',DB::table('cargos')->max('fecha_termino'))->year;
+        $dataCollect = collect();
+        $dataView = \App\DataView::all();
+        $main_group = $dataView->groupBy($maingroup);
+        $color_group = $dataView->groupBy($colorGroup)->keys();
+
+       // dd($dataView->get('Schaden, Dickens and Feest')->toarray();
+        for($i=$startYear; $i<$endYear; $i++){
+            foreach ( $main_group as $item){
+                foreach ($color_group as $color){
+                    $row = $item->filter(function ($item) use($i,$colorGroup,$color) {
+                        return (data_get($item, 'cargo_inicio') <= strval($i) &&
+                            data_get($item, 'cargo_termino') > strval($i) &&
+                            data_get($item, $colorGroup) == $color );
+                    });
+                    if (count($row)){
+                        $aux_row = [$i,$row->first()[$maingroup],$color,$row->avg('sueldo_cargo'),count($row)];
+                        $dataCollect->push($aux_row);
+                    }
+                    else{
+                        $aux_row = [$i,$item->first()[$maingroup],$color,0,0];
+                        $temp = $item->filter(function ($item) use($i,$colorGroup,$color) {
+                            return (data_get($item, $colorGroup) == $color );
+                        });
+                        $dataCollect->push($aux_row);
+                    }
+
+                }
+            }
+
+        }
+
+        $dataArr=$dataCollect->toArray();
+        $dataArr=array_prepend($dataArr,['fecha',$maingroup,$colorGroup,'avg_sueldo','cantidad_persona']);
+
+//        $dataArr=array_prepend($dataArr,["rut_persona","fecha_ingreso",
+//            "fecha_egreso","nombre_carrera","univerdad_carrera",
+//            "postgrado_nombre","fecha_postgrado","universidad_postgrado",
+//            "nombre_rubro","nombre_tipo_empresa","cargo_inicio",
+//            "cargo_termino","sueldo_cargo","nombre_cargo",
+//            "nombre_area","fecha"]);
+        return $dataArr;
+
+    }
+
     private function data_by_nivel_cargo(){
 
         $areas = \App\Area::all();
         $nivel = \App\Nivel_cargo::all();
+
 
         $startYear = Carbon::createFromFormat('Y-m-d',DB::table('cargos')->min('fecha_inicio'))->year;
         $endYear =  Carbon::createFromFormat('Y-m-d',DB::table('cargos')->max('fecha_termino'))->year;
