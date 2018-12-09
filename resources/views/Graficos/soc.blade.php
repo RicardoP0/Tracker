@@ -23,60 +23,35 @@
         console.log(data);
 
         function change_data() {
-            var data_key =$('#data_select').val();
+            var main_data_key =$('#main_data_select').val();
+            var color_data_key =$('#color_data_select').val();
             $.ajax({
                 type: 'POST',
                 url: "{{url('/graph/json')}}",
                 data: {
                     _token: "{{ csrf_token() }}",
-                    data_key: data_key
+                    main_data_key: main_data_key,
+                    color_data_key: color_data_key
                 },
                 success: function (data) {
 
-                    switch(data_key){
-                        case "area":
-                            area_chart(data);
-                            break;
-                        case "nivel":
-                            nivel_chart(data);
-                            break;
-                    }
+                    $('.motionchart').motionchart('destroy');
+
+                    $('.motionchart').motionchart({
+                        title: "Motion Chart",
+                        'data': data,
+                        mappings: {key: 0, x: 0, y: 3,
+                            size: 4,  color: 2, category: 1 },
+                        scalings: { x: 'linear', y: 'linear' },
+                        colorPalette: {"Blue-Red": {from: "rgb(100,150,255)", to: "rgb(200,255,100)"}},
+                        color: "Blue-Red",
+                        play: true,
+                        loop: true
+                    });
 
                 }
             });
 
-        }
-        //dibuja grafico con respecto a area
-        function area_chart(data) {
-            console.log(data);
-            $('.motionchart').motionchart('destroy');
-
-            $('.motionchart').motionchart({
-                title: "Motion Chart",
-                'data': data,
-                mappings: {key: 1, x: 1, y: 2,
-                    size: 5,  color: 4, category: 0 },
-                scalings: { x: 'linear', y: 'linear' },
-                colorPalette: {"Blue-Red": {from: "rgb(100,150,255)", to: "rgb(200,255,100)"}},
-                color: "Blue-Red",
-                play: true,
-                loop: true
-            });
-        }
-
-        function nivel_chart(data) {
-            $('.motionchart').motionchart('destroy');
-            $('.motionchart').motionchart({
-                title: "Motion Chart",
-                'data': data,
-                mappings: {key: 2, x: 2, y: 3,
-                    size: 5,  color: 4, category: 0 },
-                scalings: { x: 'linear', y: 'linear' },
-                colorPalette: {"Blue-Red": {from: "rgb(100,150,255)", to: "rgb(200,255,100)"}},
-                color: "Blue-Red",
-                play: true,
-                loop: true
-            });
         }
     </script>
     <div class="container">
@@ -85,9 +60,23 @@
                 <div class="panel-title">Dato principal</div>
             </div>
             <div class="panel-body" >
-            <select id="data_select">
-                <option value="nivel">Nivel de cargo</option>
-                <option value="area">Area</option>
+            <select id="main_data_select">
+                <option value="nombre_carrera">Carrera</option>
+                <option value="universidad_carrera">Universidad</option>
+                <option value="nombre_tipo_empresa">Tipo Empresa</option>
+                <option value="nombre_rubro">Rubro</option>
+                <option value="postgrado_nombre">Tipo de postgrado</option>
+                <option value="nombre_cargo">Nivel de cargo</option>
+                <option value="nombre_area">Area</option>
+            </select>
+            <select id="color_data_select">
+                <option value="nombre_carrera">Carrera</option>
+                <option value="universidad_carrera">Universidad</option>
+                <option value="nombre_tipo_empresa">Tipo Empresa</option>
+                <option value="nombre_rubro">Rubro</option>
+                <option value="postgrado_nombre">Tipo de postgrado</option>
+                <option value="nombre_cargo">Nivel de cargo</option>
+                <option value="nombre_area">Area</option>
             </select>
                 <button onclick="change_data()">Seleccionar</button>
             </div>
@@ -114,8 +103,8 @@
             $('.motionchart').motionchart({
                 title: "Motion Chart",
                 'data': dataArr,
-                mappings: {key: 2, x: 2, y: 3,
-                    size: 5,  color: 4, category: 0 },
+                mappings: {key: 0, x: 0, y: 3,
+                    size: 4,  color: 2, category: 1 },
                 scalings: { x: 'linear', y: 'linear' },
                 colorPalette: {"Blue-Red": {from: "rgb(100,150,255)", to: "rgb(200,255,100)"}},
                 color: "Blue-Red",
