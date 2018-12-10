@@ -1536,6 +1536,9 @@
          *    @public
          */
         this.destroy = function() {
+
+            $(".slider a.ui-slider-handle").tooltip("hide");
+
             container.removeClass('mchart');
             container.empty();
             container.removeData("motionchart");

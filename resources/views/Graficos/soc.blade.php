@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('title')
+    Grafico
+@endsection
 @section('content')
     <body>
     <!-- Meta Needed to force IE out of Quirks mode -->
@@ -18,9 +20,6 @@
     <script src={{asset("vendor/MotionChart/js/jquery.motionchart.js")}}></script>
     <script>
         var dataArr = @json($dataArr) ;
-        console.log(dataArr);
-        var data = [["index","fruit","time","sales","price","temperature","location"], [0,"Apples",570672000000,1000,300,44,"East"],[1,"Oranges",567993600000,1150,200,42,"West"],[2,"Bananas",581126400000,300,250,35,"West"],[3,"Apples",612662400000,1200,400,48,"East"],[4,"Oranges",612662400000,750,150,47,"West"],[5,"Bananas",612662400000,788,617,45,"West"]];
-        console.log(data);
 
         function change_data() {
             var main_data_key =$('#main_data_select').val();
@@ -54,52 +53,59 @@
 
         }
     </script>
-    <div class="container">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <div class="panel-title">Dato principal</div>
-            </div>
-            <div class="panel-body" >
-            <select id="main_data_select">
-                <option value="nombre_carrera">Carrera</option>
-                <option value="universidad_carrera">Universidad</option>
-                <option value="nombre_tipo_empresa">Tipo Empresa</option>
-                <option value="nombre_rubro">Rubro</option>
-                <option value="postgrado_nombre">Tipo de postgrado</option>
-                <option value="nombre_cargo">Nivel de cargo</option>
-                <option value="nombre_area">Area</option>
-            </select>
-            <select id="color_data_select">
-                <option value="nombre_carrera">Carrera</option>
-                <option value="universidad_carrera">Universidad</option>
-                <option value="nombre_tipo_empresa">Tipo Empresa</option>
-                <option value="nombre_rubro">Rubro</option>
-                <option value="postgrado_nombre">Tipo de postgrado</option>
-                <option value="nombre_cargo">Nivel de cargo</option>
-                <option value="nombre_area">Area</option>
-            </select>
-                <button onclick="change_data()">Seleccionar</button>
-            </div>
-        </div>
-    </div>
+    {{--<div class="container">--}}
+        {{--<div class="panel panel-info">--}}
+            {{--<div class="panel-heading">--}}
+                {{--<div class="panel-title">Dato principal</div>--}}
+            {{--</div>--}}
+            {{--<div class="panel-body" >--}}
+            {{--<select id="main_data_select" >--}}
+                {{--<option value="nombre_carrera" >Carrera</option>--}}
+                {{--<option value="universidad_carrera">Universidad</option>--}}
+                {{--<option value="nombre_tipo_empresa">Tipo Empresa</option>--}}
+                {{--<option value="nombre_rubro">Rubro</option>--}}
+                {{--<option value="postgrado_nombre">Tipo de postgrado</option>--}}
+                {{--<option value="nombre_cargo">Nivel de cargo</option>--}}
+                {{--<option value="nombre_area">Area</option>--}}
+            {{--</select>--}}
+            {{--<select id="color_data_select">--}}
+                {{--<option value="nombre_carrera">Carrera</option>--}}
+                {{--<option value="universidad_carrera">Universidad</option>--}}
+                {{--<option value="nombre_tipo_empresa">Tipo Empresa</option>--}}
+                {{--<option value="nombre_rubro">Rubro</option>--}}
+                {{--<option value="postgrado_nombre">Tipo de postgrado</option>--}}
+                {{--<option value="nombre_cargo">Nivel de cargo</option>--}}
+                {{--<option value="nombre_area">Area</option>--}}
+            {{--</select>--}}
+                {{--<button onclick="change_data()">Seleccionar</button>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
 
     <div id="content" align="center">
+        Categoria
+        <select id="main_data_select" >
+            <option value="nombre_carrera" >Carrera</option>
+            <option value="universidad_carrera">Universidad</option>
+            <option value="nombre_tipo_empresa">Tipo Empresa</option>
+            <option value="nombre_rubro">Rubro</option>
+            <option value="postgrado_nombre">Tipo de postgrado</option>
+            <option value="nombre_cargo">Nivel de cargo</option>
+            <option value="nombre_area">Area</option>
+        </select>
+        Color
+        <select id="color_data_select">
+            <option value="nombre_carrera">Carrera</option>
+            <option value="universidad_carrera">Universidad</option>
+            <option value="nombre_tipo_empresa">Tipo Empresa</option>
+            <option value="nombre_rubro">Rubro</option>
+            <option value="postgrado_nombre">Tipo de postgrado</option>
+            <option value="nombre_cargo">Nivel de cargo</option>
+            <option value="nombre_area">Area</option>
+        </select>
+        <button onclick="change_data()">Seleccionar</button>
         <div class="motionchart" style="width:800px; height:600px;"></div>
         <script>
-
-            // $('.motionchart').motionchart({
-            //     title: "Motion Chart",
-            //     'data': data,
-            //     mappings: {key: 1, x: 2, y: 3,
-            //         size: 4,  color: 5, category: 5 },
-            //     scalings: { x: 'linear', y: 'linear' },
-            //     colorPalette: {"Blue-Red": {from: "rgb(0,0,255)", to: "rgb(255,0,0)"}},
-            //     color: "Red-Blue",
-            //     play: true,
-            //     loop: false
-            // });
-
-
             $('.motionchart').motionchart({
                 title: "Motion Chart",
                 'data': dataArr,

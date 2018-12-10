@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
 
 
         factory(App\Persona::class, 50)->create()->each(function ($u) {
-
+            $user = factory(App\User::class, 1)->create();
+            $u->user()->associate($user);
             $faker = Faker::create();
             $cant = rand(0,3);
             for($i=0;$i<$cant;++$i){
