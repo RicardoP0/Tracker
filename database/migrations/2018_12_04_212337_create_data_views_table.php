@@ -43,8 +43,8 @@ SELECT persona.rut rut_persona,
        persona2.fecha_ingreso  fecha_ingreso,
        persona2.fecha_egreso  fecha_egreso,
        c.nombre nombre_carrera,
-       u.nombre univerdad_carrera,
-       p.nombre postgrado_nombre,
+       u.nombre universidad_carrera,
+       tp.nombre postgrado_nombre,
        p.fecha_obtencion fecha_postgrado,
        u2.nombre universidad_postgrado,
        r.nombre nombre_rubro,
@@ -60,6 +60,7 @@ FROM   personas persona
        INNER JOIN carreras c on persona2.carrera_id = c.id
        INNER JOIN universidades u on c.universidad_id = u.id
        INNER JOIN postgrados p on persona.id = p.persona_id
+       INNER JOIN tipo_postgrados tp on p.tipoPostgrado_id = tp.id
        INNER JOIN universidades u2 on p.universidad_id = u2.id
        INNER JOIN empresas e on persona.id = e.persona_id
        INNER JOIN rubros r on e.rubro_id = r.id

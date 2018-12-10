@@ -78,7 +78,7 @@
                 this.sliders(); //Initialise sliders
                 this.tooltips(); //Initialise ToolTip
                 this.table(); //Initialise Table
-                this.resize(); //Initialise window Resizing
+                //this.resize(); //Initialise window Resizing
                 this.contextMenus(); //Initialise all context Menus
                 this.initWindow(); //Initialise window dimensions
             },
@@ -87,12 +87,12 @@
              **/
             build: function() {
                 var temp; //Holds jQuery objects that are not significant enough to place in priv.dom
-                priv.dom.$header = $("<div class='header'>" + "<div class='title'>" + "    " + priv.settings.title + "</div>" + "</div>").appendTo(container);
-                priv.dom.$tabs = $("<div class='btn-group' data-toggle='buttons-radio'>" + "    <button class='btn btn-large btn-warning active'>Chart</button>" + "    <button class='btn btn-large btn-warning'>Data</button>" + "</div>").prependTo(priv.dom.$header);
-                priv.dom.$about = $("<div style='float:right'>" + "    <button class='btn btn-large btn-danger about'>About</button>" + "</div>").appendTo(priv.dom.$header);
+                priv.dom.$header = $("<div hidden class='header'>" + "<div class='title'>" + "    " + priv.settings.title + "</div>" + "</div>").appendTo(container);
+                priv.dom.$tabs = $("<div hidden class='btn-group' data-toggle='buttons-radio'>" + "    <button class='btn btn-large btn-warning active' >Chart</button>" + "    <button class='btn btn-large btn-warning'>Data</button>" + "</div>").prependTo(priv.dom.$header);
+                priv.dom.$about = $("<div hidden style='float:right'>" + "    <button class='btn btn-large btn-danger about' style='display: none;'>About</button>" + "</div>").appendTo(priv.dom.$header);
                 priv.dom.$content = $("<div class='content'>" + "</div>").appendTo(container);
                 priv.dom.$chart = $("    <div class='chart' id='tab0'>" + "    </div>").appendTo(priv.dom.$content);
-                priv.dom.$menu = $("        <div class='myMenuTestSub'>" + "            <div></div>" + "        </div>").appendTo(priv.dom.$chart);
+                priv.dom.$menu = $("        <div hidden class='myMenuTestSub'>" + "            <div></div>" + "        </div>").appendTo(priv.dom.$chart);
                 priv.dom.$svg = $("        <div class='svg'></div>").appendTo(priv.dom.$chart);
                 priv.dom.$timeline = $("        <div class='timeline'>" + "        </div>").appendTo(priv.dom.$chart);
                 priv.dom.$play = $("            <div class='control-button playpause play'></div>").appendTo(priv.dom.$timeline);
@@ -1536,6 +1536,9 @@
          *    @public
          */
         this.destroy = function() {
+
+            $(".slider a.ui-slider-handle").tooltip("hide");
+
             container.removeClass('mchart');
             container.empty();
             container.removeData("motionchart");

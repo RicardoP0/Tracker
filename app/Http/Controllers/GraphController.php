@@ -100,18 +100,68 @@ class GraphController extends Controller
 
     public  function jsonResponse(Request $request)
     {
-        $data_key = $request->data_key;
-        $dataArr = array();
-        if($data_key=='nivel'){
-            $dataArr=$this->data_by_nivel_cargo();
-        }
-        else{
-            $dataArr=$this->data_by_area();
-        }
+
+        $main_data_key = $request->main_data_key;
+        $color_data_key = $request->color_data_key;
+
+        $dataArr = $this->data_array($main_data_key,$color_data_key);
 
         return response()->json($dataArr, 200);
     }
 
+//    private function data_array(string $main_group_name,...$groups){
+//        $startYear = Carbon::createFromFormat('Y-m-d',DB::table('cargos')->min('fecha_inicio'))->year;
+//        $endYear =  Carbon::createFromFormat('Y-m-d',DB::table('cargos')->max('fecha_termino'))->year;
+//        $dataCollect = collect();
+//        $dataView = \App\DataView::all();
+//        $arr_group = [];
+//        $main_group = $dataView->groupBy($main_group_name);
+//        foreach ($groups as $group){
+//            array_push($arr_group,['nombre'=>$group,'arr'=>$dataView->groupBy($group)]);
+//        }
+//       // dd($dataView->get('Schaden, Dickens and Feest')->toarray();
+//        for($i=$startYear; $i<$endYear; $i++){
+//            foreach ( $main_group as $item){
+//                foreach ($arr_group as $group){
+//                    foreach ($group['arr']->keys() as $value){
+//
+//                        $row = $item->filter(function ($item) use($i,$group,$value) {
+//                            return (data_get($item, 'cargo_inicio') <= strval($i) &&
+//                                data_get($item, 'cargo_termino') > strval($i) &&
+//                                data_get($item, $group['nombre']) == $value );
+//                        });
+//                        if (count($row)){
+//                            $aux_row = [$i,$row->avg('sueldo_cargo'),count($row),$row->first()[$main_group_name],$value];
+//                            $dataCollect->push($aux_row);
+//                        }
+//                        else{
+//                            $aux_row = [$i,0,0,$item->first()[$main_group_name],$value];
+//                            $dataCollect->push($aux_row);
+//                        }
+//                    }
+//                }
+//
+//            }
+//
+//        }
+//
+//        $dataArr=$dataCollect->toArray();
+//        $names_array = ['fecha','avg_sueldo','cantidad',$main_group_name];
+//        foreach ($groups as $group){
+//            array_push($names_array,$group);
+//        }
+//        $dataArr=array_prepend($dataArr,$names_array);
+//
+//
+////        $dataArr=array_prepend($dataArr,["rut_persona","fecha_ingreso",
+////            "fecha_egreso","nombre_carrera","univerdad_carrera",
+////            "postgrado_nombre","fecha_postgrado","universidad_postgrado",
+////            "nombre_rubro","nombre_tipo_empresa","cargo_inicio",
+////            "cargo_termino","sueldo_cargo","nombre_cargo",
+////            "nombre_area","fecha"]);
+//        return $dataArr;
+//
+//    }
     private function data_array(string $maingroup,string $colorGroup){
         $startYear = Carbon::createFromFormat('Y-m-d',DB::table('cargos')->min('fecha_inicio'))->year;
         $endYear =  Carbon::createFromFormat('Y-m-d',DB::table('cargos')->max('fecha_termino'))->year;
@@ -120,7 +170,6 @@ class GraphController extends Controller
         $main_group = $dataView->groupBy($maingroup);
         $color_group = $dataView->groupBy($colorGroup)->keys();
 
-       // dd($dataView->get('Schaden, Dickens and Feest')->toarray();
         for($i=$startYear; $i<$endYear; $i++){
             foreach ( $main_group as $item){
                 foreach ($color_group as $color){
@@ -129,7 +178,9 @@ class GraphController extends Controller
                             data_get($item, 'cargo_termino') > strval($i) &&
                             data_get($item, $colorGroup) == $color );
                     });
+
                     if (count($row)){
+                        $row = $row->unique('rut_persona');
                         $aux_row = [$i,$row->first()[$maingroup],$color,$row->avg('sueldo_cargo'),count($row)];
                         $dataCollect->push($aux_row);
                     }
@@ -148,13 +199,6 @@ class GraphController extends Controller
 
         $dataArr=$dataCollect->toArray();
         $dataArr=array_prepend($dataArr,['fecha',$maingroup,$colorGroup,'avg_sueldo','cantidad_persona']);
-
-//        $dataArr=array_prepend($dataArr,["rut_persona","fecha_ingreso",
-//            "fecha_egreso","nombre_carrera","univerdad_carrera",
-//            "postgrado_nombre","fecha_postgrado","universidad_postgrado",
-//            "nombre_rubro","nombre_tipo_empresa","cargo_inicio",
-//            "cargo_termino","sueldo_cargo","nombre_cargo",
-//            "nombre_area","fecha"]);
         return $dataArr;
 
     }
