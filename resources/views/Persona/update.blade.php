@@ -167,10 +167,11 @@
                                 <tr>
                                 @foreach( $postgrados as $p)
                                     <tr>
-                                        <td class="tg-73oq">{{$p->nombre}}</td>
-                                        <td class="tg-73oq">{{$p->tipo->nombre}}</td>
-                                        <td class="tg-73oq">{{$p->universidad->nombre}}</td>
-                                        <td class="tg-73oq">{{$p->fecha_obtencion}}</td>
+                                        <td class="hidden"><p id="idp">{{$p->id}}</p></td>
+                                        <td class="tg-73oq"><p id="inName">{{$p->nombre}}</p></td>
+                                        <td class="tg-73oq"><p id="inTipo">{{$p->tipo->nombre}}</p></td>
+                                        <td class="tg-73oq"><p id="inUni">{{$p->universidad->nombre}}</p></td>
+                                        <td class="tg-73oq"><p id="inDate">{{$p->fecha_obtencion}}</p></td>
                                         <td class="tg-vlcj">
 
                                             <span class="table-edit">
@@ -188,17 +189,20 @@
                                     </tr>
                                 @endforeach
                                     <tr class="hide">
-                                        <td class="tg-73oq">
-                                            <p id="inName"></p>
+                                        <td class="hidden">
+                                            <p id="idpc"></p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="inTipo"></p>
+                                            <p id="inNamec"></p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="inUni"></p>
+                                            <p id="inTipoc"></p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="inDate"></p>
+                                            <p id="inUnic"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="inDatec"></p>
                                         </td>
                                         <td class="tg-vlcj">
 
@@ -344,25 +348,56 @@
                                 var iTipo = $("#inputTipo option:selected").text();
                                 var iUni = $("#inputUni option:selected").text();
                                 var iDat = $('#inputDate').val();
-                                document.getElementById("inName").innerHTML=iName;
-                                document.getElementById("inTipo").innerHTML=iTipo;
-                                document.getElementById("inUni").innerHTML=iUni;
-                                document.getElementById("inDate").innerHTML=iDat;
+                                var sendTipo=$("#inputTipo").val();
+                                var sendUni=$("#inputUni").val();
+
+                                document.getElementById("inNamec").innerHTML=iName;
+                                document.getElementById("inTipoc").innerHTML=iTipo;
+                                document.getElementById("inUnic").innerHTML=iUni;
+                                document.getElementById("inDatec").innerHTML=iDat;
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "{{url('/personaAdd/json')}}",
+                                    data: {
+                                        _token: "{{ csrf_token() }}",
+                                        nombre: iName,
+                                        tipo: sendTipo,
+                                        univ: sendUni,
+                                        date :iDat
+                                    },
+                                    success: function (id) {
+                                        document.getElementById("idpc").innerHTML=id;
+                                        alert("Postgrado Agregado!");
+                                    }
+                                });
 
                                 var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
                                 $TABLE.find('table').append($clone);
+
+
+                                //$('#postGrados tr:last').parents('tr').find('td:nth-child(2)').text(iName);
+                                //$('#postGrados tr:last').parents('tr').find('td:nth-child(3)').text(iTipo);
+                                //$('#postGrados tr:last').parents('tr').find('td:nth-child(4)').text(iUni);
+                                //$('#postGrados tr:last').parents('tr').find('td:nth-child(5)').text(iDat);
+
                                 $('#modAdd').val($('#inputName').val(""));
                                 $('#modAdd').val($('#inputTipo').val(0));
                                 $('#modAdd').val($('#inputUni').val(0));
                                 $('#modAdd').val($('#inputDate').val("dd-mm-aaaa"));
+
+
+
+
                             });
 
                             $('.table-edit').click(function(){
 
-                                var eName=$(this).parents('tr').find('td:first').children().html();
-                                var eTipo=$(this).parents('tr').find('td:nth-child(2)').children().html();
-                                var eUni=$(this).parents('tr').find('td:nth-child(3)').children().html();
-                                var eDat=$(this).parents('tr').find('td:nth-child(4)').children().html();
+                                var eName=$(this).parents('tr').find('td:nth-child(2)').children().html();
+                                var eTipo=$(this).parents('tr').find('td:nth-child(3)').children().html();
+                                var eUni=$(this).parents('tr').find('td:nth-child(4)').children().html();
+                                var eDat=$(this).parents('tr').find('td:nth-child(5)').children().html();
+
                                 var aux = $.trim(eName);
                                 $('#modEdit').val($('#NameEdit').val(aux));
                                 aux = $.trim(eTipo);
@@ -382,13 +417,39 @@
                                 $('#modEdit').val($('#inputDateE').val(eDat));
                                 pos=this;
 
+
+
+
                             });
 
                             $('.table-editm1').click(function(){
-                                $(pos).parents('tr').find('td:first').text($('#NameEdit').val());
-                                $(pos).parents('tr').find('td:nth-child(2)').text($('#inputTipoe option:selected').text());
-                                $(pos).parents('tr').find('td:nth-child(3)').text($('#inputUnie option:selected').text());
-                                $(pos).parents('tr').find('td:nth-child(4)').text($('#inputDateE').val());
+                                var id=$(pos).parents('tr').find('td:first').children().html();
+                                $(pos).parents('tr').find('td:nth-child(2)').text($('#NameEdit').val());
+                                $(pos).parents('tr').find('td:nth-child(3)').text($('#inputTipoe option:selected').text());
+                                $(pos).parents('tr').find('td:nth-child(4)').text($('#inputUnie option:selected').text());
+                                $(pos).parents('tr').find('td:nth-child(5)').text($('#inputDateE').val());
+
+                                var sendName=$('#NameEdit').val();
+                                var sendTipo=$('#inputTipoe').val();
+                                var sendUn=$('#inputUnie').val();
+                                var sendDate=$('#inputDateE').val();
+                                var sendId=$.trim(id);
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "{{url('/personaEdit/json')}}",
+                                    data: {
+                                        _token: "{{ csrf_token() }}",
+                                        nombre: sendName,
+                                        tipo: sendTipo,
+                                        univ: sendUn,
+                                        date :sendDate,
+                                        id:sendId
+                                    },
+                                    success: function () {
+                                        alert("Postgrado Actualizado!");
+                                    }
+                                });
                             });
 
 
@@ -396,10 +457,28 @@
 
                             $('.table-remove').click(function () {
                                 var result = confirm("Esta seguro de eliminarlo?");
+                                var sendIdd=$(this).parents('tr').find('td:first').children().html();
+
                                 if (result) {
                                     //Logic to delete the item
                                     $(this).parents('tr').detach();
+
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: "{{url('/personaDelete/json')}}",
+                                        data: {
+                                            _token: "{{ csrf_token() }}",
+                                            id:sendIdd
+                                        },
+                                        success: function () {
+                                            alert("Postgrado Eliminado");
+                                        }
+                                    });
                                 }
+
+
+
+
 
                             });
                             // A few jQuery helpers for exporting only
@@ -446,8 +525,8 @@
                             <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modAdd2">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             </button>
-                            <!-- tabla por defecto sufijo d-->
-                            <table class="tg" id="table2">
+
+                            <table class="tg" id="table">
                                 <tr>
                                     <th class="tg-73oq">Empresa</th>
                                     <th class="tg-73oq">Tipo de Empresa<br></th>
@@ -460,31 +539,34 @@
                                     <th class="tg-73oq"></th>
                                 </tr>
                                 <tr>
-                                @foreach( $empresas as $e)
+                                @foreach( $aux as $c)
                                     <tr>
-                                        <td class="tg-73oq">
-                                            <p id="inNameTd">{{$e->nombre}}</p>
+                                        <td class="hidden">
+                                            <p id="idc">{{$c->id}}</p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="inTipoTd">{{$e->tipo_empresa->nombre}}</p>
+                                            <p id="inNameT">{{$c->empresa->nombre}}</p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="inLvld"></p>
+                                            <p id="inTipoT">{{$c->empresa->tipo_empresa->nombre}}</p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="inDateSd"></p>
+                                            <p id="inLvl">{{$c->nivel_cargo->nombre}}</p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="inDateEd"></p>
+                                            <p id="inDateS">{{$c->fecha_inicio}}</p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="inSald"></p>
+                                            <p id="inDateE">{{$c->fecha_termino}}</p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="Aread"></p>
+                                            <p id="inSal">{{$c->sueldo}}</p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="Rubrod"></p>
+                                            <p id="Area">{{$c->area->nombre}}</p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="Rubro">{{$c->empresa->rubro->nombre}}</p>
                                         </td>
                                         <td class="tg-vlcj">
 
@@ -504,29 +586,32 @@
                                 @endforeach
                                     <!--tabla clonable-->
                                     <tr class="hide" id="tn">
-                                        <td class="tg-73oq">
-                                            <p id="inNameT"></p>
+                                        <td class="hidden">
+                                            <p id="idcc"></p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="inTipoT"></p>
+                                            <p id="inNameTc"></p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="inLvl"></p>
+                                            <p id="inTipoTc"></p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="inDateS"></p>
+                                            <p id="inLvlc"></p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="inDateE"></p>
+                                            <p id="inDateSc"></p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="inSal"></p>
+                                            <p id="inDateEc"></p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="Area"></p>
+                                            <p id="inSalc"></p>
                                         </td>
                                         <td class="tg-73oq">
-                                            <p id="Rubro"></p>
+                                            <p id="Areac"></p>
+                                        </td>
+                                        <td class="tg-73oq">
+                                            <p id="Rubroc"></p>
                                         </td>
                                         <td class="tg-vlcj">
 
@@ -728,14 +813,38 @@
                                 var iSal = $('#inputSalIn').val();
                                 var iArea = $('#inputArea option:selected').text();
                                 var iRubro = $('#inputRubro option:selected').text();
-                                document.getElementById("inNameT").innerHTML=iEName;
-                                document.getElementById("inTipoT").innerHTML=iTipoE;
-                                document.getElementById("inLvl").innerHTML=iTipoT;
-                                document.getElementById("inDateS").innerHTML=iDatS;
-                                document.getElementById("inDateE").innerHTML=iDatE;
-                                document.getElementById("inSal").innerHTML=iSal;
-                                document.getElementById("Area").innerHTML=iArea;
-                                document.getElementById("Rubro").innerHTML=iRubro;
+                                document.getElementById("inNameTc").innerHTML=iEName;
+                                document.getElementById("inTipoTc").innerHTML=iTipoE;
+                                document.getElementById("inLvlc").innerHTML=iTipoT;
+                                document.getElementById("inDateSc").innerHTML=iDatS;
+                                document.getElementById("inDateEc").innerHTML=iDatE;
+                                document.getElementById("inSalc").innerHTML=iSal;
+                                document.getElementById("Areac").innerHTML=iArea;
+                                document.getElementById("Rubroc").innerHTML=iRubro;
+
+                                var sendLvl=$("#inputNivel").val();
+                                var sendArea=$("#inputArea").val();
+                                var sendTemp=$("#inputETipo").val();
+                                var sendRu=$("#inputRubro").val();
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "{{url('/cargoAdd/json')}}",
+                                    data: {
+                                        _token: "{{ csrf_token() }}",
+                                        fechaS:iDatS,
+                                        fechaE:iDatE,
+                                        sueldo:iSal,
+                                        lvl: sendLvl,
+                                        area: sendArea,
+                                        nombre :iEName,
+                                        tipoEmp:sendTemp,
+                                        rubro:sendRu
+                                    },
+                                    success: function(idce) {
+                                        document.getElementById("idcc").innerHTML=idce;
+                                        alert("Datos Agregado!");
+                                    }
+                                });
 
                                 var $clone = $TABLE2.find('tr.hide').clone(true).removeClass('hide table-line');
                                 $TABLE2.find('table').append($clone);
@@ -747,17 +856,25 @@
                                 $('#modEdit2').val($('#inputSalIn').val(""));
                                 $('#modEdit2').val($('#inputArea').val(0));
                                 $('#modEdit2').val($('#inputRubro').val(0));
+
+
+                                //var sendTipoE=$("#inputETipo").val();
+                                //var sendTipoT=$("#inputNivel").val();
+                                //var sendArea=$("#inputArea").val();
+                                //var sendRubro=$("#inputRubro").val();
+
+
                             });
 
                             $('.table-edit2').click(function(){
-                                var edName=$(this).parents('tr').find('td:first').children().html();
-                                var eTipoE=$(this).parents('tr').find('td:nth-child(2)').children().html();
-                                var eTipoT=$(this).parents('tr').find('td:nth-child(3)').children().html();
-                                var eDatS=$(this).parents('tr').find('td:nth-child(4)').children().html();
-                                var eDatE=$(this).parents('tr').find('td:nth-child(5)').children().html();
-                                var eSal=$(this).parents('tr').find('td:nth-child(6)').children().html();
-                                var eArea=$(this).parents('tr').find('td:nth-child(7)').children().html();
-                                var eRubro=$(this).parents('tr').find('td:nth-child(8)').children().html();
+                                var edName=$(this).parents('tr').find('td:nth-child(2)').children().html();
+                                var eTipoE=$(this).parents('tr').find('td:nth-child(3)').children().html();
+                                var eTipoT=$(this).parents('tr').find('td:nth-child(4)').children().html();
+                                var eDatS=$(this).parents('tr').find('td:nth-child(5)').children().html();
+                                var eDatE=$(this).parents('tr').find('td:nth-child(6)').children().html();
+                                var eSal=$(this).parents('tr').find('td:nth-child(7)').children().html();
+                                var eArea=$(this).parents('tr').find('td:nth-child(8)').children().html();
+                                var eRubro=$(this).parents('tr').find('td:nth-child(9)').children().html();
                                 $('#modEdit2').val($('#edEName').val(edName));
                                 var aux = $.trim(eTipoE);
                                 for($i=0;$i<window.emp.length;$i++){
@@ -794,23 +911,67 @@
                             });
 
                             $('.table-editm2').click(function(){
-                                $(pos2).parents('tr').find('td:first').text($('#edEName').val());
-                                $(pos2).parents('tr').find('td:nth-child(2)').text($('#edETipo option:selected').text());
-                                $(pos2).parents('tr').find('td:nth-child(3)').text($('#edNivel option:selected').text());
-                                $(pos2).parents('tr').find('td:nth-child(4)').text($('#edDateS').val());
-                                $(pos2).parents('tr').find('td:nth-child(5)').text($('#edDateE').val());
-                                $(pos2).parents('tr').find('td:nth-child(6)').text($('#edSal').val());
-                                $(pos2).parents('tr').find('td:nth-child(7)').text($('#edArea option:selected').text());
-                                $(pos2).parents('tr').find('td:nth-child(8)').text($('#edRubro option:selected').text());
+                                var idc2=$(pos2).parents('tr').find('td:first').children().html();
+                                confirm(idc2);
+                                $(pos2).parents('tr').find('td:nth-child(2)').text($('#edEName').val());
+                                $(pos2).parents('tr').find('td:nth-child(3)').text($('#edETipo option:selected').text());
+                                $(pos2).parents('tr').find('td:nth-child(4)').text($('#edNivel option:selected').text());
+                                $(pos2).parents('tr').find('td:nth-child(5)').text($('#edDateS').val());
+                                $(pos2).parents('tr').find('td:nth-child(6)').text($('#edDateE').val());
+                                $(pos2).parents('tr').find('td:nth-child(7)').text($('#edSal').val());
+                                $(pos2).parents('tr').find('td:nth-child(8)').text($('#edArea option:selected').text());
+                                $(pos2).parents('tr').find('td:nth-child(9)').text($('#edRubro option:selected').text());
+
+                                var sendLvle=$("#edNivel").val();
+                                var sendAreae=$("#edArea").val();
+                                var sendTempe=$("#edETipo").val();
+                                var sendRue=$("#edRubro").val();
+                                var datS=$('#edDateS').val();
+                                var datE=$('#edDateE').val();
+                                var sal=$('#edSal').val();
+                                var name=$('#edEName').val();
+
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "{{url('/cargoEdit/json')}}",
+                                    data: {
+                                        _token: "{{ csrf_token() }}",
+                                        fechaS:datS,
+                                        fechaE:datE,
+                                        sueldo:sal,
+                                        lvl: sendLvle,
+                                        area: sendAreae,
+                                        nombre :name,
+                                        tipoEmp:sendTempe,
+                                        rubro:sendRue,
+                                        id:idc2
+                                    },
+                                    success: function () {
+                                        alert("Datos Actualizado!");
+                                    }
+                                });
                             });
 
 
 
                             $('.table-remove2').click(function () {
                                 var result = confirm("Esta seguro de eliminarlo?");
+                                var sendIdc=$(this).parents('tr').find('td:first').children().html();
                                 if (result) {
                                     //Logic to delete the item
                                     $(this).parents('tr').detach();
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: "{{url('/cargoDelete/json')}}",
+                                        data: {
+                                            _token: "{{ csrf_token() }}",
+                                            id:sendIdc
+                                        },
+                                        success: function () {
+                                            alert("Datos Eliminados");
+                                        }
+                                    });
                                 }
 
                             });

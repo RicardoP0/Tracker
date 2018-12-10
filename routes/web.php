@@ -28,6 +28,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('graph', 'GraphController');
 Route::post('graph/json', 'GraphController@jsonResponse');
+Route::post('personaAdd/json', 'PersonaController@jsonAdd');
+Route::post('personaEdit/json', 'PersonaController@jsonEdit');
+Route::post('personaDelete/json', 'PersonaController@jsonDelete');
+Route::post('cargoAdd/json', 'PersonaController@jsonAddCargo');
+Route::post('cargoEdit/json', 'PersonaController@jsonEditCargo');
+Route::post('cargoDelete/json', 'PersonaController@jsonDeleteCargo');
 
 Route::resource('persona','PersonaController');
 Auth::routes();

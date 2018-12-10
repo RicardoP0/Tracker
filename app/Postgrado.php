@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Postgrado extends Model
 {
+    protected $fillable = [
+        'nombre','fecha_obtencion','tipoPostgrado_id','persona_id','universidad_id'
+    ];
+
     public function persona(){
         return $this->BelongsTo('App\Postgrado');
     }
