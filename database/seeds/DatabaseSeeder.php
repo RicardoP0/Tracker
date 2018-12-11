@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             for($i=0;$i<$cant;++$i){
                 $empr = factory(App\Empresa::class)->make();
                 $u->empresas()->save($empr);
-                $cant = rand(0,3);
+                $cant = rand(1,3);
                 for($i=0;$i<$cant;++$i) {
                     $nivel = \App\Nivel_cargo::inRandomOrder()->first();
                     $area = \App\Area::inRandomOrder()->first();
