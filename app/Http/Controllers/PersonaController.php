@@ -56,10 +56,8 @@ class PersonaController extends Controller
     {
         $nombre =$persona->nombre;
         $rut = $persona->rut;
-        $email ="test@test.com";
-        if(!is_null($persona->user)){
-            $email=$persona->user->email;
-        }
+        $email=$persona->user->email;
+
         $genero = $persona->genero;
         $fecha_nacimiento = $persona->fecha_nacimiento;
         $situacion = $persona->situacion_laboral;
@@ -72,14 +70,20 @@ class PersonaController extends Controller
         $nivel = \App\Nivel_cargo::all();
         $areas_trabajo =  \App\Area::all();
         $rubros = \App\Rubro::all();
-        $cargos=\App\Cargo::all();
         $aux=[];
-        //need fix
-        for($i=0;$i<sizeof($empresas);$i++){
-            if($cargos[$i]->empresa_id==$empresas[$i]->id){
-               $aux.push($cargos[$i]);
+
+        foreach ($empresas as $empresa){
+            foreach ($empresa->cargos as $cargo){
+                array_push($aux,$cargo);
             }
+
         }
+
+//        for($i=0;$i<sizeof($empresas);$i++){
+//            if($cargos[$i]->empresa_id==$empresas[$i]->id){
+//               $aux.push($cargos[$i]);
+//            }
+//        }
 
         return view('Persona.update', compact('nombre','rut',
             'email', 'genero','fecha_nacimiento','carreras',
@@ -138,15 +142,15 @@ class PersonaController extends Controller
             'tipo_empresa_id'=>$tipEmp,
             'rubro_id'=>$ru]);
         Auth::user()->persona->empresas()->save($emp);
-        $cargos= new \App\Cargo(['fecha_inicio'=>$fechai,
+        $cargo= new \App\Cargo(['fecha_inicio'=>$fechai,
             'fecha_termino'=>$fechat,
             'sueldo'=>$sal,
             'nivel_cargo_id'=>$nivel,
             'area_id'=>$areaIn
         ]);
-        $cargos->empresa()->associate($emp);
-        $cargos->save();
-        return $cargos->id;
+        $cargo->empresa()->associate($emp);
+        $cargo->save();
+        return response()->json($cargo->id, 200);
     }
 
     public  function jsonEditCargo(Request $request)

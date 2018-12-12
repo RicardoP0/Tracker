@@ -167,7 +167,7 @@
                                 <tr>
                                 @foreach( $postgrados as $p)
                                     <tr>
-                                        <td class="hidden"><p id="idp">{{$p->id}}</p></td>
+                                        <td class="hidden">{{$p->id}}</td>
                                         <td class="tg-73oq"><p id="inName">{{$p->nombre}}</p></td>
                                         <td class="tg-73oq"><p id="inTipo">{{$p->tipo->nombre}}</p></td>
                                         <td class="tg-73oq"><p id="inUni">{{$p->universidad->nombre}}</p></td>
@@ -189,8 +189,8 @@
                                     </tr>
                                 @endforeach
                                     <tr class="hide">
-                                        <td class="hidden">
-                                            <p id="idpc"></p>
+                                        <td class="hidden" id="clone_id_ad">
+
                                         </td>
                                         <td class="tg-73oq">
                                             <p id="inNamec"></p>
@@ -367,13 +367,14 @@
                                         date :iDat
                                     },
                                     success: function (id) {
-                                        document.getElementById("idpc").innerHTML=id;
+                                        document.getElementById("clone_id_ad").innerHTML=id;
                                         alert("Postgrado Agregado!");
+                                        var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide');
+                                        $TABLE.find('table').append($clone);
                                     }
                                 });
 
-                                var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
-                                $TABLE.find('table').append($clone);
+
 
 
                                 //$('#postGrados tr:last').parents('tr').find('td:nth-child(2)').text(iName);
@@ -423,7 +424,7 @@
                             });
 
                             $('.table-editm1').click(function(){
-                                var id=$(pos).parents('tr').find('td:first').children().html();
+                                var id=$(pos).parents('tr').find('td:first').html();
                                 $(pos).parents('tr').find('td:nth-child(2)').text($('#NameEdit').val());
                                 $(pos).parents('tr').find('td:nth-child(3)').text($('#inputTipoe option:selected').text());
                                 $(pos).parents('tr').find('td:nth-child(4)').text($('#inputUnie option:selected').text());
@@ -457,7 +458,7 @@
 
                             $('.table-remove').click(function () {
                                 var result = confirm("Esta seguro de eliminarlo?");
-                                var sendIdd=$(this).parents('tr').find('td:first').children().html();
+                                var sendIdd=$(this).parents('tr').find('td:first').html();
 
                                 if (result) {
                                     //Logic to delete the item
@@ -540,9 +541,10 @@
                                 </tr>
                                 <tr>
                                 @foreach( $aux as $c)
+
                                     <tr>
                                         <td class="hidden">
-                                            <p id="idc">{{$c->id}}</p>
+                                            {{$c->id}}
                                         </td>
                                         <td class="tg-73oq">
                                             <p id="inNameT">{{$c->empresa->nombre}}</p>
@@ -586,8 +588,8 @@
                                 @endforeach
                                     <!--tabla clonable-->
                                     <tr class="hide" id="tn">
-                                        <td class="hidden">
-                                            <p id="idcc"></p>
+                                        <td class="hidden" id="clone_id">
+
                                         </td>
                                         <td class="tg-73oq">
                                             <p id="inNameTc"></p>
@@ -805,6 +807,7 @@
 
 
                             $('.table-add2').click(function () {
+                                debugger;
                                 var iEName = $('#inputEName').val();
                                 var iTipoE = $("#inputETipo option:selected").text();
                                 var iTipoT = $("#inputNivel option:selected").text();
@@ -841,13 +844,13 @@
                                         rubro:sendRu
                                     },
                                     success: function(idce) {
-                                        document.getElementById("idcc").innerHTML=idce;
+                                        document.getElementById("clone_id").innerHTML=idce;
                                         alert("Datos Agregado!");
+                                        var $clone = $TABLE2.find('tr.hide').clone(true).removeClass('hide');
+                                        $TABLE2.find('table').append($clone);
+
                                     }
                                 });
-
-                                var $clone = $TABLE2.find('tr.hide').clone(true).removeClass('hide table-line');
-                                $TABLE2.find('table').append($clone);
                                 $('#modEdit2').val($('#inputEName').val(""));
                                 $('#modEdit2').val($('#inputETipo').val(0));
                                 $('#modEdit2').val($('#inputNivel').val(0));
@@ -856,6 +859,8 @@
                                 $('#modEdit2').val($('#inputSalIn').val(""));
                                 $('#modEdit2').val($('#inputArea').val(0));
                                 $('#modEdit2').val($('#inputRubro').val(0));
+
+
 
 
                                 //var sendTipoE=$("#inputETipo").val();
@@ -911,7 +916,7 @@
                             });
 
                             $('.table-editm2').click(function(){
-                                var idc2=$(pos2).parents('tr').find('td:first').children().html();
+                                var idc2=$(pos2).parents('tr').find('td:first').html();
                                 confirm(idc2);
                                 $(pos2).parents('tr').find('td:nth-child(2)').text($('#edEName').val());
                                 $(pos2).parents('tr').find('td:nth-child(3)').text($('#edETipo option:selected').text());
