@@ -168,10 +168,10 @@
                                 @foreach( $postgrados as $p)
                                     <tr>
                                         <td class="hidden">{{$p->id}}</td>
-                                        <td class="tg-73oq"><p id="inName">{{$p->nombre}}</p></td>
-                                        <td class="tg-73oq"><p id="inTipo">{{$p->tipo->nombre}}</p></td>
-                                        <td class="tg-73oq"><p id="inUni">{{$p->universidad->nombre}}</p></td>
-                                        <td class="tg-73oq"><p id="inDate">{{$p->fecha_obtencion}}</p></td>
+                                        <td class="tg-73oq" id="inName">{{$p->nombre}}</td>
+                                        <td class="tg-73oq" id="inTipo">{{$p->tipo->nombre}}</td>
+                                        <td class="tg-73oq" id="inUni">{{$p->universidad->nombre}}</td>
+                                        <td class="tg-73oq" id="inDate">{{$p->fecha_obtencion}}</td>
                                         <td class="tg-vlcj">
 
                                             <span class="table-edit">
@@ -189,21 +189,11 @@
                                     </tr>
                                 @endforeach
                                     <tr class="hide">
-                                        <td class="hidden" id="clone_id_ad">
-
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inNamec"></p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inTipoc"></p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inUnic"></p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inDatec"></p>
-                                        </td>
+                                        <td class="hidden" id="clone_id_ad"></td>
+                                        <td class="tg-73oq" id="inNamec"></td>
+                                        <td class="tg-73oq" id="inTipoc"></td>
+                                        <td class="tg-73oq" id="inUnic"></td>
+                                        <td class="tg-73oq" id="inDatec"></td>
                                         <td class="tg-vlcj">
 
                                             <span class="table-edit">
@@ -394,10 +384,10 @@
 
                             $('.table-edit').click(function(){
 
-                                var eName=$(this).parents('tr').find('td:nth-child(2)').children().html();
-                                var eTipo=$(this).parents('tr').find('td:nth-child(3)').children().html();
-                                var eUni=$(this).parents('tr').find('td:nth-child(4)').children().html();
-                                var eDat=$(this).parents('tr').find('td:nth-child(5)').children().html();
+                                var eName=$(this).parents('tr').find('td:nth-child(2)').html();
+                                var eTipo=$(this).parents('tr').find('td:nth-child(3)').html();
+                                var eUni=$(this).parents('tr').find('td:nth-child(4)').html();
+                                var eDat=$(this).parents('tr').find('td:nth-child(5)').html();
 
                                 var aux = $.trim(eName);
                                 $('#modEdit').val($('#NameEdit').val(aux));
@@ -546,30 +536,14 @@
                                         <td class="hidden">
                                             {{$c->id}}
                                         </td>
-                                        <td class="tg-73oq">
-                                            <p id="inNameT">{{$c->empresa->nombre}}</p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inTipoT">{{$c->empresa->tipo_empresa->nombre}}</p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inLvl">{{$c->nivel_cargo->nombre}}</p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inDateS">{{$c->fecha_inicio}}</p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inDateE">{{$c->fecha_termino}}</p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inSal">{{$c->sueldo}}</p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="Area">{{$c->area->nombre}}</p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="Rubro">{{$c->empresa->rubro->nombre}}</p>
-                                        </td>
+                                        <td class="tg-73oq" id="inNameT">{{$c->empresa->nombre}}</td>
+                                        <td class="tg-73oq" id="inTipoT">{{$c->empresa->tipo_empresa->nombre}}</td>
+                                        <td class="tg-73oq" id="inLvl">{{$c->nivel_cargo->nombre}}</td>
+                                        <td class="tg-73oq" id="inDateS">{{$c->fecha_inicio}}</td>
+                                        <td class="tg-73oq" id="inDateE">{{$c->fecha_termino}}</td>
+                                        <td class="tg-73oq" id="inSal">{{$c->sueldo}}</td>
+                                        <td class="tg-73oq" id="Area">{{$c->area->nombre}}</td>
+                                        <td class="tg-73oq" id="Rubro">{{$c->empresa->rubro->nombre}}</td>
                                         <td class="tg-vlcj">
 
                                             <span class="table-edit2">
@@ -591,30 +565,14 @@
                                         <td class="hidden" id="clone_id">
 
                                         </td>
-                                        <td class="tg-73oq">
-                                            <p id="inNameTc"></p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inTipoTc"></p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inLvlc"></p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inDateSc"></p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inDateEc"></p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="inSalc"></p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="Areac"></p>
-                                        </td>
-                                        <td class="tg-73oq">
-                                            <p id="Rubroc"></p>
-                                        </td>
+                                        <td class="tg-73oq" id="inNameTc"></td>
+                                        <td class="tg-73oq" id="inTipoTc"></td>
+                                        <td class="tg-73oq" id="inLvlc"></td>
+                                        <td class="tg-73oq" id="inDateSc"></td>
+                                        <td class="tg-73oq" id="inDateEc"></td>
+                                        <td class="tg-73oq" id="inSalc"></td>
+                                        <td class="tg-73oq" id="Areac"></td>
+                                        <td class="tg-73oq" id="Rubroc"></td>
                                         <td class="tg-vlcj">
 
                                             <span class="table-edit2">
@@ -872,14 +830,14 @@
                             });
 
                             $('.table-edit2').click(function(){
-                                var edName=$(this).parents('tr').find('td:nth-child(2)').children().html();
-                                var eTipoE=$(this).parents('tr').find('td:nth-child(3)').children().html();
-                                var eTipoT=$(this).parents('tr').find('td:nth-child(4)').children().html();
-                                var eDatS=$(this).parents('tr').find('td:nth-child(5)').children().html();
-                                var eDatE=$(this).parents('tr').find('td:nth-child(6)').children().html();
-                                var eSal=$(this).parents('tr').find('td:nth-child(7)').children().html();
-                                var eArea=$(this).parents('tr').find('td:nth-child(8)').children().html();
-                                var eRubro=$(this).parents('tr').find('td:nth-child(9)').children().html();
+                                var edName=$(this).parents('tr').find('td:nth-child(2)').html();
+                                var eTipoE=$(this).parents('tr').find('td:nth-child(3)').html();
+                                var eTipoT=$(this).parents('tr').find('td:nth-child(4)').html();
+                                var eDatS=$(this).parents('tr').find('td:nth-child(5)').html();
+                                var eDatE=$(this).parents('tr').find('td:nth-child(6)').html();
+                                var eSal=$(this).parents('tr').find('td:nth-child(7)').html();
+                                var eArea=$(this).parents('tr').find('td:nth-child(8)').html();
+                                var eRubro=$(this).parents('tr').find('td:nth-child(9)').html();
                                 $('#modEdit2').val($('#edEName').val(edName));
                                 var aux = $.trim(eTipoE);
                                 for($i=0;$i<window.emp.length;$i++){
@@ -917,7 +875,6 @@
 
                             $('.table-editm2').click(function(){
                                 var idc2=$(pos2).parents('tr').find('td:first').html();
-                                confirm(idc2);
                                 $(pos2).parents('tr').find('td:nth-child(2)').text($('#edEName').val());
                                 $(pos2).parents('tr').find('td:nth-child(3)').text($('#edETipo option:selected').text());
                                 $(pos2).parents('tr').find('td:nth-child(4)').text($('#edNivel option:selected').text());
@@ -962,7 +919,7 @@
 
                             $('.table-remove2').click(function () {
                                 var result = confirm("Esta seguro de eliminarlo?");
-                                var sendIdc=$(this).parents('tr').find('td:first').children().html();
+                                var sendIdc=$(this).parents('tr').find('td:first').html();
                                 if (result) {
                                     //Logic to delete the item
                                     $(this).parents('tr').detach();
