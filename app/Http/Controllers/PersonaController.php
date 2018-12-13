@@ -111,8 +111,14 @@ class PersonaController extends Controller
      */
     public function update(Request $request, Persona $persona)
     {
+        $persona->situacion_laboral=$request->estado_trabajo;
+        $persona->carreras()->detach();
+        $persona->carreras()->attach($request->carrera,['tipo_tesis'=>$request->tipo_tesis,
+            'fecha_ingreso'=>$request->fecha_ingreso,
+            'fecha_egreso'=>$request->fecha_egreso,
+            "fecha_titulacion"=>$request->fecha_titulacion]);
 
-
+        //dd($request->all());
 
     }
 
@@ -165,6 +171,8 @@ class PersonaController extends Controller
         $type=$request->tipoEmp;
         $ru=$request->rubro;
         $idc=$request->id;
+        //pendiente guardar en una tabla con id,id_persona,nombre
+        $otro=$request->otro;
 
         $cargo= \App\Cargo::find($idc);
         $cargo->fecha_inicio=$fechaI;

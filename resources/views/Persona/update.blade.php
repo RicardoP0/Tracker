@@ -12,6 +12,14 @@
     .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
     .tg .tg-73oq{border-color:#000000;text-align:left;vertical-align:top}
     .tg .tg-vlcj{font-family:serif !important;;border-color:#000000;text-align:left;vertical-align:top}
+
+    #otraArea {
+        display: none;
+    }
+
+    #otraArea.show {
+        display: block;
+    }
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -44,8 +52,9 @@
                     <div class="panel-title">Configuracion de perfil</div>
                 </div>
                 <div class="panel-body" >
-                    <form  class="form-horizontal" method="post">
-
+                    <form  class="form-horizontal" method="post" action={{"/persona/".Auth::user()->persona->id}}>
+                    @method('PUT')
+                    {{csrf_field()}}
                         <!--preguntas-->
                         <div id="div_id_username" class="form-group required">
                             <label for="id_username" class="control-label col-md-4  requiredField">Nombre<span class="asteriskField">*</span> </label>
@@ -57,7 +66,7 @@
                         <div id="div_id_rut" class="form-group required">
                             <label for="id_rut" class="control-label col-md-4  requiredField"> Rut<span class="asteriskField">*</span> </label>
                             <div class="controls col-md-8 ">
-                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> {{$rut}}<span class="asteriskField">*</span> </label>
+                                <label class="control-label col-md-4  requiredField"  style="margin-bottom: 10px"> {{$rut}}<span class="asteriskField">*</span> </label>
                             </div>
                         </div>
 
@@ -79,7 +88,7 @@
                         <div id="div_id_date" class="form-group required">
                             <label for="id_date" class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> Fecha de nacimiento<span class="asteriskField">*</span> </label>
                             <div class="controls col-md-8 ">
-                                <input id="date" type="date" value="{{$fecha_nacimiento}}" style="margin-bottom: 10px">
+                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> {{$fecha_nacimiento}}<span class="asteriskField">*</span> </label>
                             </div>
                         </div>
 
@@ -88,7 +97,7 @@
                             <div class="controls col-md-8 ">
 
 
-                                <select style="margin-bottom: 10px">
+                                <select style="margin-bottom: 10px" name="estado_trabajo">
                                     <option value="trabajo dependiente" <?php if($situacion == "trabajo dependiente") echo('selected');?> >Trabajo dependiente</option>
                                     <option value="trabajo independiente"  <?php if($situacion == 'trabajo independiente') echo('selected');?> >Trabajo independiente</option>
                                     <option value="desempleado" <?php if($situacion == "desempleado") echo('selected');?> >Desempleado</option>
@@ -104,9 +113,9 @@
                                 <div id="div_id_career" class="form-group required">
                                     <label for="id_career" class="control-label col-md-4  requiredField"> Carrera<span class="asteriskField">*</span> </label>
                                     <div class="controls col-md-8 ">
-                                        <select style="margin-bottom: 10px">
-                                            <option value="ICCI">ICCI</option>
-                                            <option value="ICI">ICI</option>
+                                        <select style="margin-bottom: 10px" name="carrera">
+                                            <option value="1">ICCI</option>
+                                            <option value="2">ICI</option>
                                         </select>
                                     </div>
                                 </div>
@@ -114,28 +123,28 @@
                                 <div id="div_id_year_in" class="form-group required">
                                     <label for="id_year_in" class="control-label col-md-4  requiredField"> Año de ingreso<span class="asteriskField">*</span> </label>
                                     <div class="controls col-md-8 ">
-                                        <input type="number" placeholder="YYYY" min="1980" max="2018" style="margin-bottom: 10px">
+                                        <input name="fecha_ingreso" type="date" placeholder="YYYY" min="1980" max="2018" style="margin-bottom: 10px">
                                     </div>
                                 </div>
 
                                 <div id="div_id_year_out" class="form-group required">
                                     <label for="id_year_out" class="control-label col-md-4  requiredField"> Año de egreso<span class="asteriskField">*</span> </label>
                                     <div class="controls col-md-8 ">
-                                        <input type="number" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
+                                        <input name="fecha_egreso" type="date" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
                                     </div>
                                 </div>
 
                                 <div id="div_id_year_gra" class="form-group required">
                                     <label for="id_year_gra" class="control-label col-md-4  requiredField"> Año de titulación<span class="asteriskField">*</span> </label>
                                     <div class="controls col-md-8 ">
-                                        <input type="number" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
+                                        <input name="fecha_titulacion" type="date" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
                                     </div>
                                 </div>
 
                                 <div id="div_id_sede" class="form-group required">
                                     <label for="id_sede" class="control-label col-md-4  requiredField"> Tipo de tesis<span class="asteriskField">*</span> </label>
                                     <div class="controls col-md-8 ">
-                                        <select style="margin-bottom: 10px">
+                                        <select style="margin-bottom: 10px" name="tipo_tesis">
                                             <option value="Proyecto">Proyecto</option>
                                             <option value="Investigacion">Investigacion</option>
                                             <option value="Capstone">Capstone</option>
@@ -653,6 +662,34 @@
                                                 @endforeach
                                             </select>
                                         </div>
+
+
+
+                                        <div id="otraArea" class="md-form mb-5">
+                                            <label data-error="wrong" data-success="right" for="inputOfficeInput">Otro</label>
+                                            <div class="md-form mb-5">
+                                                <input name="otro" type="text" style="margin-bottom: 10px" />
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            const source = document.querySelector("#inputArea");
+                                            const target = document.querySelector("#otraArea");
+
+                                            const displayWhenSelected = (source, value, target) => {
+                                                const selectedIndex = source.selectedIndex;
+                                                const isSelected = source[selectedIndex].value === value;
+                                                target.classList[isSelected
+                                                    ? "add"
+                                                    : "remove"
+                                                    ]("show");
+                                            };
+                                            source.addEventListener("change", (evt) =>
+                                                displayWhenSelected(source, "5", target)
+                                            );
+                                        </script>
+
+
 
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Rubro</label>
                                         <div class="md-form mb-5">
