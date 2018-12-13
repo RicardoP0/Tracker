@@ -25,14 +25,15 @@ class DatabaseSeeder extends Seeder
 
 
         factory(App\Persona::class, 50)->create()->each(function ($u) {
-            $user = factory(App\User::class, 1)->create();
+            $user = factory(App\User::class, 1)->create()->first();
             $u->user()->associate($user);
+            $u->save();
             $faker = Faker::create();
             $cant = rand(0,3);
             for($i=0;$i<$cant;++$i){
                 $u->postgrados()->save(factory(App\Postgrado::class)->make());
             }
-            $cant = rand(0,3);
+            $cant = rand(1,3);
             for($i=0;$i<$cant;++$i){
                 $empr = factory(App\Empresa::class)->make();
                 $u->empresas()->save($empr);
@@ -47,7 +48,7 @@ class DatabaseSeeder extends Seeder
                     \App\Tipo_empresa::inRandomOrder()->first()->empresas()->save($empr);
                 }
             }
-            $cant = rand(0,3);
+            $cant = rand(1,3);
             for($i=0;$i<$cant;++$i){
                 $init_date = $faker->dateTimeBetween($startDate = '-15 years', $endDate = 'now', $timezone = null);
                 $end_date=$faker->dateTimeBetween($init_date, strtotime('+3 years'));

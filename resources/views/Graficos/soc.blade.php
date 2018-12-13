@@ -24,6 +24,7 @@
         function change_data() {
             var main_data_key =$('#main_data_select').val();
             var color_data_key =$('#color_data_select').val();
+            tempAlert("Cargando datos",5000);
             $.ajax({
                 type: 'POST',
                 url: "{{url('/graph/json')}}",
@@ -51,6 +52,17 @@
                 }
             });
 
+        }
+
+        function tempAlert(msg,duration)
+        {
+            var el = document.createElement("div");
+            el.setAttribute("style","position:absolute;top:50%;left:55%;background-color:white;");
+            el.innerHTML = msg;
+            setTimeout(function(){
+                el.parentNode.removeChild(el);
+            },duration);
+            document.body.appendChild(el);
         }
     </script>
     {{--<div class="container">--}}
