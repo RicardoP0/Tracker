@@ -162,43 +162,91 @@ class GraphController extends Controller
 //        return $dataArr;
 //
 //    }
-    private function data_array(string $maingroup,string $colorGroup){
+    private function data_array(string $maingroup){
         $startYear = Carbon::createFromFormat('Y-m-d',DB::table('cargos')->min('fecha_inicio'))->year;
         $endYear =  Carbon::createFromFormat('Y-m-d',DB::table('cargos')->max('fecha_termino'))->year;
         $dataCollect = collect();
         $dataView = \App\DataView::all();
+
         $main_group = $dataView->groupBy($maingroup);
-        $color_group = $dataView->groupBy($colorGroup)->keys();
 
         for($i=$startYear; $i<$endYear; $i++){
             foreach ( $main_group as $item){
-                foreach ($color_group as $color){
-                    $row = $item->filter(function ($item) use($i,$colorGroup,$color) {
-                        return (data_get($item, 'cargo_inicio') <= strval($i) &&
-                            data_get($item, 'cargo_termino') > strval($i) &&
-                            data_get($item, $colorGroup) == $color );
-                    });
+                $row = $item->filter(function ($item) use($i) {
+                    return (date('Y',strtotime(data_get($item, 'cargo_inicio'))) <= strval($i));
+//                        date('Y',strtotime(data_get($item, 'cargo_termino'))) > strval($i));
+                });
 
-                    if (count($row)){
-                        $row = $row->unique('rut_persona');
-                        $aux_row = [$i,$row->first()[$maingroup],$color,$row->avg('sueldo_cargo'),count($row)];
+                if (count($row)){
+                    $row = $row->groupBy('rut_persona');
+                    $aux_persona = $item->groupBy('rut_persona');
+                    $sum_years = 0;
+                    $cant_persona_exp = 0; //Contar personas que han trabajado en el area hasta la fecha
+                    $sum_sueldo = 0;
+                    $cant_persona_sueldo=0; //Contar persona trabajando actualmente
+
+                    foreach ($row as $persona){
+                        $aux_persona = $persona->unique('cargo_inicio');
+                        $cant_persona_exp+=1;
+                        foreach ($aux_persona as $val ){
+                            //Revisar anios experencia
+                            $start_date = intval(date('Y',strtotime($val['cargo_inicio'])));
+                            if($start_date <= $i){
+                                $end_date = intval(date('Y',strtotime($val['cargo_termino'])));
+                                if($end_date <= $i){
+                                    $sum_years = $sum_years+  $end_date -$start_date;
+                                }
+                                else{
+                                    $sum_years  = $sum_years +  $i - $start_date;
+                                    //Sumar sueldo para trabajo en la fecha actual
+                                    $sum_sueldo += $val['sueldo_cargo'];
+                                    $cant_persona_sueldo +=1;
+                                }
+                            }
+                        }
+                    }
+
+//                    $row = $row->filter(function ($item) use($i) {
+//                        dd($item);
+//                        $dates_st = data_get($item, '*.cargo_inicio');
+//                        $dates_end = data_get($item, '*.cargo_termino');
+//                        array_walk_recursive($dates_st, function(&$element) {
+//                            // notice: this will use the date of today and add the time to it.
+//                            $element = date('Y',strtotime($element));
+//                            // $element = strtotime($element, 0); // use 1.1.1970 as current date
+//                        });
+//                        array_walk_recursive($dates_end, function(&$element) {
+//                            // notice: this will use the date of today and add the time to it.
+//                            $element = date('Y',strtotime($element));
+//                            // $element = strtotime($element, 0); // use 1.1.1970 as current date
+//                        });
+//
+//                        dd($dates_st  );
+//                        return (date('Y',strtotime(data_get($item, 'cargo_inicio'))) <= strval($i) &&
+//                        date('Y',strtotime(data_get($item, 'cargo_termino'))) >= strval($i));
+//                    });
+//                    dump($row);
+                    if($cant_persona_sueldo != 0){
+                        $aux_row = [$i,$item->first()[$maingroup],$sum_sueldo/$cant_persona_sueldo,$cant_persona_sueldo,$sum_years/$cant_persona_exp];
                         $dataCollect->push($aux_row);
                     }
                     else{
-                        $aux_row = [$i,$item->first()[$maingroup],$color,0,0];
-                        $temp = $item->filter(function ($item) use($i,$colorGroup,$color) {
-                            return (data_get($item, $colorGroup) == $color );
-                        });
+                        $aux_row = [$i,$item->first()[$maingroup],0,0,0];
                         $dataCollect->push($aux_row);
                     }
 
+
+                }
+                else{
+                    $aux_row = [$i,$item->first()[$maingroup],0,0,0];
+                    $dataCollect->push($aux_row);
                 }
             }
 
         }
 
         $dataArr=$dataCollect->toArray();
-        $dataArr=array_prepend($dataArr,['fecha',$maingroup,$colorGroup,'avg_sueldo','cantidad_persona']);
+        $dataArr=array_prepend($dataArr,['fecha',$maingroup,'avg_sueldo','cantidad_persona','avg_experencia']);
         return $dataArr;
 
     }
