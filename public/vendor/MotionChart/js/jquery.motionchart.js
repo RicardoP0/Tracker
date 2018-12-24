@@ -17,7 +17,7 @@
  */
 
  /*jslint plusplus: true, todo: true, white: true, browser: true */
- 
+
 (function($) {
     "use strict";
 
@@ -1270,13 +1270,12 @@
                 var thisArray = [];
 
                 switch (keyID) {
-                case MapEnum.key:
+                    case MapEnum.key:
                     // Nest CSV on a new key
                     nest = d3.nest().key(function(d) {
                         return chart.key(d);
                     }).map(csv);
-                    chart.update(0); //TODO: Is this neccessary ?
-					
+                    chart.update(0); //TODO: Is this neccessary?, i guess...
                     // Update Slider
                     priv.dom.$mainSlider.slider("option", "max", d3.values(nest).length - 1);
                     priv.dom.$mainSlider.slider("value", 0); //Reset Slider
