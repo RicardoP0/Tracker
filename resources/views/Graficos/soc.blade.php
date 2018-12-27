@@ -30,7 +30,7 @@
         }
 
         * {
-            box-sizing: border-box;
+            /*box-sizing: border-box;*/
         }
 
         /* Create two equal columns that floats next to each other */
@@ -44,6 +44,8 @@
         /* Clear floats after the columns */
         .row:after {
             content: "";
+            height: 30px;
+            width: 70px;
             display: table;
             clear: both;
         }
@@ -69,6 +71,7 @@
         function change_data() {
             var main_data_key =$('#main_data_select').val();
             tempAlert("Cargando datos",5000);
+
             $.ajax({
                 type: 'POST',
                 url: "{{url('/graph/json')}}",
@@ -92,56 +95,56 @@
                         loop: true
                     });
 
+
+                    $( document ).ready(function() {
+                        setTimeout(function(){
+                            clearBox();
+                            var option=$('#main_data_select').val();
+                            var y = document.getElementsByClassName("node");
+                            var x = document.getElementsByClassName("circle");
+                            clearcant=x.length;
+                            switch (option) {
+                                case "nombre_carrera":
+                                    Object.keys(x).forEach(function (key) {
+                                        createbox(x[key].getAttribute("style"),y[key].__data__.nombre_carrera);
+                                    });
+                                    break;
+                                case "universidad_carrera":
+                                    Object.keys(x).forEach(function (key) {
+                                        createbox(x[key].getAttribute("style"),y[key].__data__.universidad_carrera);
+                                    });
+                                    break;
+                                case "nombre_tipo_empresa":
+                                    Object.keys(x).forEach(function (key) {
+                                        createbox(x[key].getAttribute("style"),y[key].__data__.nombre_tipo_empresa);
+                                    });
+                                    break;
+                                case "nombre_rubro":
+                                    Object.keys(x).forEach(function (key) {
+                                        createbox(x[key].getAttribute("style"),y[key].__data__.nombre_rubro);
+                                    });
+                                    break;
+                                case "postgrado_nombre":
+                                    Object.keys(x).forEach(function (key) {
+                                        createbox(x[key].getAttribute("style"),y[key].__data__.postgrado_nombre);
+                                    });
+                                    break;
+                                case "nombre_cargo":
+                                    Object.keys(x).forEach(function (key) {
+                                        createbox(x[key].getAttribute("style"),y[key].__data__.postgrado_nombre);
+                                    });
+                                    break;
+                                case "nombre_area":
+                                    Object.keys(x).forEach(function (key) {
+                                        createbox(x[key].getAttribute("style"),y[key].__data__.postgrado_nombre);
+                                    });
+                                    break;
+                            }
+
+                        },5000);
+                    });
+
                 }
-            });
-
-            clearBox();
-
-            $( document ).ready(function() {
-                setTimeout(function(){
-                    var option=$('#main_data_select').val()
-                    var y = document.getElementsByClassName("node");
-                    var x = document.getElementsByClassName("circle");
-                    clearcant=x.length;
-                    switch (option) {
-                        case "nombre_carrera":
-                            Object.keys(x).forEach(function (key) {
-                                createbox(x[key].getAttribute("style"),y[key].__data__.nombre_carrera);
-                            });
-                            break;
-                        case "universidad_carrera":
-                            Object.keys(x).forEach(function (key) {
-                                createbox(x[key].getAttribute("style"),y[key].__data__.universidad_carrera);
-                            });
-                            break;
-                        case "nombre_tipo_empresa":
-                            Object.keys(x).forEach(function (key) {
-                                createbox(x[key].getAttribute("style"),y[key].__data__.nombre_tipo_empresa);
-                            });
-                            break;
-                        case "nombre_rubro":
-                            Object.keys(x).forEach(function (key) {
-                                createbox(x[key].getAttribute("style"),y[key].__data__.nombre_rubro);
-                            });
-                            break;
-                        case "postgrado_nombre":
-                            Object.keys(x).forEach(function (key) {
-                                createbox(x[key].getAttribute("style"),y[key].__data__.postgrado_nombre);
-                            });
-                            break;
-                        case "nombre_cargo":
-                            Object.keys(x).forEach(function (key) {
-                                createbox(x[key].getAttribute("style"),y[key].__data__.postgrado_nombre);
-                            });
-                            break;
-                        case "nombre_area":
-                            Object.keys(x).forEach(function (key) {
-                                createbox(x[key].getAttribute("style"),y[key].__data__.postgrado_nombre);
-                            });
-                            break;
-                    }
-
-                },8000);
             });
 
         }
@@ -257,7 +260,7 @@
 
                     });
                     //clearBox();
-                },8000);
+                },5000);
             });
 
             function clearBox() {
