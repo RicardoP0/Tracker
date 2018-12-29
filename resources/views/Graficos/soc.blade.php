@@ -130,11 +130,13 @@
         <div class="row">
     <style>
         .legendbox {
-            width: 200px;
-            height: 500px;
+            /*width: 400px;
+            height: 500px;*/
+            width: 70%;
+            height: 80%;
             border: 3px solid #ffffff;
             padding: 25px;
-            margin: 25px;
+            /*margin: 10px;*/
         }
         section {
             width: 80%;
@@ -149,6 +151,8 @@
             float: left;
         }
         div#legend {
+            width: 60%;
+            height: 80%;
             margin-left: 40%;
             height: 500px;
             background: white;
@@ -163,14 +167,18 @@
             float: left;
             width: 50%;
             padding: 5px;
-            height: 50px; /* Should be removed. Only for demonstration */
+            /*height: 50px; /* Should be removed. Only for demonstration */
         }
-
+        .columShort{
+            float: left;
+            width: 20%;
+            padding: 5px;
+        }
         /* Clear floats after the columns */
         .row:after {
             content: "";
-            height: 30px;
-            width: 70px;
+            height: 0px;
+            width: 50px;
             display: table;
             clear: both;
         }
@@ -247,12 +255,12 @@
                                     break;
                                 case "nombre_cargo":
                                     Object.keys(x).forEach(function (key) {
-                                        createbox(x[key].getAttribute("style"),y[key].__data__.postgrado_nombre);
+                                        createbox(x[key].getAttribute("style"),y[key].__data__.nombre_cargo);
                                     });
                                     break;
                                 case "nombre_area":
                                     Object.keys(x).forEach(function (key) {
-                                        createbox(x[key].getAttribute("style"),y[key].__data__.postgrado_nombre);
+                                        createbox(x[key].getAttribute("style"),y[key].__data__.nombre_area);
                                     });
                                     break;
                             }
@@ -388,13 +396,13 @@
 
             function createbox($rgb,$name) {
                 $("#legendboxes").append("<div class=\"row\" id=\"rec\">\n" +
-                    "                    <div class=\"column\">\n" +
+                    "                    <div class=\"columShort\">\n" +
                     "                        <svg width=\"30\" height=\"15\">\n" +
                     "                            <rect width=\"30\" height=\"15\" style=\""+$rgb+"stroke-width:3;stroke:rgb(0,0,0)\"/>\n" +
                     "                        </svg>\n" +
                     "                    </div>\n" +
                     "                    <div class=\"column\">\n" +
-                    "                        <p>"+$name+"</p>\n" +
+                    "                        <p ALIGN=\"LEFT\">"+$name+"</p>\n" +
                     "                    </div>\n" +
                     "                </div>");
                 /**
