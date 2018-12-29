@@ -1,8 +1,133 @@
-@extends('layouts.master')
-@section('title')
-    Grafico
-@endsection
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href={{asset("vendor/bootstrap/css/bootstrap.min.css")}} rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href={{asset("vendor/metisMenu/metisMenu.min.css")}} rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href={{asset("vendor/morrisjs/morris.css")}} rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href={{asset("vendor/font-awesome/css/font-awesome.min.css")}} rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core CSS
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- MetisMenu CSS
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/3.0.3/metisMenu.css" rel="stylesheet">
+    -->
+    <!-- Custom CSS -->
+    <link href={{asset("css/sb-admin-2.min.css")}} rel="stylesheet">
+
+    <!-- Morris Charts CSS
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+
+    <!-- Custom Fonts
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+ -->
+    <script src={{asset("vendor/jquery/jquery.min.js")}}></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src={{asset("vendor/bootstrap/js/bootstrap.min.js")}}></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src={{asset("vendor/metisMenu/metisMenu.min.js")}}></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src={{asset("vendor/raphael/raphael.min.js")}}></script>
+    <script src={{asset("vendor/morrisjs/morris.min.js")}}></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src={{asset("js/sb-admin-2.min.js")}}></script>
+
+    <!-- graph stylesheet -->
+    <link href={{asset("vendor/MotionChart/css/bootstrap/bootstrap.min.css")}} rel="stylesheet">
+    <link href="http://socr.ucla.edu/htmls/HTML5/MotionChart/css/jquery-ui-1.8.20.custom.css" rel="stylesheet">
+    <link href={{asset("vendor/MotionChart/css/jquery.handsontable.css")}} rel="stylesheet">
+    <link href={{asset("vendor/MotionChart/css/jquery.motionchart.css")}} rel="stylesheet">
+    <link href={{asset("vendor/MotionChart/css/jquery.contextMenu.css")}} rel="stylesheet">
+    <!--Scripts-->
+    <script src={{asset("vendor/MotionChart/js/jquery-1.7.2.min.js")}}></script>
+    <script src={{asset("vendor/MotionChart/js/dependencies.min.js")}}></script>
+    <script src={{asset("vendor/MotionChart/js/custom-bootstrap.js")}}></script>
+    <script src={{asset("vendor/MotionChart/js/jquery.handsontable.js")}}></script>
+    <script src={{asset("vendor/MotionChart/js/jquery.motionchart.js")}}></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+    <!-- navbar -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            {{--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">--}}
+            {{--<span class="sr-only">Toggle navigation</span>--}}
+            {{--<span class="icon-bar"></span>--}}
+            {{--<span class="icon-bar"></span>--}}
+            {{--<span class="icon-bar"></span>--}}
+            {{--</button>--}}
+            <a class="navbar-brand" href="{{url('graph')}}">Proyecto</a>
+        </div>
+        <ul class="navbar-nav navbar-top-links navbar-right">
+            @guest
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('user/create') }}">{{ __('Register') }}</a>
+                </li>
+            @else
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }} <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href={{url('graph')}}><i class="fa fa-dashboard fa-fw"></i> Grafico</a>
+                        <a href={{url('persona/'.Auth::user()->persona->id)}}><i class="fa fa-suitcase fa-fw"></i> Configuracion de perfil</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+            @endguest
+        </ul>
+    </nav>
+
+    <div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Grafico</h1>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
     <style>
         .legendbox {
             width: 200px;
@@ -54,17 +179,7 @@
     <!-- Meta Needed to force IE out of Quirks mode -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <!--StyleSheets-->
-    <link href={{asset("vendor/MotionChart/css/bootstrap/bootstrap.min.css")}} rel="stylesheet">
-    <link href="http://socr.ucla.edu/htmls/HTML5/MotionChart/css/jquery-ui-1.8.20.custom.css" rel="stylesheet">
-    <link href={{asset("vendor/MotionChart/css/jquery.handsontable.css")}} rel="stylesheet">
-    <link href={{asset("vendor/MotionChart/css/jquery.motionchart.css")}} rel="stylesheet">
-    <link href={{asset("vendor/MotionChart/css/jquery.contextMenu.css")}} rel="stylesheet">
-    <!--Scripts-->
-    <script src={{asset("vendor/MotionChart/js/jquery-1.7.2.min.js")}}></script>
-    <script src={{asset("vendor/MotionChart/js/dependencies.min.js")}}></script>
-    <script src={{asset("vendor/MotionChart/js/custom-bootstrap.js")}}></script>
-    <script src={{asset("vendor/MotionChart/js/jquery.handsontable.js")}}></script>
-    <script src={{asset("vendor/MotionChart/js/jquery.motionchart.js")}}></script>
+
     <script>
         var dataArr = @json($dataArr) ;
 
@@ -80,12 +195,13 @@
                     main_data_key: main_data_key,
                 },
                 success: function (data) {
-
+                    dataArr = data;
+                    console.log(data);
                     $('.motionchart').motionchart('destroy');
 
                     $('.motionchart').motionchart({
                         title: "Motion Chart",
-                        'data': data,
+                        'data': dataArr,
                         mappings: {key: 0, x: 4, y: 2,
                             size: 3,  color: 1, category: 1 },
                         scalings: { x: 'linear', y: 'linear' },
@@ -307,4 +423,18 @@
 
 
     </body>
-@endsection
+        </div>
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+
+
+
+</body>
+
+</html>
