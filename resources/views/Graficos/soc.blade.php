@@ -130,55 +130,46 @@
         <div class="row">
     <style>
         .legendbox {
-            /*width: 400px;
-            height: 500px;*/
-            width: 70%;
-            height: 80%;
+            width: 100%;
+            height: 100%;
+            margin-left: 10%;
             border: 3px solid #ffffff;
-            padding: 25px;
-            /*margin: 10px;*/
         }
-        section {
-            width: 80%;
-            height: 200px;
-            margin: 50px;/* original auto*/
-            padding: 10px;
-        }
-        div#graph {
-            margin-left: 10%;/*margen del grafico*/
-            width: 70%;
-            height: 1000px;
-            float: left;
-        }
-        div#legend {
-            width: 60%;
-            height: 80%;
-            margin-left: 40%;
-            height: 500px;
-            background: white;
-        }
-
-        * {
-            /*box-sizing: border-box;*/
-        }
-
-        /* Create two equal columns that floats next to each other */
-        .column {
+        /* Create columns for sections the summation must be 100% */
+        .columnGraph {
             float: left;
             width: 50%;
             padding: 5px;
             /*height: 50px; /* Should be removed. Only for demonstration */
         }
-        .columShort{
+        .columnLegend{
+            float: left;
+            width: 30%;
+            padding: 5px;
+        }
+        .columnFilters{
             float: left;
             width: 20%;
             padding: 5px;
         }
+        /*this is the column for color box the legend*/
+        .columnShort{
+            float: left;
+            width: 20%;
+            /*padding: 5px;*/
+        }
+        /*this is the normal column for text of legend*/
+        .column{
+            float: left;
+            width: 80%;
+            /*padding: 5px;*/
+        }
+
         /* Clear floats after the columns */
         .row:after {
             content: "";
             height: 0px;
-            width: 50px;
+            /*width: 50px;*/
             display: table;
             clear: both;
         }
@@ -327,10 +318,13 @@
         <button onclick="change_data()">Seleccionar</button>
 
         <div class="row">
-            <div class="column">
+            <div class="columnFilters">
+
+            </div>
+            <div class="columnGraph">
                 <div id="graph" class="motionchart" style="width:800px; height:600px;"></div>
             </div>
-            <div class="column">
+            <div class="columnLegend">
 
                 <div id="legend" class="legendbox">
                     <ul id="legendboxes">
@@ -396,7 +390,7 @@
 
             function createbox($rgb,$name) {
                 $("#legendboxes").append("<div class=\"row\" id=\"rec\">\n" +
-                    "                    <div class=\"columShort\">\n" +
+                    "                    <div class=\"columnShort\">\n" +
                     "                        <svg width=\"30\" height=\"15\">\n" +
                     "                            <rect width=\"30\" height=\"15\" style=\""+$rgb+"stroke-width:3;stroke:rgb(0,0,0)\"/>\n" +
                     "                        </svg>\n" +
