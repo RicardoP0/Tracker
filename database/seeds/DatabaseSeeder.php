@@ -63,5 +63,18 @@ class DatabaseSeeder extends Seeder
 
 
         });
+
+        DB::table('otro_areas')->insert([
+            'cargo_id' => 2,
+            'nombre_area' =>'otro1'
+        ]);
+        DB::table('otro_areas')->insert([
+            'cargo_id' => 3,
+            'nombre_area' =>'otro2'
+        ]);
+        DB::table('otro_areas')->insert([
+            'cargo_id' => 4,
+            'nombre_area' =>'otro3'
+        ]);
     }
 }

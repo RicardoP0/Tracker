@@ -38,5 +38,8 @@ Route::post('cargoDelete/json', 'PersonaController@jsonDeleteCargo');
 
 Route::resource('persona','PersonaController');
 Auth::routes();
+Route::resource('otros', 'OtroAreaController');
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');

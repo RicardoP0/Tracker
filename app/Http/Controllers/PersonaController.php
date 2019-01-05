@@ -54,6 +54,7 @@ class PersonaController extends Controller
      */
     public function show(Persona $persona)
     {
+
         $nombre =$persona->nombre;
         $rut = $persona->rut;
         $email=$persona->user->email;
@@ -111,6 +112,14 @@ class PersonaController extends Controller
      */
     public function update(Request $request, Persona $persona)
     {
+
+        $request->validate([
+            'estado_trabajo'=>'required|string',
+            'tipo_tesis'=>'required',
+            'fecha_ingreso'=>'required|date',
+            'fecha_egreso' =>'required|date',
+            'fecha_titulacion' => 'required|date'
+        ]);
         $persona->situacion_laboral=$request->estado_trabajo;
         $persona->carreras()->detach();
         $persona->carreras()->attach($request->carrera,['tipo_tesis'=>$request->tipo_tesis,
@@ -118,8 +127,7 @@ class PersonaController extends Controller
             'fecha_egreso'=>$request->fecha_egreso,
             "fecha_titulacion"=>$request->fecha_titulacion]);
 
-        //dd($request->all());
-
+        return redirect()->back()->with('Datos guardados');
     }
 
     /**
@@ -135,6 +143,17 @@ class PersonaController extends Controller
 
     public function jsonAddCargo(Request $request)
     {
+        //Agregas exists para revisar base de dato
+        $request->validate([
+            'fechaS'=>'required|date',
+            'fechaE' =>'required|date',
+            'sueldo' => 'required|number',
+            'lvl' => 'required|number',
+            'area' => 'required|number',
+            'nombre' => 'required|string',
+            'tipoEmp' => 'required|string',
+            'rubro' => 'required|number',
+        ]);
         $fechai=$request->fechaS;
         $fechat=$request->fechaE;
         $sal=$request->sueldo;
@@ -161,6 +180,16 @@ class PersonaController extends Controller
 
     public  function jsonEditCargo(Request $request)
     {
+        $request->validate([
+            'fechaS'=>'required|date',
+            'fechaE' =>'required|date',
+            'sueldo' => 'required|number',
+            'lvl' => 'required|number',
+            'area' => 'required|number',
+            'nombre' => 'required|string',
+            'tipoEmp' => 'required|string',
+            'rubro' => 'required|number',
+        ]);
 
         $fechaI=$request->fechaS;
         $fechaT=$request->fechaE;
@@ -191,12 +220,18 @@ class PersonaController extends Controller
     public  function jsonDeleteCargo(Request $request)
     {
         $id=$request->id;
-        $cargo= \App\Cargo::find($id);
+        $cargo= \App\Cargo::findOrFail($id);
         $cargo->delete();
     }
 
     public  function jsonAdd(Request $request)
     {
+        $request->validate([
+            'nombre' => 'required|string',
+            'tipo' => 'required|number',
+            'univ' => 'required|number',
+            'date' => 'required|date',
+        ]);
         $nombre = $request->nombre;
         $tipo=$request->tipo;
         $uni=$request->univ;
@@ -213,6 +248,12 @@ class PersonaController extends Controller
 
     public  function jsonEdit(Request $request)
     {
+        $request->validate([
+            'nombre' => 'required|string',
+            'tipo' => 'required|number',
+            'univ' => 'required|number',
+            'date' => 'required|date',
+        ]);
         $nombre = $request->nombre;
         $tipo=$request->tipo;
         $uni=$request->univ;

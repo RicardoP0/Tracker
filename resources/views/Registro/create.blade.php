@@ -9,7 +9,6 @@
         <div class="panel panel-info">
             <div class="panel-heading">
                 <div class="panel-title">Registro</div>
-                <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="/accounts/login/">Ingresar</a></div>
             </div>
             <div class="panel-body" >
                 <form  class="form-horizontal" method="post" action="/user">

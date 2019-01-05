@@ -21,5 +21,8 @@ class Cargo extends Model
     public function nivel_cargo(){
         return $this->belongsTo('App\Nivel_cargo');
     }
+    public function otro_area(){
+        return $this->hasOne('App\Otro_area');
+    }
 
 }
