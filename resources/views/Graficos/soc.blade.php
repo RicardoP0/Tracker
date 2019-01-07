@@ -66,6 +66,7 @@
     <script src={{asset("vendor/MotionChart/js/jquery.motionchart.js")}}></script>
 </head>
 
+
 <body>
 
 <div id="wrapper">
@@ -144,12 +145,13 @@
         }
         .columnLegend{
             float: left;
-            width: 30%;
+            width: 25%;
             padding: 5px;
         }
         .columnFilters{
             float: left;
-            width: 20%;
+            width: 23%;
+            margin-left: 2%;
             padding: 5px;
         }
         /*this is the column for color box the legend*/
@@ -174,6 +176,59 @@
             clear: both;
         }
     </style>
+    <style>
+        .dropbtn {
+            background-color: #3228af;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropbtn:hover, .dropbtn:focus {
+            background-color: #7b8e3e;
+        }
+
+        #myInput {
+            border-box: box-sizing;
+            /*background-image:  url("searchicon.png") ;*/
+            background-position: 14px 12px;
+            background-repeat: no-repeat;
+            font-size: 16px;
+            padding: 14px 20px 12px 45px;
+            border: none;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #myInput:focus {outline: 3px solid #ddd;}
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f6f6f6;
+            min-width: 230px;
+            overflow: auto;
+            border: 1px solid #ddd;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown a:hover {background-color: #ddd;}
+
+        .show {display: block;}
+    </style>
     <body>
     <!-- Meta Needed to force IE out of Quirks mode -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -191,7 +246,7 @@
                 url: "{{url('/graph/json')}}",
                 data: {
                     _token: "{{ csrf_token() }}",
-                    main_data_key: main_data_key,
+                    main_data_key: main_data_key
                 },
                 success: function (data) {
                     dataArr = data;
@@ -319,13 +374,206 @@
 
         <div class="row">
             <div class="columnFilters">
+                <div class="row" id="fil">
+                    <?php $vista=\App\DataView::all();
+                    $carrera = $vista->groupBy('nombre_carrera')->keys();
+                    $i=0;
+                    ?>
 
+                    <div class="row">
+                        <div class="dropdown">
+                            <button onclick="myFunction('myDropdown')" class="dropbtn">Carrera</button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction('myInput','myDropdown')">
+                                @foreach($carrera as $c)
+                                    <a>
+                                        <div class="columnShort">
+                                            <input type="checkbox" id="fil-{{$i}}" value={{$c}} name="nombre_carrera" onchange="setFilter()">
+                                        </div>
+                                        <div class="column">
+                                            <p ALIGN="LEFT">{{$c}}</p>
+                                        </div>
+                                        <?php $i++?>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+
+                    <?php $universidad = $vista->groupBy('universidad_carrera')->keys();?>
+
+                    <div class="row">
+                        <div class="dropdown">
+                            <button onclick="myFunction('myDropdown2')" class="dropbtn">Universidad</button>
+                            <div id="myDropdown2" class="dropdown-content">
+                                <input type="text" placeholder="Search.." id="myInput2" onkeyup="filterFunction('myInput2','myDropdown2')">
+                                @foreach($universidad as $u)
+                                    <a>
+                                        <div class="columnShort">
+                                            <input type="checkbox" id="fil-{{$i}}" value={{$u}} name="universidad_carrera" onchange="setFilter()">
+                                        </div>
+                                        <div class="column">
+                                            <p ALIGN="LEFT">{{$u}}</p>
+                                        </div>
+                                        <?php $i++?>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+
+
+                    <?php $postgrado = $vista->groupBy('postgrado_nombre')->keys();?>
+
+                    <div class="row">
+                        <div class="dropdown">
+                            <button onclick="myFunction('myDropdown3')" class="dropbtn">Postgrado</button>
+                            <div id="myDropdown3" class="dropdown-content">
+                                <input type="text" placeholder="Search.." id="myInput3" onkeyup="filterFunction('myInput3','myDropdown3')">
+                                @foreach($postgrado as $p)
+                                    <a>
+                                        <div class="columnShort">
+                                            <input type="checkbox" id="fil-{{$i}}"  name="postgrado_nombre" onchange="setFilter()">
+                                        </div>
+                                        <div class="column">
+                                            <p ALIGN="LEFT">{{$p}}</p>
+                                        </div>
+                                        <?php $i++?>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <?php $rubro = $vista->groupBy('nombre_rubro')->keys();?>
+
+                    <div class="row">
+                        <div class="dropdown">
+                            <button onclick="myFunction('myDropdown4')" class="dropbtn">Rubro</button>
+                            <div id="myDropdown4" class="dropdown-content">
+                                <input type="text" placeholder="Search.." id="myInput4" onkeyup="filterFunction('myInput4','myDropdown4')">
+                                @foreach($rubro as $r)
+                                    <a>
+                                        <div class="columnShort">
+                                            <input type="checkbox" id="fil-{{$i}}" name="nombre_rubro" onchange="setFilter()">
+                                        </div>
+                                        <div class="column">
+                                            <p ALIGN="LEFT">{{$r}}</p>
+                                        </div>
+                                        <?php $i++?>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+
+                    <?php $tipoEmp = $vista->groupBy('nombre_tipo_empresa')->keys();
+                    ?>
+
+                    <div class="row">
+                        <div class="dropdown">
+                            <button onclick="myFunction('myDropdown5')" class="dropbtn">Tipo de empresa</button>
+                            <div id="myDropdown5" class="dropdown-content">
+                                <input type="text" placeholder="Search.." id="myInput5" onkeyup="filterFunction('myInput5','myDropdown5')">
+                                @foreach($tipoEmp as $t)
+                                    <a>
+                                        <div class="columnShort">
+                                            <input type="checkbox" id="fil-{{$i}}" name="nombre_tipo_empresa" onchange="setFilter()">
+                                        </div>
+                                        <div class="column">
+                                            <p ALIGN="LEFT">{{$t}}</p>
+                                        </div>
+                                        <?php $i++?>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                        <br>
+
+                    <?php $cargo = $vista->groupBy('nombre_cargo')->keys();?>
+
+                    <div class="row">
+                        <div class="dropdown">
+                            <button onclick="myFunction('myDropdown6')" class="dropbtn">Cargo</button>
+                            <div id="myDropdown6" class="dropdown-content">
+                                <input type="text" placeholder="Search.." id="myInput6" onkeyup="filterFunction('myInput6','myDropdown6')">
+                                @foreach($cargo as $ca)
+                                    <a>
+                                        <div class="columnShort">
+                                            <input type="checkbox" id="fil-{{$i}}" name="nombre_cargo" onchange="setFilter()">
+                                        </div>
+                                        <div class="column">
+                                            <p ALIGN="LEFT">{{$ca}}</p>
+                                        </div>
+                                        <?php $i++?>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                        <br>
+
+
+                    <?php $area = $vista->groupBy('nombre_area')->keys();?>
+
+                    <div class="row">
+                        <div class="dropdown">
+                            <button onclick="myFunction('myDropdown7')" class="dropbtn">Area</button>
+                            <div id="myDropdown7" class="dropdown-content">
+                                <input type="text" placeholder="Search.." id="myInput7" onkeyup="filterFunction('myInput7','myDropdown7')">
+                                @foreach($area as $a)
+                                    <div class="columnShort">
+                                        <input type="checkbox" id="fil-{{$i}}" name="nombre_area" onchange="setFilter()">
+                                    </div>
+                                    <div class="column">
+                                        <p ALIGN="LEFT">{{$a}}</p>
+                                    </div>
+                                    <?php $i++?>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                        <br>
+
+                </div>
             </div>
+
+            <script>
+                function myFunction($drop) {
+                    document.getElementById($drop).classList.toggle("show");
+                }
+
+                function filterFunction($myinput,$mydropdown) {
+                    var input, filter, ul, li, a, i;
+                    input = document.getElementById($myinput);
+                    filter = input.value.toUpperCase();
+                    div = document.getElementById($mydropdown);
+
+                    a = div.getElementsByTagName("a");
+                    for (i = 0; i < a.length; i++) {
+                        txtValue = a[i].textContent || a[i].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            a[i].style.display = "";
+                        } else {
+                            a[i].style.display = "none";
+                        }
+                    }
+                }
+            </script>
+
+
             <div class="columnGraph">
                 <div id="graph" class="motionchart" style="width:800px; height:600px;"></div>
             </div>
             <div class="columnLegend">
-
                 <div id="legend" class="legendbox">
                     <ul id="legendboxes">
 
@@ -351,6 +599,108 @@
                 </div>
             </ul>
         </div>-->
+        <script>
+            var $filtersArr;
+
+            function setFilter() {
+
+                $filtersArr=[];
+                debugger;
+                var i;
+                var cant="<?php echo $i?>";
+                for (i = 0; i < cant; i++) {
+                    if ($("#fil-"+i).is(':checked')) {
+                        //get name and value for push into array
+                        $filtersArr.push([document.getElementById("fil-"+i).getAttribute("name"),document.getElementById("fil-"+i).value]);
+                    }
+                }
+                filter();
+            }
+
+
+            function filter() {
+                var main_data_key =$('#main_data_select').val();
+                debugger;
+                $.ajax({
+                    type: 'POST',
+                    url: "{{url('/graph/json')}}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        main_data_key: main_data_key,
+                        filters: $filtersArr
+                    },
+                    success: function (data) {
+                        dataArr = data;
+                        console.log(data);
+                        $('.motionchart').motionchart('destroy');
+
+                        $('.motionchart').motionchart({
+                            title: "Motion Chart",
+                            'data': dataArr,
+                            mappings: {key: 0, x: 4, y: 2,
+                                size: 3,  color: 1, category: 1 },
+                            scalings: { x: 'linear', y: 'linear' },
+                            colorPalette: {"Blue-Red": {from: "rgb(100,150,255)", to: "rgb(200,255,100)"}},
+                            color: "Blue-Red",
+                            play: true,
+                            loop: true
+                        });
+
+
+                        $( document ).ready(function() {
+                            debugger;
+                            setTimeout(function(){
+                                clearBox();
+                                var option=$('#main_data_select').val();
+                                var y = document.getElementsByClassName("node");
+                                var x = document.getElementsByClassName("circle");
+                                clearcant=x.length;
+                                switch (option) {
+                                    case "nombre_carrera":
+                                        Object.keys(x).forEach(function (key) {
+                                            createbox(x[key].getAttribute("style"),y[key].__data__.nombre_carrera);
+                                        });
+                                        break;
+                                    case "universidad_carrera":
+                                        Object.keys(x).forEach(function (key) {
+                                            createbox(x[key].getAttribute("style"),y[key].__data__.universidad_carrera);
+                                        });
+                                        break;
+                                    case "nombre_tipo_empresa":
+                                        Object.keys(x).forEach(function (key) {
+                                            createbox(x[key].getAttribute("style"),y[key].__data__.nombre_tipo_empresa);
+                                        });
+                                        break;
+                                    case "nombre_rubro":
+                                        Object.keys(x).forEach(function (key) {
+                                            createbox(x[key].getAttribute("style"),y[key].__data__.nombre_rubro);
+                                        });
+                                        break;
+                                    case "postgrado_nombre":
+                                        Object.keys(x).forEach(function (key) {
+                                            createbox(x[key].getAttribute("style"),y[key].__data__.postgrado_nombre);
+                                        });
+                                        break;
+                                    case "nombre_cargo":
+                                        Object.keys(x).forEach(function (key) {
+                                            createbox(x[key].getAttribute("style"),y[key].__data__.nombre_cargo);
+                                        });
+                                        break;
+                                    case "nombre_area":
+                                        Object.keys(x).forEach(function (key) {
+                                            createbox(x[key].getAttribute("style"),y[key].__data__.nombre_area);
+                                        });
+                                        break;
+                                }
+
+                            },3000);
+                        });
+
+                    }
+                });
+
+            };
+        </script>
 
         <script>
             $('.motionchart').motionchart({
@@ -373,9 +723,10 @@
                     var y = document.getElementsByClassName("node");
                     var x = document.getElementsByClassName("circle");
                     clearcant=x.length;
+                    var k=0;
                     Object.keys(x).forEach(function (key) {
                             createbox(x[key].getAttribute("style"),y[key].__data__.nombre_cargo);
-
+                            k++;
                     });
                     //clearBox();
                 },3000);
@@ -383,6 +734,7 @@
 
             function clearBox() {
                 var i;
+                debugger;
                 for (i = 0; i < clearcant; i++) {
                     $("#rec").remove();
                 }
@@ -399,22 +751,6 @@
                     "                        <p ALIGN=\"LEFT\">"+$name+"</p>\n" +
                     "                    </div>\n" +
                     "                </div>");
-                /**
-                 * $("#legendboxes").append("<svg width=\"30\" height=\"15\">\n" +
-                 "                <rect id=\"text1\" width=\"30\" height=\"15\" style=\""+$rgb+"stroke-width:3;stroke:rgb(0,0,0)\" />\n" +
-                 "            </svg><p style=\"float:right\">"+$name+"</p><br>");
-
-                 <div class="row">
-                 <div class="column">
-                 <svg width="30" height="15">
-                 <rect id="text1" width="30" height="15" style="stroke-width:3;stroke:rgb(0,0,0)"/>
-                 </svg>
-                 </div>
-                 <div class="column">
-                 <p>Some text..</p>
-                 </div>
-                 </div>
-                 */
             };
 
 
