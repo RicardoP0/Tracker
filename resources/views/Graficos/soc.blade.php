@@ -133,7 +133,7 @@
         .legendbox {
             width: 100%;
             height: 100%;
-            margin-left: 10%;
+            margin-left: 15%;
             border: 3px solid #ffffff;
         }
         /* Create columns for sections the summation must be 100% */
@@ -178,16 +178,19 @@
     </style>
     <style>
         .dropbtn {
-            background-color: #3228af;
-            color: white;
+            background-color: #e1e1e1;
+            color: #000000;
             padding: 16px;
             font-size: 16px;
+            width: 300px;
             border: none;
             cursor: pointer;
+            border-style: solid;
+            border-color: #000000;
         }
 
         .dropbtn:hover, .dropbtn:focus {
-            background-color: #7b8e3e;
+            background-color: #57bfff;
         }
 
         #myInput {
@@ -210,7 +213,7 @@
 
         .dropdown-content {
             display: none;
-            position: absolute;
+            /*position: absolute;*/
             background-color: #f6f6f6;
             min-width: 230px;
             overflow: auto;
@@ -359,6 +362,43 @@
         {{--</div>--}}
     {{--</div>--}}
 
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul li {
+            border: 1px solid #ddd;
+            margin-top: -1px; /* Prevent double borders */
+            background-color: #f6f6f6;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 14px;
+            color: black;
+            display: block;
+            position: relative;
+            width: 300px;
+        }
+
+        .closef {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            right: 0%;
+            padding: 12px 16px;
+            transform: translate(0%, -50%);
+        }
+
+        .closef:hover {background: #bbb;}
+    </style>
+
+
     <div id="content" align="center">
         Categoria
         <select id="main_data_select" >
@@ -367,7 +407,7 @@
             <option value="nombre_tipo_empresa">Tipo Empresa</option>
             <option value="nombre_rubro">Rubro</option>
             <option value="postgrado_nombre">Tipo de postgrado</option>
-            <option value="nombre_cargo">Nivel de cargo</option>
+            <option selected value="nombre_cargo">Nivel de cargo</option>
             <option value="nombre_area">Area</option>
         </select>
         <button onclick="change_data()">Seleccionar</button>
@@ -379,6 +419,11 @@
                     $carrera = $vista->groupBy('nombre_carrera')->keys();
                     $i=0;
                     ?>
+                    <div class="row" id="selectedFilters">
+                        <ul id="activeFilter">
+
+                        </ul>
+                    </div>
 
                     <div class="row">
                         <div class="dropdown">
@@ -388,7 +433,7 @@
                                 @foreach($carrera as $c)
                                     <a>
                                         <div class="columnShort">
-                                            <input type="checkbox" id="fil-{{$i}}" value={{$c}} name="nombre_carrera" onchange="setFilter()">
+                                            <input type="checkbox" id="fil-{{$i}}" value="{{$c}}" name="nombre_carrera" onchange="setFilter()">
                                         </div>
                                         <div class="column">
                                             <p ALIGN="LEFT">{{$c}}</p>
@@ -412,7 +457,7 @@
                                 @foreach($universidad as $u)
                                     <a>
                                         <div class="columnShort">
-                                            <input type="checkbox" id="fil-{{$i}}" value={{$u}} name="universidad_carrera" onchange="setFilter()">
+                                            <input type="checkbox" id="fil-{{$i}}" value="{{$u}}" name="universidad_carrera" onchange="setFilter()">
                                         </div>
                                         <div class="column">
                                             <p ALIGN="LEFT">{{$u}}</p>
@@ -437,7 +482,7 @@
                                 @foreach($postgrado as $p)
                                     <a>
                                         <div class="columnShort">
-                                            <input type="checkbox" id="fil-{{$i}}"  name="postgrado_nombre" onchange="setFilter()">
+                                            <input type="checkbox" id="fil-{{$i}}" value="{{$p}}"  name="postgrado_nombre" onchange="setFilter()">
                                         </div>
                                         <div class="column">
                                             <p ALIGN="LEFT">{{$p}}</p>
@@ -460,7 +505,7 @@
                                 @foreach($rubro as $r)
                                     <a>
                                         <div class="columnShort">
-                                            <input type="checkbox" id="fil-{{$i}}" name="nombre_rubro" onchange="setFilter()">
+                                            <input type="checkbox" id="fil-{{$i}}" value="{{$r}}" name="nombre_rubro" onchange="setFilter()">
                                         </div>
                                         <div class="column">
                                             <p ALIGN="LEFT">{{$r}}</p>
@@ -485,7 +530,7 @@
                                 @foreach($tipoEmp as $t)
                                     <a>
                                         <div class="columnShort">
-                                            <input type="checkbox" id="fil-{{$i}}" name="nombre_tipo_empresa" onchange="setFilter()">
+                                            <input type="checkbox" id="fil-{{$i}}" value="{{$t}}" name="nombre_tipo_empresa" onchange="setFilter()">
                                         </div>
                                         <div class="column">
                                             <p ALIGN="LEFT">{{$t}}</p>
@@ -508,7 +553,7 @@
                                 @foreach($cargo as $ca)
                                     <a>
                                         <div class="columnShort">
-                                            <input type="checkbox" id="fil-{{$i}}" name="nombre_cargo" onchange="setFilter()">
+                                            <input type="checkbox" id="fil-{{$i}}" value="{{$ca}}" name="nombre_cargo" onchange="setFilter()">
                                         </div>
                                         <div class="column">
                                             <p ALIGN="LEFT">{{$ca}}</p>
@@ -530,12 +575,14 @@
                             <div id="myDropdown7" class="dropdown-content">
                                 <input type="text" placeholder="Search.." id="myInput7" onkeyup="filterFunction('myInput7','myDropdown7')">
                                 @foreach($area as $a)
-                                    <div class="columnShort">
-                                        <input type="checkbox" id="fil-{{$i}}" name="nombre_area" onchange="setFilter()">
-                                    </div>
-                                    <div class="column">
-                                        <p ALIGN="LEFT">{{$a}}</p>
-                                    </div>
+                                    <a>
+                                        <div class="columnShort">
+                                            <input type="checkbox" id="fil-{{$i}}" value="{{$a}}" name="nombre_area" onchange="setFilter()">
+                                        </div>
+                                        <div class="column">
+                                            <p ALIGN="LEFT">{{$a}}</p>
+                                        </div>
+                                    </a>
                                     <?php $i++?>
                                 @endforeach
                             </div>
@@ -545,6 +592,8 @@
 
                 </div>
             </div>
+
+
 
             <script>
                 function myFunction($drop) {
@@ -600,21 +649,30 @@
             </ul>
         </div>-->
         <script>
+            var closebtns = document.getElementsByClassName("closef");
             var $filtersArr;
 
             function setFilter() {
 
                 $filtersArr=[];
-                debugger;
                 var i;
                 var cant="<?php echo $i?>";
+                debugger;
+                clearFilter();
+
                 for (i = 0; i < cant; i++) {
+
+                    var bol=document.getElementById("fil-"+i).valueOf();
                     if ($("#fil-"+i).is(':checked')) {
                         //get name and value for push into array
                         $filtersArr.push([document.getElementById("fil-"+i).getAttribute("name"),document.getElementById("fil-"+i).value]);
+                        createFilter(document.getElementById("fil-"+i).value,"fil-"+i);
                     }
                 }
+                debugger;
+                closer();
                 filter();
+
             }
 
 
@@ -732,6 +790,30 @@
                 },3000);
             });
 
+            function closer() {
+                var closebtns = document.getElementsByClassName("closef");
+                var f;
+
+                for (f = 0; f < closebtns.length; f++) {
+                    closebtns[f].addEventListener("click", function() {
+                        this.parentElement.style.display = 'none';
+                    });
+                }
+            }
+
+            function clearFilter() {
+                var i;
+                for (i = 0; i < closebtns.length; i++) {
+                    closebtns[i].parentElement.style.display = 'none';
+                }
+            }
+
+            function removeFilter($id){
+                debugger;
+                document.getElementById($id).checked = false;
+                setFilter();
+            }
+
             function clearBox() {
                 var i;
                 debugger;
@@ -751,6 +833,10 @@
                     "                        <p ALIGN=\"LEFT\">"+$name+"</p>\n" +
                     "                    </div>\n" +
                     "                </div>");
+            };
+
+            function createFilter($name,$id) {
+                $("#activeFilter").append("<li>"+$name+"<span class=\"closef\" value=\""+$id+"\" onclick=\"removeFilter($(this).attr('value'))\">&times;</span></li>");
             };
 
 

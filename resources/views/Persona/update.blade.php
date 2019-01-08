@@ -111,7 +111,7 @@
                         <div id="fieldList">
 
                                 <div id="div_id_career" class="form-group required">
-                                    <label for="id_career" class="control-label col-md-4  requiredField"> Carrera<span class="asteriskField">*</span> </label>
+                                    <label for="id_career" class="control-label col-md-4  requiredField"> Carrera<span class="asteriskField"></span> </label>
                                     <div class="controls col-md-8 ">
                                         <select style="margin-bottom: 10px" name="carrera">
                                             <option value="1">ICCI</option>
@@ -121,37 +121,61 @@
                                 </div>
 
                                 <div id="div_id_year_in" class="form-group required">
-                                    <label for="id_year_in" class="control-label col-md-4  requiredField"> Año de ingreso<span class="asteriskField">*</span> </label>
+                                    <label for="id_year_in" class="control-label col-md-4  requiredField"> Año de ingreso<span class="asteriskField"></span> </label>
                                     <div class="controls col-md-8 ">
                                         <input name="fecha_ingreso" type="date" placeholder="YYYY" min="1980" max="2018" style="margin-bottom: 10px">
                                     </div>
                                 </div>
 
                                 <div id="div_id_year_out" class="form-group required">
-                                    <label for="id_year_out" class="control-label col-md-4  requiredField"> Año de egreso<span class="asteriskField">*</span> </label>
+                                    <label for="id_year_out" class="control-label col-md-4  requiredField"> Año de egreso<span class="asteriskField"></span> </label>
                                     <div class="controls col-md-8 ">
                                         <input name="fecha_egreso" type="date" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
                                     </div>
                                 </div>
 
-                                <div id="div_id_year_gra" class="form-group required">
-                                    <label for="id_year_gra" class="control-label col-md-4  requiredField"> Año de titulación<span class="asteriskField">*</span> </label>
+                                <div id="check" class="form-group required">
+                                    <label for="id_year_gra" class="control-label col-md-4  requiredField">Titulado<span class="asteriskField"></span> </label>
                                     <div class="controls col-md-8 ">
-                                        <input name="fecha_titulacion" type="date" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
+                                        <input type="checkbox" id="Titulado" value="true" onclick="hide()"><br>
                                     </div>
                                 </div>
 
-                                <div id="div_id_sede" class="form-group required">
-                                    <label for="id_sede" class="control-label col-md-4  requiredField"> Tipo de tesis<span class="asteriskField">*</span> </label>
-                                    <div class="controls col-md-8 ">
-                                        <select style="margin-bottom: 10px" name="tipo_tesis">
-                                            <option value="Proyecto">Proyecto</option>
-                                            <option value="Investigacion">Investigacion</option>
-                                            <option value="Capstone">Capstone</option>
-                                            <option value="Trabajo">Trabajo</option>
-                                        </select>
+
+                                <div class="hidden" id="fecha">
+                                    <div id="div_id_year_gra" class="form-group required">
+                                        <label for="id_year_gra" class="control-label col-md-4  requiredField"> Año de titulación<span class="asteriskField"></span> </label>
+                                        <div class="controls col-md-8 ">
+                                            <input name="fecha_titulacion" type="date" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
+                                        </div>
+                                    </div>
+
+                                    <div id="div_id_sede" class="form-group required">
+                                        <label for="id_sede" class="control-label col-md-4  requiredField"> Tipo de tesis<span class="asteriskField"></span> </label>
+                                        <div class="controls col-md-8 ">
+                                            <select style="margin-bottom: 10px" name="tipo_tesis">
+                                                <option value="Proyecto">Proyecto</option>
+                                                <option value="Investigacion">Investigacion</option>
+                                                <option value="Capstone">Capstone</option>
+                                                <option value="Trabajo">Trabajo</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
+
+
+                            <script>
+                                function hide() {
+                                    if ($("#Titulado").is(':checked')){
+                                        var box = document.getElementById('fecha');
+                                        box.removeAttribute('class');
+                                    }else{
+                                        var box = document.getElementById('fecha');
+                                        box.setAttribute("class", "hidden");
+                                    }
+                                }
+                            </script>
+
 
                         </div>
 
@@ -802,7 +826,6 @@
 
 
                             $('.table-add2').click(function () {
-                                debugger;
                                 var iEName = $('#inputEName').val();
                                 var iTipoE = $("#inputETipo option:selected").text();
                                 var iTipoT = $("#inputNivel option:selected").text();
