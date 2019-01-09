@@ -389,6 +389,7 @@
                                         univ: sendUni,
                                         date :iDat
                                     },
+                                    debugger;
                                     success: function (id) {
                                         document.getElementById("clone_id_ad").innerHTML=id;
                                         alert("Postgrado Agregado!");
@@ -794,6 +795,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
+
 
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Rubro</label>
                                         <div class="md-form mb-5">

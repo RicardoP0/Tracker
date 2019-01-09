@@ -660,14 +660,36 @@
                 debugger;
                 clearFilter();
 
+                var miniarray=[];
                 for (i = 0; i < cant; i++) {
-
-                    var bol=document.getElementById("fil-"+i).valueOf();
-                    if ($("#fil-"+i).is(':checked')) {
-                        //get name and value for push into array
-                        $filtersArr.push([document.getElementById("fil-"+i).getAttribute("name"),document.getElementById("fil-"+i).value]);
-                        createFilter(document.getElementById("fil-"+i).value,"fil-"+i);
+                    var aux=i+1;
+                    if(aux!=cant){
+                        if(document.getElementById("fil-"+i).getAttribute("name")==document.getElementById("fil-"+aux).getAttribute("name")){
+                            if ($("#fil-"+i).is(':checked')) {
+                                miniarray.push(document.getElementById("fil-"+i).value);
+                                createFilter(document.getElementById("fil-"+i).value,"fil-"+i);
+                            }
+                        }else{
+                            if ($("#fil-"+i).is(':checked')) {
+                                miniarray.push(document.getElementById("fil-"+i).value);
+                                createFilter(document.getElementById("fil-"+i).value,"fil-"+i);
+                            }
+                            if(miniarray.length != 0){
+                                $filtersArr.push([document.getElementById("fil-"+i).getAttribute("name"),miniarray]);
+                            }
+                            miniarray=[];
+                        }
+                    }else{
+                        if ($("#fil-"+i).is(':checked')) {
+                            miniarray.push(document.getElementById("fil-"+i).value);
+                            createFilter(document.getElementById("fil-"+i).value,"fil-"+i);
+                        }
+                        if(miniarray.length != 0){
+                            $filtersArr.push([document.getElementById("fil-"+i).getAttribute("name"),miniarray]);
+                        }
+                        miniarray=[];
                     }
+
                 }
                 debugger;
                 closer();
