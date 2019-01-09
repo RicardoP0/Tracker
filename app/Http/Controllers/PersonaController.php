@@ -147,12 +147,12 @@ class PersonaController extends Controller
         $request->validate([
             'fechaS'=>'required|date',
             'fechaE' =>'required|date',
-            'sueldo' => 'required|number',
-            'lvl' => 'required|number',
-            'area' => 'required|number',
+            'sueldo' => 'required|integer',
+            'lvl' => 'required',
+            'area' => 'required|integer',
             'nombre' => 'required|string',
             'tipoEmp' => 'required|string',
-            'rubro' => 'required|number',
+            'rubro' => 'required|integer',
         ]);
         $fechai=$request->fechaS;
         $fechat=$request->fechaE;
@@ -183,12 +183,12 @@ class PersonaController extends Controller
         $request->validate([
             'fechaS'=>'required|date',
             'fechaE' =>'required|date',
-            'sueldo' => 'required|number',
-            'lvl' => 'required|number',
-            'area' => 'required|number',
+            'sueldo' => 'required|integer',
+            'lvl' => 'required|integer',
+            'area' => 'required|integer',
             'nombre' => 'required|string',
             'tipoEmp' => 'required|string',
-            'rubro' => 'required|number',
+            'rubro' => 'required|integer',
         ]);
 
         $fechaI=$request->fechaS;
@@ -228,8 +228,8 @@ class PersonaController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string',
-            'tipo' => 'required|number',
-            'univ' => 'required|number',
+            'tipo' => 'required|integer',
+            'univ' => 'required|integer',
             'date' => 'required|date',
         ]);
         $nombre = $request->nombre;
@@ -250,8 +250,8 @@ class PersonaController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string',
-            'tipo' => 'required|number',
-            'univ' => 'required|number',
+            'tipo' => 'required|integer',
+            'univ' => 'required|integer',
             'date' => 'required|date',
         ]);
         $nombre = $request->nombre;

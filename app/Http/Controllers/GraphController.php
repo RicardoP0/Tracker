@@ -175,15 +175,14 @@ class GraphController extends Controller
             foreach ( $main_group as $item){
                 $row = $item->filter(function ($item) use($i) {
                     return (date('Y',strtotime(data_get($item, 'cargo_inicio'))) <= strval($i));
-//                        date('Y',strtotime(data_get($item, 'cargo_termino'))) > strval($i));
                 });
 
                 if (count($row)) {
                     if ($filters) {
                         foreach ($filters as $filter) {
+
                             $row = $row->filter(function ($item) use ($filter) {
-                                return data_get($item, $filter[0]) == $filter[1];
-    //                        date('Y',strtotime(data_get($item, 'cargo_termino'))) > strval($i));
+                                return in_array(data_get($item, $filter[0]), $filter[1]);
                             });
                         }
                     }

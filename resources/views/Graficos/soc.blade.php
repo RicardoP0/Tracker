@@ -531,7 +531,7 @@
                                 <input type="text" placeholder="Search.." id="myInput7" onkeyup="filterFunction('myInput7','myDropdown7')">
                                 @foreach($area as $a)
                                     <div class="columnShort">
-                                        <input type="checkbox" id="fil-{{$i}}" name="nombre_area" onchange="setFilter()">
+                                        <input type="checkbox" id="fil-{{$i}}" data-keyName="{{$a}}" name="nombre_area" onchange="setFilter()">
                                     </div>
                                     <div class="column">
                                         <p ALIGN="LEFT">{{$a}}</p>
@@ -605,13 +605,14 @@
             function setFilter() {
 
                 $filtersArr=[];
-                debugger;
+                //debugger;
                 var i;
                 var cant="<?php echo $i?>";
                 for (i = 0; i < cant; i++) {
                     if ($("#fil-"+i).is(':checked')) {
                         //get name and value for push into array
-                        $filtersArr.push([document.getElementById("fil-"+i).getAttribute("name"),document.getElementById("fil-"+i).value]);
+                        console.log(document.getElementById("fil-"+i).getAttribute('data-keyName'));
+                        $filtersArr.push([document.getElementById("fil-"+i).getAttribute("name"),document.getElementById("fil-"+i).getAttribute('data-keyName')]);
                     }
                 }
                 filter();
@@ -620,7 +621,7 @@
 
             function filter() {
                 var main_data_key =$('#main_data_select').val();
-                debugger;
+                //debugger;
                 $.ajax({
                     type: 'POST',
                     url: "{{url('/graph/json')}}",
@@ -648,7 +649,7 @@
 
 
                         $( document ).ready(function() {
-                            debugger;
+                            //debugger;
                             setTimeout(function(){
                                 clearBox();
                                 var option=$('#main_data_select').val();
@@ -734,7 +735,7 @@
 
             function clearBox() {
                 var i;
-                debugger;
+                //debugger;
                 for (i = 0; i < clearcant; i++) {
                     $("#rec").remove();
                 }
