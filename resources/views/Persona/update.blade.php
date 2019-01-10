@@ -20,6 +20,14 @@
     #otraArea.show {
         display: block;
     }
+
+    #otraAreaed {
+        display: none;
+    }
+
+    #otraAreaed.show {
+        display: block;
+    }
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -162,20 +170,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-                            <script>
-                                function hide() {
-                                    if ($("#Titulado").is(':checked')){
-                                        var box = document.getElementById('fecha');
-                                        box.removeAttribute('class');
-                                    }else{
-                                        var box = document.getElementById('fecha');
-                                        box.setAttribute("class", "hidden");
-                                    }
-                                }
-                            </script>
-
 
                         </div>
 
@@ -389,7 +383,6 @@
                                         univ: sendUni,
                                         date :iDat
                                     },
-                                    debugger;
                                     success: function (id) {
                                         document.getElementById("clone_id_ad").innerHTML=id;
                                         alert("Postgrado Agregado!");
@@ -697,25 +690,6 @@
                                             </div>
                                         </div>
 
-                                        <script>
-                                            const source = document.querySelector("#inputArea");
-                                            const target = document.querySelector("#otraArea");
-
-                                            const displayWhenSelected = (source, value, target) => {
-                                                const selectedIndex = source.selectedIndex;
-                                                const isSelected = source[selectedIndex].value === value;
-                                                target.classList[isSelected
-                                                    ? "add"
-                                                    : "remove"
-                                                    ]("show");
-                                            };
-                                            source.addEventListener("change", (evt) =>
-                                                displayWhenSelected(source, "5", target)
-                                            );
-                                        </script>
-
-
-
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Rubro</label>
                                         <div class="md-form mb-5">
                                             <select id="inputRubro" style="margin-bottom: 10px">
@@ -789,11 +763,18 @@
 
                                         <label data-error="wrong" data-success="right" for="inputOfficeInput">Area</label>
                                         <div class="md-form mb-5">
-                                            <select id="edArea" style="margin-bottom: 10px">
+                                            <select id="edArea" style="margin-bottom: 10px" onchange="hide()">
                                                 @foreach( $areas_trabajo as $ar)
                                                     <option value={{$ar->id}}> {{$ar->nombre}}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+
+                                        <div id="otraAreaed" class="md-form mb-5">
+                                            <label data-error="wrong" data-success="right" for="inputOfficeInput">Otro</label>
+                                            <div class="md-form mb-5">
+                                                <input id="otro_nombre" name="otro" type="text" style="margin-bottom: 10px" />
+                                            </div>
                                         </div>
 
 
@@ -816,6 +797,16 @@
                                 </div>
                             </div>
                         </div>
+
+                        <script>
+                            function hide() {
+                                if(document.getElementById('edArea').value == "5") {
+                                    document.getElementById("otraAreaed").classList.add("show");
+                                }else{
+                                    document.getElementById("otraAreaed").classList.remove("show");
+                                }
+                            }
+                        </script>
 
                         <script>
 
@@ -1028,5 +1019,21 @@
         </div>
     </div>
 
+    <script>
+        const source = document.querySelector("#inputArea");
+        const target = document.querySelector("#otraArea");
+
+        const displayWhenSelected = (source, value, target) => {
+            const selectedIndex = source.selectedIndex;
+            const isSelected = source[selectedIndex].value === value;
+            target.classList[isSelected
+                ? "add"
+                : "remove"
+                ]("show");
+        };
+        source.addEventListener("change", (evt) =>
+            displayWhenSelected(source, "5", target)
+        );
+    </script>
 
 @endsection
