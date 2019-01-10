@@ -11,21 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::resource('user', 'UserController');
 Route::get('/', 'UserController@create');
 Route::resource('empresa','EmpresaController');
-
-
-
-Auth::routes();
-Route::get('/home1', function () {
-    return view('home');
-});
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('graph', 'GraphController');
 Route::post('graph/json', 'GraphController@jsonResponse');
@@ -41,5 +29,3 @@ Auth::routes();
 Route::resource('otros', 'OtroAreaController');
 
 
-
-Route::get('/home', 'HomeController@index')->name('home');

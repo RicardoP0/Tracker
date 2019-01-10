@@ -175,6 +175,10 @@ class PersonaController extends Controller
         ]);
         $cargo->empresa()->associate($emp);
         $cargo->save();
+        $otro = $request->otro;
+        if($otro !=""){
+            $cargo->otro_area()->create(['nombre_area'=>$otro]);
+        }
         return response()->json($cargo->id, 200);
     }
 
@@ -203,6 +207,7 @@ class PersonaController extends Controller
         //pendiente guardar en una tabla con id,id_persona,nombre
         $otro=$request->otro;
 
+
         $cargo= \App\Cargo::find($idc);
         $cargo->fecha_inicio=$fechaI;
         $cargo->fecha_termino=$fechaT;
@@ -210,6 +215,12 @@ class PersonaController extends Controller
         $cargo->nivel_cargo_id=$nivel;
         $cargo->area_id=$areaT;
         $cargo->save();
+        #TODO
+        #CHECK otro area
+        if($otro !=""){
+            $cargo->otro_area()->create(['nombre_area'=>$otro]);
+        }
+
         $empresa=\App\Empresa::find($cargo->empresa_id);
         $empresa->nombre=$name;
         $empresa->tipo_empresa_id=$type;

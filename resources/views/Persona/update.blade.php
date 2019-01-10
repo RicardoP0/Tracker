@@ -693,7 +693,7 @@
                                         <div id="otraArea" class="md-form mb-5">
                                             <label data-error="wrong" data-success="right" for="inputOfficeInput">Otro</label>
                                             <div class="md-form mb-5">
-                                                <input name="otro" type="text" style="margin-bottom: 10px" />
+                                                <input id="otro_nombre" name="otro" type="text" style="margin-bottom: 10px" />
                                             </div>
                                         </div>
 
@@ -836,6 +836,10 @@
                                 var iSal = $('#inputSalIn').val();
                                 var iArea = $('#inputArea option:selected').text();
                                 var iRubro = $('#inputRubro option:selected').text();
+                                //obtener nombre otro y vaciar
+                                var otro_nombre = $('#otro_nombre').val();
+                                document.getElementById("otro_nombre").value="";
+
                                 document.getElementById("inNameTc").innerHTML=iEName;
                                 document.getElementById("inTipoTc").innerHTML=iTipoE;
                                 document.getElementById("inLvlc").innerHTML=iTipoT;
@@ -861,7 +865,8 @@
                                         area: sendArea,
                                         nombre :iEName,
                                         tipoEmp:sendTemp,
-                                        rubro:sendRu
+                                        rubro:sendRu,
+                                        otro: otro_nombre
                                     },
                                     success: function(idce) {
                                         document.getElementById("clone_id").innerHTML=idce;

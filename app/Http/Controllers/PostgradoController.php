@@ -35,7 +35,7 @@ class PostgradoController extends Controller
      */
     public function store(Request $request)
     {
-        $idp=2;
+
         ($request->only('inputName','inputTipo','inputUni','inputDate'));
         $request->validate([
             'inputName'=>'required',
@@ -55,7 +55,7 @@ class PostgradoController extends Controller
 
         // TODO
         // AGREGAR PERSONA LOGIN
-        $persona = \App\Persona::findOrFail($idp)->first();
+        $persona = Auth::user()->persona;
         $num_emprs = count($empresas_nombre);
         for($i = 0; $i<$num_emprs; ++$i){
             $emp = new \App\Empresa(['nombre'=>$empresas_nombre[$i]]);

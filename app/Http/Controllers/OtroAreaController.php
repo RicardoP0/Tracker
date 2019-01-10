@@ -41,9 +41,12 @@ class OtroAreaController extends Controller
             'otros_area'=>'required',
             'new_area_name'=>'required|string',
         ]);
-
-        \App\Otro_area::destroy($request->otros_area);
+        $otros_area = \App\Otro_area::findOrFail($request->otros_area);
+        $cargo = $otros_area->cargo;
         $area = \App\Area::create(['nombre'=>$request->new_area_name]);
+        $cargo->area()->associate($area);
+        $cargo->save();
+        $otros_area->delete();
         return redirect()->back();
 
     }
@@ -88,8 +91,9 @@ class OtroAreaController extends Controller
 
         $cargo = $otro->cargo;
         $cargo->area()->associate($area);
+        $cargo->save();
         $otro->delete();
-        return redirect()->back();
+        return redirect()->back()->with("Dato editado");
 
     }
 
