@@ -104,7 +104,6 @@
                             <label for="id_sede" class="control-label col-md-4  requiredField"> Situacion laboral actual<span class="asteriskField">*</span> </label>
                             <div class="controls col-md-8 ">
 
-
                                 <select style="margin-bottom: 10px" name="estado_trabajo">
                                     <option value="trabajo dependiente" <?php if($situacion == "trabajo dependiente") echo('selected');?> >Trabajo dependiente</option>
                                     <option value="trabajo independiente"  <?php if($situacion == 'trabajo independiente') echo('selected');?> >Trabajo independiente</option>
@@ -145,7 +144,7 @@
                                 <div id="check" class="form-group required">
                                     <label for="id_year_gra" class="control-label col-md-4  requiredField">Titulado<span class="asteriskField"></span> </label>
                                     <div class="controls col-md-8 ">
-                                        <input type="checkbox" id="Titulado" value="true" onclick="hide()"><br>
+                                        <input type="checkbox" id="Titulado" value="true" onclick="hide2()"><br>
                                     </div>
                                 </div>
 
@@ -804,6 +803,16 @@
                                     document.getElementById("otraAreaed").classList.add("show");
                                 }else{
                                     document.getElementById("otraAreaed").classList.remove("show");
+                                }
+                            }
+
+                            function hide2() {
+                                if($("#Titulado").is(':checked')){
+                                    var box=document.getElementById('fecha');
+                                    box.removeAttribute('class');
+                                }else{
+                                    var box=document.getElementById('fecha');
+                                    box.setAttribute("class","hidden");
                                 }
                             }
                         </script>
