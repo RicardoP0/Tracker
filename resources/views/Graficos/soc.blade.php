@@ -145,7 +145,8 @@
         }
         .columnLegend{
             float: left;
-            width: 25%;
+            width: 23%;
+            margin-left: 2%;
             padding: 5px;
         }
         .columnFilters{
@@ -402,15 +403,14 @@
     <div id="content" align="center">
         Categoria
         <select id="main_data_select" >
-            <option value="nombre_carrera" >Carrera</option>
-            <option value="universidad_carrera">Universidad</option>
-            <option value="nombre_tipo_empresa">Tipo Empresa</option>
-            <option value="nombre_rubro">Rubro</option>
-            <option value="postgrado_nombre">Tipo de postgrado</option>
-            <option selected value="nombre_cargo">Nivel de cargo</option>
-            <option value="nombre_area">Area</option>
+            <option value="nombre_carrera" onclick="change_data()">Carrera</option>
+            <option value="universidad_carrera" onclick="change_data()">Universidad</option>
+            <option value="nombre_tipo_empresa" onclick="change_data()">Tipo Empresa</option>
+            <option value="nombre_rubro" onclick="change_data()">Rubro </option>
+            <option value="postgrado_nombre" onclick="change_data()">Tipo de postgrado</option>
+            <option selected value="nombre_cargo" onclick="change_data()">Nivel de cargo</option>
+            <option value="nombre_area" onclick="change_data()">Area</option>
         </select>
-        <button onclick="change_data()">Seleccionar</button>
 
         <div class="row">
             <div class="columnFilters">
