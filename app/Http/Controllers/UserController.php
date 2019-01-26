@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Role;
 class UserController extends Controller
 {
     /**
@@ -56,8 +57,13 @@ class UserController extends Controller
 
         $user = \App\User::create(['email'=>$request->email,
             'name'=>$request->name,
+            'rut'=>$request->rut,
             'password'=>Hash::make($request->password)
         ]);
+
+        $user
+            ->roles()
+            ->attach(Role::where('name', 'user')->first());
 
         $user->persona()->save($persona);
         if(Auth::attempt($request->only('email','password'))){
@@ -66,6 +72,8 @@ class UserController extends Controller
         else{
             abort('401');
         }
+
+
 
     }
 

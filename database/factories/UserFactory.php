@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 $factory->define(App\User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
+        'rut'=>$faker->numberBetween(10000000,30000000),
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => Hash::make('secret'),

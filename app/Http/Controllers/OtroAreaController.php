@@ -12,10 +12,11 @@ class OtroAreaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $otros = Otro_area::all();
         $areas = \App\Area::all();
+        $request->user()->authorizeRoles(['admin']);
         return view('otros_area', compact('otros','areas'));
     }
 

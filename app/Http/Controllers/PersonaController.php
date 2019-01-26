@@ -19,9 +19,10 @@ class PersonaController extends Controller
         $this->middleware('auth');
         $this->middleware('checkPersona')->only('show');
     }
-    public function index()
+    public function index(Request $request)
     {
         $personas = Persona::all();
+        $request->user()->authorizeRoles(['user','admin']);
         return view('persona.index', compact('personas'));
     }
 
