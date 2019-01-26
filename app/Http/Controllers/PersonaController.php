@@ -147,7 +147,7 @@ class PersonaController extends Controller
         //Agregas exists para revisar base de dato
         $request->validate([
             'fechaS'=>'required|date',
-            'fechaE' =>'required|date',
+            'fechaE' =>'required|date|after:fechaS',
             'sueldo' => 'required|integer',
             'lvl' => 'required',
             'area' => 'required|integer',
@@ -187,7 +187,7 @@ class PersonaController extends Controller
     {
         $request->validate([
             'fechaS'=>'required|date',
-            'fechaE' =>'required|date',
+            'fechaE' =>'required|date|after:fechaS',
             'sueldo' => 'required|integer',
             'lvl' => 'required|integer',
             'area' => 'required|integer',

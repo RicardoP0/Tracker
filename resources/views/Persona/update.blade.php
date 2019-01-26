@@ -50,8 +50,6 @@
 @extends('layouts.master')
 @section('content')
 
-    <!------ Include the above in your HEAD tag ---------->
-
     <div class="container">
 
         <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-11 col-md-offset-0 col-sm-8 col-sm-offset-2">
@@ -63,46 +61,48 @@
                     <form  class="form-horizontal" method="post" action={{"/persona/".Auth::user()->persona->id}}>
                     @method('PUT')
                     {{csrf_field()}}
-                        <!--preguntas-->
+
+                        <h3>Datos personales</h3>
+
                         <div id="div_id_username" class="form-group required">
                             <label for="id_username" class="control-label col-md-4  requiredField">Nombre<span class="asteriskField">*</span> </label>
-                            <div class="controls col-md-8 ">
+                            <div class="controls col-md-3 ">
                                 <input class="input-md  textinput textInput form-control" id="id_username" maxlength="30" name="username" value="{{$nombre}}" style="margin-bottom: 10px" type="text" />
                             </div>
                         </div>
 
                         <div id="div_id_rut" class="form-group required">
-                            <label for="id_rut" class="control-label col-md-4  requiredField"> Rut<span class="asteriskField">*</span> </label>
-                            <div class="controls col-md-8 ">
-                                <label class="control-label col-md-4  requiredField"  style="margin-bottom: 10px"> {{$rut}}<span class="asteriskField">*</span> </label>
+                            <label for="id_rut" class="control-label col-md-4  requiredField"> Rut</label>
+                            <div class="controls col-md-3">
+                                <label class="control-label col-md-4  requiredField"  style="margin-bottom: 10px"> {{$rut}}</label>
                             </div>
                         </div>
 
                         <div id="div_id_email" class="form-group required">
-                            <label for="id_email" class="control-label col-md-4  requiredField"> E-mail<span class="asteriskField">*</span> </label>
-                            <div class="controls col-md-8 ">
-                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> {{$email}}<span class="asteriskField">*</span> </label>
+                            <label for="id_email" class="control-label col-md-4  requiredField"> E-mail </label>
+                            <div class="controls col-md-3 ">
+                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> {{$email}} </label>
                             </div>
                         </div>
 
                         <div id="div_id_gender" class="form-group required">
-                            <label for="id_gender"  class="control-label col-md-4  requiredField"> Genero<span class="asteriskField">*</span> </label>
-                            <div class="controls col-md-8 "  style="margin-bottom: 10px">
-                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> {{$genero}}<span class="asteriskField">*</span> </label>
+                            <label for="id_gender"  class="control-label col-md-4  requiredField"> Genero </label>
+                            <div class="controls col-md-3 "  style="margin-bottom: 10px">
+                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> {{$genero}} </label>
                             </div>
                         </div>
 
 
                         <div id="div_id_date" class="form-group required">
-                            <label for="id_date" class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> Fecha de nacimiento<span class="asteriskField">*</span> </label>
-                            <div class="controls col-md-8 ">
-                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> {{$fecha_nacimiento}}<span class="asteriskField">*</span> </label>
+                            <label for="id_date" class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> Fecha de nacimiento </label>
+                            <div class="controls col-md-3 ">
+                                <label class="control-label col-md-4  requiredField" style="margin-bottom: 10px"> {{$fecha_nacimiento}} </label>
                             </div>
                         </div>
 
                         <div id="div_id_sede" class="form-group required">
-                            <label for="id_sede" class="control-label col-md-4  requiredField"> Situacion laboral actual<span class="asteriskField">*</span> </label>
-                            <div class="controls col-md-8 ">
+                            <label for="id_sede" class="control-label col-md-4  requiredField"> Situacion laboral actual</label>
+                            <div class="controls col-md-3 ">
 
                                 <select style="margin-bottom: 10px" name="estado_trabajo">
                                     <option value="trabajo dependiente" <?php if($situacion == "trabajo dependiente") echo('selected');?> >Trabajo dependiente</option>
@@ -153,14 +153,14 @@
                                     <div id="div_id_year_gra" class="form-group required">
                                         <label for="id_year_gra" class="control-label col-md-4  requiredField"> Año de titulación<span class="asteriskField"></span> </label>
                                         <div class="controls col-md-8 ">
-                                            <input name="fecha_titulacion" type="date" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
+                                            <input id="fechaTitulacion" name="fecha_titulacion" type="date" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
                                         </div>
                                     </div>
 
                                     <div id="div_id_sede" class="form-group required">
                                         <label for="id_sede" class="control-label col-md-4  requiredField"> Tipo de tesis<span class="asteriskField"></span> </label>
                                         <div class="controls col-md-8 ">
-                                            <select style="margin-bottom: 10px" name="tipo_tesis">
+                                            <select id="tipoTesis" style="margin-bottom: 10px" name="tipo_tesis">
                                                 <option value="Proyecto">Proyecto</option>
                                                 <option value="Investigacion">Investigacion</option>
                                                 <option value="Capstone">Capstone</option>
@@ -815,7 +815,23 @@
                                     box.setAttribute("class","hidden");
                                 }
                             }
+
+                            function checkTitulado($tipo,$fecha) {
+                                document.getElementById("Titulado").checked = true;
+                                document.getElementById("fechaTitulacion").value=$fecha;
+                                document.getElementById("tipoTesis").value=$tipo;
+                            }
+
                         </script>
+
+                        <?php
+                        $id=auth()->user()->persona->id;
+                        $titu=DB::table('carrera_persona')->where('persona_id','=',$id)->first();
+                        if($titu!=null)
+                            echo '<script type="text/javascript">',
+                            'checkTitulado("',$titu->tipo_tesis,'","',$titu->fecha_titulacion,'");hide2();',
+                            '</script>';
+                        ?>
 
                         <script>
 
@@ -873,7 +889,9 @@
                                         alert("Datos Agregado!");
                                         var $clone = $TABLE2.find('tr.hide').clone(true).removeClass('hide');
                                         $TABLE2.find('table').append($clone);
-
+                                    },
+                                    error: function(){
+                                        alert("Datos invalidas");
                                     }
                                 });
                                 $('#modEdit2').val($('#inputEName').val(""));
@@ -1044,5 +1062,7 @@
             displayWhenSelected(source, "5", target)
         );
     </script>
+    
+
 
 @endsection

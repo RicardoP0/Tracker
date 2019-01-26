@@ -45,7 +45,7 @@ class UserController extends Controller
             'email'=>'required|email|unique:users',
             'password'=>'required|min:6',
             'rut' =>'required|max:30',
-            'bdate' => 'required|date',
+            'bdate' => 'required|date|before:"2001-01-01"',
             'gender' => 'required|string'
         ]);
 
