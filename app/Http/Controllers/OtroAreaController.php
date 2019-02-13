@@ -12,6 +12,11 @@ class OtroAreaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('create');
+        $this->middleware('guest')->only('create');
+    }
     public function index(Request $request)
     {
         $otros = Otro_area::all();

@@ -57,10 +57,14 @@
                 <li>
                     <a href={{url('graph')}}><i class="fa fa-dashboard fa-fw"></i> Grafico</a>
                 </li>
+                @Auth
+           
+                    @if(Auth::user()->roles->first()->name == 'admin')
                 <li>
                     <a href={{url('otros')}}><i class="fa fa-dashboard fa-fw"></i> Administracion areas</a>
                 </li>
-                @Auth
+                    @endif
+
                     <li>
                         <a href={{url('persona/'.Auth::user()->persona->id)}}><i class="fa fa-suitcase fa-fw"></i> Configuracion de perfil</a>
                     </li>
