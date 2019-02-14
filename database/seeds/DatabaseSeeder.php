@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
          ]);
 
         factory(App\User::class, 1)->create();
-        factory(App\Tipo_empresa::class, 20)->create();
+        //factory(App\Tipo_empresa::class, 20)->create();
+        $this->call(TipoEmpresasTableSeeder::class);
         factory(App\Universidad::class, 20)->create();
         factory(App\Carrera::class, 10)->create();
         //factory(App\Rubro::class, 10)->create();

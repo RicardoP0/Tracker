@@ -621,7 +621,7 @@
                         <!---modal---->
                         <div method="post" action="/Empresa" class="modal fade addNewInputs" id="modAdd2" tabindex="-1" role="dialog" aria-labelledby="modalAdd"
                              aria-hidden="true">
-                            <div class="modal-dialog" role="document">
+                            <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header text-center">
                                         <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Agregar nuevo trabajo</h4>
@@ -630,9 +630,12 @@
                                         </button>
                                     </div>
                                     <div class="modal-body mx-3">
-                                        <div class="md-form mb-5">
-                                            <label data-error="wrong" data-success="right" for="inputName">Empresa</label>
-                                            <input type="text" id="inputEName" class="form-control validate" style="margin-bottom: 10px">
+
+                                        <div class="row md-form mb-5">
+                                            <div class="col-md-7">
+                                                <label data-error="wrong" data-success="right" for="inputName">Empresa</label>
+                                                <input type="text" id="inputEName" class="form-control validate" style="margin-bottom: 10px">
+                                            </div>
                                         </div>
 
                                         <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
@@ -655,14 +658,18 @@
                                             </select>
                                         </div>
 
-                                        <div class="md-form mb-5">
-                                            <label data-error="wrong" data-success="right" for="inputStart">Fecha de inicio</label>
-                                            <input type="date" id="inputDateS" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
+                                        <div class="row md-form mb-5">
+                                            <div class="col-md-7">
+                                                <label data-error="wrong" data-success="right" for="inputStart">Fecha de inicio</label>
+                                                <input type="date" id="inputDateS" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
+                                            </div>
                                         </div>
 
-                                        <div class="md-form mb-5">
-                                            <label data-error="wrong" data-success="right" for="inputEnd">Fecha de termino</label>
-                                            <input type="date" id="inputDateEn" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
+                                        <div class="row md-form mb-5">
+                                            <div class="col-md-7">
+                                                <label data-error="wrong" data-success="right" for="inputEnd">Fecha de termino</label>
+                                                <input type="date" id="inputDateEn" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
+                                            </div>
                                         </div>
 
                                         <div class="md-form mb-5">
