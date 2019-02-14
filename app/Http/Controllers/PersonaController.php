@@ -113,8 +113,6 @@ class PersonaController extends Controller
      */
     public function update(Request $request, Persona $persona)
     {
-        dd($request->all());
-
         $request->validate([
             'estado_trabajo'=>'required|string',
             'tipo_tesis'=>'required',
