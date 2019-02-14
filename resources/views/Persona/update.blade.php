@@ -121,8 +121,8 @@
                                     <label for="id_career" class="control-label col-md-4  requiredField"> Carrera<span class="asteriskField"></span> </label>
                                     <div class="controls col-md-8 ">
                                         <select style="margin-bottom: 10px" name="carrera">
-                                            <option value="1">ICCI</option>
-                                            <option value="2">IenCI</option>
+                                            <option value="1" <?php if($carreras->count()>0 && $carreras->first()->nombre=="ICCI") echo('selected');?>>ICCI</option>
+                                            <option value="2" <?php if($carreras->count()>0 && $carreras->first()->nombre=="IenCI") echo('selected');?>>ICI</option>
                                         </select>
                                     </div>
                                 </div>
@@ -130,14 +130,23 @@
                                 <div id="div_id_year_in" class="form-group required">
                                     <label for="id_year_in" class="control-label col-md-4  requiredField"> Año de ingreso<span class="asteriskField"></span> </label>
                                     <div class="controls col-md-8 ">
-                                        <input name="fecha_ingreso" type="date" placeholder="YYYY" min="1980" max="2018" style="margin-bottom: 10px">
+                                        {{--value="{{$carreras->first()->pivot->fecha_ingreso}}"--}}
+                                        <?php if($carreras->count()>0):?>
+                                            <input name="fecha_ingreso" value={{$carreras->first()->pivot->fecha_ingreso}} type="date" placeholder="YYYY" min="1980" max="2018" style="margin-bottom: 10px">
+                                        <?php else:?>
+                                            <input name="fecha_ingreso" type="date" placeholder="YYYY" min="1980" max="2018" style="margin-bottom: 10px">
+                                        <?php endif;?>
                                     </div>
                                 </div>
 
                                 <div id="div_id_year_out" class="form-group required">
                                     <label for="id_year_out" class="control-label col-md-4  requiredField"> Año de egreso<span class="asteriskField"></span> </label>
                                     <div class="controls col-md-8 ">
-                                        <input name="fecha_egreso" type="date" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
+                                        <?php if($carreras->count()>0):?>
+                                            <input name="fecha_egreso" value={{$carreras->first()->pivot->fecha_egreso}} type="date" placeholder="YYYY" min="1980" max="2018" style="margin-bottom: 10px">
+                                        <?php else:?>
+                                            <input name="fecha_egreso" type="date" placeholder="YYYY" min="1980" max="2018" style="margin-bottom: 10px">
+                                        <?php endif;?>
                                     </div>
                                 </div>
 
@@ -153,18 +162,24 @@
                                     <div id="div_id_year_gra" class="form-group required">
                                         <label for="id_year_gra" class="control-label col-md-4  requiredField"> Año de titulación<span class="asteriskField"></span> </label>
                                         <div class="controls col-md-8 ">
-                                            <input id="fechaTitulacion" name="fecha_titulacion" type="date" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
+                                            <?php if($carreras->count()>0):?>
+                                                <input id="fechaTitulacion" value={{$carreras->first()->pivot->fecha_titulacion}}"" name="fecha_titulacion" type="date" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
+                                            <?php else:?>
+                                                <input id="fechaTitulacion" name="fecha_titulacion" type="date" placeholder="YYYY" min="1980" max="2100" style="margin-bottom: 10px">
+                                            <?php endif;?>
+
                                         </div>
                                     </div>
 
                                     <div id="div_id_sede" class="form-group required">
                                         <label for="id_sede" class="control-label col-md-4  requiredField"> Tipo de tesis<span class="asteriskField"></span> </label>
                                         <div class="controls col-md-8 ">
+
                                             <select id="tipoTesis" style="margin-bottom: 10px" name="tipo_tesis">
-                                                <option value="Proyecto">Proyecto</option>
-                                                <option value="Investigacion">Investigacion</option>
-                                                <option value="Capstone">Capstone</option>
-                                                <option value="Trabajo">Trabajo</option>
+                                                <option value="Proyecto" <?php if($carreras->count()>0 && $carreras->first()->pivot->tipo_tesis=="Proyecto") echo('selected');?>>Proyecto</option>
+                                                <option value="Investigacion" <?php if($carreras->count()>0 && $carreras->first()->pivot->tipo_tesis=="Investigacion") echo('selected');?>>Investigacion</option>
+                                                <option value="Capstone" <?php if($carreras->count()>0 && $carreras->first()->pivot->tipo_tesis=="Capstone") echo('selected');?>>Capstone</option>
+                                                <option value="Trabajo" <?php if($carreras->count()>0 && $carreras->first()->pivot->tipo_tesis=="Trabajo") echo('selected');?>>Trabajo</option>
                                             </select>
                                         </div>
                                     </div>
