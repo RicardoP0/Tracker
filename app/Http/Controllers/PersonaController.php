@@ -59,7 +59,6 @@ class PersonaController extends Controller
         $nombre =$persona->nombre;
         $rut = $persona->rut;
         $email=$persona->user->email;
-
         $genero = $persona->genero;
         $fecha_nacimiento = $persona->fecha_nacimiento;
         $situacion = $persona->situacion_laboral;
@@ -72,6 +71,7 @@ class PersonaController extends Controller
         $nivel = \App\Nivel_cargo::all();
         $areas_trabajo =  \App\Area::all();
         $rubros = \App\Rubro::all();
+
         $aux=[];
 
         foreach ($empresas as $empresa){
@@ -90,7 +90,8 @@ class PersonaController extends Controller
         return view('Persona.update', compact('nombre','rut',
             'email', 'genero','fecha_nacimiento','carreras',
             'postgrados','tipo','universidades','situacion',
-            'empresas','tipoEmpresas','nivel','areas_trabajo','rubros','cargos','aux'));
+            'empresas','tipoEmpresas','nivel','areas_trabajo',
+            'rubros','cargos','aux'));
     }
 
     /**
@@ -120,7 +121,6 @@ class PersonaController extends Controller
             'tipo_tesis'=>'required',
             'fecha_ingreso'=>'required|date',
             'fecha_egreso' =>'required|date',
-            'fecha_titulacion' => 'required|date'
         ]);
         $persona->situacion_laboral=$request->estado_trabajo;
         $persona->carreras()->detach();
