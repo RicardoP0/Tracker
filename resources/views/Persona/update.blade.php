@@ -122,7 +122,7 @@
                                     <div class="controls col-md-8 ">
                                         <select style="margin-bottom: 10px" name="carrera">
                                             <option value="1">ICCI</option>
-                                            <option value="2">ICI</option>
+                                            <option value="2">IenCI</option>
                                         </select>
                                     </div>
                                 </div>

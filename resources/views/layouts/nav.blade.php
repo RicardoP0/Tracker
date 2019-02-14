@@ -58,7 +58,7 @@
                     <a href={{url('graph')}}><i class="fa fa-dashboard fa-fw"></i> Grafico</a>
                 </li>
                 @Auth
-           
+
                     @if(Auth::user()->roles->first()->name == 'admin')
                 <li>
                     <a href={{url('otros')}}><i class="fa fa-dashboard fa-fw"></i> Administracion areas</a>
