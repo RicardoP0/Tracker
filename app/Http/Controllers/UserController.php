@@ -43,7 +43,7 @@ class UserController extends Controller
         $request->validate([
             'name'=>'required|max:120',
             'email'=>'required|email|unique:users',
-            'password'=>'required|min:6',
+            'password'=>'required|min:6|confirmed',
             'rut' =>'required|max:30',
             'bdate' => 'required|date|before:"2001-01-01"',
             'gender' => 'required|string'
@@ -58,7 +58,8 @@ class UserController extends Controller
         $user = \App\User::create(['email'=>$request->email,
             'name'=>$request->name,
             'rut'=>$request->rut,
-            'password'=>Hash::make($request->password)
+//            'password'=>Hash::make($request->password)
+            'password'=>$request->password
         ]);
 
         $user

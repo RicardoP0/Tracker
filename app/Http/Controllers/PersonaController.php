@@ -91,7 +91,7 @@ class PersonaController extends Controller
             'email', 'genero','fecha_nacimiento','carreras',
             'postgrados','tipo','universidades','situacion',
             'empresas','tipoEmpresas','nivel','areas_trabajo',
-            'rubros','cargos','aux'));
+            'rubros','cargos','aux','pass'));
     }
 
     /**
@@ -284,6 +284,18 @@ class PersonaController extends Controller
         $id=$request->id;
         $postgrado= \App\Postgrado::find($id);
         $postgrado->delete();
+    }
+
+    public  function jsonChangePass(Request $request)
+    {
+        $this->validate($request, [
+            'opass' => 'required',
+            'npass' => 'required|min:6',
+        ]);
+
+        $user = Auth::user();
+        $user->password = $request->npass;
+        $user->save();
     }
 
 }

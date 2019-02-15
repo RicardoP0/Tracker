@@ -42,6 +42,13 @@
                         </div>
                     </div>
 
+                    <div id="div_id_password1" class="form-group required">
+                        <label for="password-confirm" class="control-label col-md-4  requiredField">Confirm password<span class="asteriskField">*</span> </label>
+                        <div class="controls col-md-8 ">
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                        </div>
+                    </div>
+
                     <div id="div_id_gender" class="form-group required">
                         <label for="id_gender"  class="control-label col-md-4  requiredField"> Genero<span class="asteriskField">*</span> </label>
                         <div class="controls col-md-8 "  style="margin-bottom: 15px">

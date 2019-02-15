@@ -112,6 +112,55 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <div class="controls col-md-10" align="center">
+                                <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modPass">
+                                    <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span> Cambiar contraseña
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <div class="modal fade modalEditClass" id="modPass" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Cambiar contraseña</h4>
+                                        <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body mx-3">
+                                        <div class="md-form mb-5">
+                                            <label data-error="wrong" data-success="right" for="inputName">Ingrese su antigua contraseña</label>
+                                            <input type="password" id="inputOldPass" class="form-control validate" style="margin-bottom: 10px">
+                                        </div>
+
+                                        <div class="md-form mb-5">
+                                            <label data-error="wrong" data-success="right" for="inputName">Ingrese su nueva contraseña</label>
+                                            <input type="password" id="inputNewPass" class="form-control validate" style="margin-bottom: 10px">
+                                        </div>
+
+                                        <div class="md-form mb-5">
+                                            <label data-error="wrong" data-success="right" for="inputName">confirme su nueva contraseña</label>
+                                            <input type="password" id="ConfirmPass" class="form-control validate" style="margin-bottom: 10px">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-footer d-flex justify-content-center editInsideWrapper">
+                                        <span class="edit-pass float-right mb-3 mr-2">
+                                            <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Aceptar
+                                                <i class="fa fa-paper-plane-o ml-1"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                         <h3>Historial academico</h3>
 
 
@@ -193,7 +242,7 @@
                         <div id="postGrados" class="table-editable">
 
                             <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modAdd">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar un Postgrado
                             </button>
 
                             <table class="tg" id="table">
@@ -484,6 +533,29 @@
                                 });
                             });
 
+                            $('.edit-pass').click(function(){
+                                var oldPass=$('#inputOldPass').val();
+                                var NewPass=$('#inputNewPass').val();
+                                var Confirm=$('#ConfirmPass').val();
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "{{url('/personaPass/json')}}",
+                                    data: {
+                                        _token: "{{ csrf_token() }}",
+                                        npass: NewPass,
+                                        opass: oldPass,
+                                        cpass: Confirm
+                                    },
+                                    success: function () {
+                                        alert("Clave cambiada!");
+                                    },
+                                    error: function() {
+                                        alert("Error");
+                                    },
+                                });
+                            });
+
 
 
 
@@ -555,7 +627,7 @@
                         <div id="laboral" class="table-editable">
 
                             <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modAdd2">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar un Trabajo
                             </button>
 
                             <table class="tg" id="table">
