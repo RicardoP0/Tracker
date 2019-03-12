@@ -91,7 +91,7 @@ class PersonaController extends Controller
             'email', 'genero','fecha_nacimiento','carreras',
             'postgrados','tipo','universidades','situacion',
             'empresas','tipoEmpresas','nivel','areas_trabajo',
-            'rubros','cargos','aux','pass'));
+            'rubros','aux','pass'));
     }
 
     /**
