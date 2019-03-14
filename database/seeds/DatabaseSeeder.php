@@ -18,20 +18,22 @@ class DatabaseSeeder extends Seeder
              AreasTableSeeder::class,
              TipoPostgradosTableSeeder::class,
              TipoEmpresasTableSeeder::class,
-             RubroTableSeeder::class
+             RubroTableSeeder::class,
+             UniversidadTableSeeder::class,
+             CarrerasTableSeeder::class
 
          ]);
-         /*
-        factory(App\User::class, 1)->create();
+
+
+       // factory(App\User::class, 1)->create();
         //factory(App\Tipo_empresa::class, 20)->create();
 
-        factory(App\Universidad::class, 20)->create();
-        factory(App\Carrera::class, 10)->create();
+
         //factory(App\Rubro::class, 10)->create();
 
 
 
-        factory(App\Persona::class, 50)->create()->each(function ($u) {
+        factory(App\Persona::class, 1)->create()->each(function ($u) {
             $user = factory(App\User::class, 1)->create()->first();
             $u->user()->associate($user);
             $u->save();
@@ -71,17 +73,8 @@ class DatabaseSeeder extends Seeder
 
         });
 
-        DB::table('otro_areas')->insert([
-        'cargo_id' => 2,
-        'nombre_area' =>'otro1'
-    ]);
-        DB::table('otro_areas')->insert([
-            'cargo_id' => 3,
-            'nombre_area' =>'otro2'
-        ]);
-        DB::table('otro_areas')->insert([
-            'cargo_id' => 4,
-            'nombre_area' =>'otro3'
-        ]);*/
+
+
+
     }
 }

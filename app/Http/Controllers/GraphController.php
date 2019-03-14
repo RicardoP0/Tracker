@@ -164,8 +164,19 @@ class GraphController extends Controller
 //
 //    }
     private function data_array(string $maingroup, array $filters = null){
-        $startYear = Carbon::createFromFormat('Y-m-d',DB::table('cargos')->min('fecha_inicio'))->year;
-        $endYear =  Carbon::createFromFormat('Y-m-d',DB::table('cargos')->max('fecha_termino'))->year;
+        $startYear = Carbon::createFromFormat('Y-m-d',"1995-01-01")->year;
+        $endYear =Carbon::createFromFormat('Y-m-d',"1996-01-01")->year;
+
+        if(DB::table('cargos')->first()){
+
+            $startYear = Carbon::createFromFormat('Y-m-d',DB::table('cargos')->min('fecha_inicio'))->year;
+            $endYear =  Carbon::createFromFormat('Y-m-d',DB::table('cargos')->max('fecha_termino'))->year;
+        }
+        else{
+            $dataArr=["1995","NO DATA",0,0,0];
+            $dataArr=array_prepend($dataArr,['fecha',$maingroup,'avg_sueldo','cantidad_persona','avg_experencia']);
+            return $dataArr;
+        }
         $dataCollect = collect();
         $dataView = \App\DataView::all();
 
@@ -173,6 +184,7 @@ class GraphController extends Controller
 
         for($i=$startYear; $i<$endYear; $i++){
             foreach ( $main_group as $item){
+
                 $row = $item->filter(function ($item) use($i) {
                     return (date('Y',strtotime(data_get($item, 'cargo_inicio'))) <= strval($i));
                 });
@@ -256,6 +268,7 @@ class GraphController extends Controller
 
         $dataArr=$dataCollect->toArray();
         $dataArr=array_prepend($dataArr,['fecha',$maingroup,'avg_sueldo','cantidad_persona','avg_experencia']);
+
         return $dataArr;
 
     }
