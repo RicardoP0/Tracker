@@ -59,9 +59,9 @@ FROM   personas persona
        INNER JOIN carrera_persona persona2 on persona.id = persona2.persona_id
        INNER JOIN carreras c on persona2.carrera_id = c.id
        INNER JOIN universidades u on c.universidad_id = u.id
-       INNER JOIN postgrados p on persona.id = p.persona_id
-       INNER JOIN tipo_postgrados tp on p.tipoPostgrado_id = tp.id
-       INNER JOIN universidades u2 on p.universidad_id = u2.id
+       LEFT  JOIN postgrados p on persona.id = p.persona_id
+       LEFT JOIN tipo_postgrados tp on p.tipoPostgrado_id = tp.id
+       LEFT JOIN universidades u2 on p.universidad_id = u2.id
        INNER JOIN empresas e on persona.id = e.persona_id
        INNER JOIN rubros r on e.rubro_id = r.id
        INNER JOIN tipo_empresas empresa on e.tipo_empresa_id = empresa.id
