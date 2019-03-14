@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\User;
 use App\Persona;
 use App\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserTableSeeder extends Seeder
 {
@@ -16,7 +17,7 @@ class UserTableSeeder extends Seeder
     {
         $role_user = Role::where('name', 'user')->first();
         $role_admin = Role::where('name', 'admin')->first();
-
+        /*
         $user = new User();
         $user->name = 'User';
         $user->rut = '987654321';
@@ -28,7 +29,7 @@ class UserTableSeeder extends Seeder
         $persona=new Persona();
         $persona->nombre='User';
         $persona->situacion_laboral='temp';
-        $persona->rut=000000001;
+        $persona->rut='987654321';
         $persona->genero='bot';
         $persona->fecha_nacimiento='2019-01-26';
         $user->persona()->save($persona);
@@ -44,9 +45,10 @@ class UserTableSeeder extends Seeder
         $persona=new Persona();
         $persona->nombre='Admin';
         $persona->situacion_laboral='Activo';
-        $persona->rut=00000000;
+        $persona->rut='123456789';
         $persona->genero='No definido';
         $persona->fecha_nacimiento='2019-03-14';
         $user->persona()->save($persona);
+        */
     }
 }
