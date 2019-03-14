@@ -17,15 +17,18 @@ class DatabaseSeeder extends Seeder
              NivelCargosTableSeeder::class,
              AreasTableSeeder::class,
              TipoPostgradosTableSeeder::class,
-         ]);
+             TipoEmpresasTableSeeder::class,
+             RubroTableSeeder::class
 
+         ]);
+         /*
         factory(App\User::class, 1)->create();
         //factory(App\Tipo_empresa::class, 20)->create();
-        $this->call(TipoEmpresasTableSeeder::class);
+
         factory(App\Universidad::class, 20)->create();
         factory(App\Carrera::class, 10)->create();
         //factory(App\Rubro::class, 10)->create();
-        $this->call(RubroTableSeeder::class);
+
 
 
         factory(App\Persona::class, 50)->create()->each(function ($u) {
@@ -69,9 +72,9 @@ class DatabaseSeeder extends Seeder
         });
 
         DB::table('otro_areas')->insert([
-            'cargo_id' => 2,
-            'nombre_area' =>'otro1'
-        ]);
+        'cargo_id' => 2,
+        'nombre_area' =>'otro1'
+    ]);
         DB::table('otro_areas')->insert([
             'cargo_id' => 3,
             'nombre_area' =>'otro2'
@@ -79,6 +82,6 @@ class DatabaseSeeder extends Seeder
         DB::table('otro_areas')->insert([
             'cargo_id' => 4,
             'nombre_area' =>'otro3'
-        ]);
+        ]);*/
     }
 }
