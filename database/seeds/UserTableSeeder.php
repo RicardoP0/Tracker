@@ -37,16 +37,16 @@ class UserTableSeeder extends Seeder
         $user->name = 'Admin';
         $user->rut = '123456789';
         $user->email = 'admin@example.com';
-        $user->password = bcrypt('secret');
+        $user->password = Hash::make('secret');
         $user->save();
         $user->roles()->attach($role_admin);
 
         $persona=new Persona();
         $persona->nombre='Admin';
-        $persona->situacion_laboral='temp';
+        $persona->situacion_laboral='Activo';
         $persona->rut=00000000;
-        $persona->genero='Dios';
-        $persona->fecha_nacimiento='2019-01-26';
+        $persona->genero='No definido';
+        $persona->fecha_nacimiento='2019-03-14';
         $user->persona()->save($persona);
     }
 }
