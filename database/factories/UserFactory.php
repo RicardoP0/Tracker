@@ -19,7 +19,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'rut'=>(string)$faker->numberBetween(10000000,30000000),
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'password' => Hash::make('secret'),
+        'password' => 'secret',
         'remember_token' => str_random(10),
     ];
 });
