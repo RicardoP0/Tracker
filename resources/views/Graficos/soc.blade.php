@@ -79,15 +79,15 @@
             {{--<span class="icon-bar"></span>--}}
             {{--<span class="icon-bar"></span>--}}
             {{--</button>--}}
-            <a class="navbar-brand" href="{{url('graph')}}">Proyecto</a>
+            <a class="navbar-brand" href="{{url('graph')}}">Tracker</a>
         </div>
         <ul class="navbar-nav navbar-top-links navbar-right">
             @guest
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('user/create') }}">{{ __('Register') }}</a>
+                    <a class="nav-link" href="{{ url('user/create') }}">{{ __('Registrarse') }}</a>
                 </li>
             @else
                 <li class="nav-item dropdown">
@@ -95,7 +95,7 @@
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href={{url('graph')}}><i class="fa fa-dashboard fa-fw"></i> Grafico</a>
+                        <a class="dropdown-item" href={{url('graph')}}><i class="fa fa-dashboard fa-fw"></i> Gráfico</a>
                         <a href={{url('persona/'.Auth::user()->persona->id)}}><i class="fa fa-suitcase fa-fw"></i> Configuracion de perfil</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -115,7 +115,7 @@
     <div>
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Grafico</h1>
+                <h1 class="page-header" style="margin-left: 2%">Gráfico</h1>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>

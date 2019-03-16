@@ -1,21 +1,47 @@
 @extends('layouts.master')
 
 @section('content')
+
+    <style>
+        .columnLabel {
+            float: left;
+            width: 30%;
+            margin-left: 5%;
+            padding: 0%;
+            /*height: 300px; !* Should be removed. Only for demonstration *!*/
+        }
+
+        .columnInput {
+            float: left;
+            width: 40%;
+            padding: 0%;
+            /*height: 300px; !* Should be removed. Only for demonstration *!*/
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+
+
 <div class="container">
     <div id="signupbox" style=" margin-top:30px" class="mainbox col-md-7 col-md-offset-1 col-sm-7 col-sm-offset-2">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <div class="panel-title">Login</div>
+                <div class="panel-title">Ingresar</div>
             </div>
             <div class="panel-body" >
 
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
-
-                    <div class="form-group row col-md-offset-2">
-                        <label for="rut" class="col-sm-2 col-form-label text-md-right">{{ __('Rut') }}</label>
-
-                        <div class="col-md-7">
+                    <div class="row" style="margin-bottom: 10px">
+                        <div class="columnLabel">
+                            <label for="rut" >{{ __('Rut') }}</label>
+                        </div>
+                        <div class="columnInput">
                             <input id="rut" type="text" class="form-control{{ $errors->has('rut') ? ' is-invalid' : '' }}" name="rut" value="{{ old('rut') }}" required autofocus>
 
                             @if ($errors->has('rut'))
@@ -26,10 +52,11 @@
                         </div>
                     </div>
 
-                    <div class="form-group row col-md-offset-2">
-                        <label for="password" class="col-md-2 col-form-label text-md-right">{{ __('Contraseña') }}</label>
-
-                        <div class="col-md-7">
+                    <div class="row" style="margin-bottom: 10px">
+                        <div class="columnLabel">
+                            <label for="password" >{{ __('Contraseña') }}</label>
+                        </div>
+                        <div class="columnInput">
                             <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                             @if ($errors->has('password'))
@@ -37,6 +64,14 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                             @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row col-md-offset-4">
+                        <div class="controls col-md-8">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Ingresar') }}
+                            </button>
                         </div>
                     </div>
 
@@ -52,19 +87,7 @@
                         {{--</div>--}}
                     {{--</div>--}}
 
-                    <div class="form-group row col-md-offset-4">
-                        <div class="controls col-md-8">
-                            <button type="submit" class="btn btn-primary">
-                                {{ __('Login') }}
-                            </button>
 
-                            {{--@if (Route::has('password.request'))--}}
-                                {{--<a class="btn btn-link" href="{{ route('password.request') }}">--}}
-                                    {{--{{ __('Forgot Your Password?') }}--}}
-                                {{--</a>--}}
-                            {{--@endif--}}
-                        </div>
-                    </div>
                 </form>
 
             </div>

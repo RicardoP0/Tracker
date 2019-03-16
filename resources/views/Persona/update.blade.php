@@ -31,7 +31,7 @@
 
     .columnLabel {
         float: left;
-        width: 20%;
+        width: 25%;
         margin-left: 5%;
         padding: 0%;
         /*height: 300px; !* Should be removed. Only for demonstration *!*/
@@ -51,8 +51,8 @@
         clear: both;
     }
 
-    .clp:before {
-        content: "$";
+    .clp:after {
+        content: " CLP";
     }
 </style>
 
@@ -138,7 +138,7 @@
 
                             <div class="row">
                                 <div class="columnLabel">
-                                    <label for="id_sede" class=" requiredField"> Situacion laboral actual </label>
+                                    <label for="id_sede" class=" requiredField"> Situación laboral actual </label>
                                 </div>
                                 <div class="columnInput">
                                     <select name="estado_trabajo">
@@ -151,7 +151,7 @@
 
                         </div>
 
-                        <h3>Historial academico</h3>
+                        <h3>Historial académico</h3>
 
                         <div id="fieldList">
 
@@ -493,9 +493,22 @@
                             </div>
 
                             <div class="md-form mb-5">
-                                <label data-error="wrong" data-success="right" for="inputAge">Sueldo</label><br>
-                                <input type="number" id="inputSalIn" name="quantity" min="100000" max="9000000" style="margin-bottom: 10px">
+                                <label data-error="wrong" data-success="right" for="inputAge">Sueldo en CLP</label><br>
+                                <input type="text" id="inputSalIntext" name="quantity" min="100000" max="9000000" style="margin-bottom: 10px">
                             </div>
+
+                            <input class="hide" type="number" id="inputSalIn">
+
+                            <script>
+                                document.getElementById("inputSalIntext").onblur =function (){
+                                    this.value = parseFloat(this.value.replace(/,/g, ""))
+                                        .toFixed(0)
+                                        .toString()
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                                    document.getElementById("inputSalIn").value = this.value.replace(/,/g, "")
+                                }
+                            </script>
 
                             <label data-error="wrong" data-success="right" for="inputOfficeInput">Area</label>
                             <div class="md-form mb-5">
@@ -540,7 +553,7 @@
             </div>
 
             <div class="modal fade modalEditClass" id="modEdit2" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header text-center">
                             <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Editar Trabajo</h4>
@@ -584,8 +597,20 @@
 
                             <div class="md-form mb-5">
                                 <label data-error="wrong" data-success="right" for="inputAge">Sueldo</label><br>
-                                <input type="number" id="edSal" name="quantity" min="100000" max="9000000" style="margin-bottom: 10px">
+                                <input type="text" id="edSaltext" name="quantity" style="margin-bottom: 10px">
                             </div>
+
+                            <input class="hide" type="number" id="edSal">
+
+                            <script>
+                                document.getElementById("edSaltext").onblur =function (){
+                                    this.value = parseFloat(this.value.replace(/,/g, ""))
+                                        .toFixed(0)
+                                        .toString()
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                    document.getElementById("edSal").value = this.value.replace(/,/g, "")
+                                }
+                            </script>
 
                             <label data-error="wrong" data-success="right" for="inputOfficeInput">Area</label>
                             <div class="md-form mb-5">
@@ -625,6 +650,7 @@
             </div>
             {{--------------------}}
 
+            {{--tablas--}}
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title">Datos adicionales</div>
@@ -666,7 +692,7 @@
 
                                         <span class="table-remove">
                                             <button type="button" class="btn btn-primary">
-                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                             </button>
                                         </span>
                                     </td>
@@ -688,7 +714,7 @@
 
                                     <span class="table-remove">
                                                 <button type="button" class="btn btn-primary">
-                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                 </button>
                                             </span>
                                 </td>
@@ -731,7 +757,7 @@
                                 },
                                 success: function (id) {
                                     document.getElementById("clone_id_ad").innerHTML=id;
-                                    alert("Postgrado Agregado!");
+                                    alert("Postgrado Agregado");
                                     var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide');
                                     $TABLE.find('table').append($clone);
                                 }
@@ -811,7 +837,7 @@
                                     id:sendId
                                 },
                                 success: function () {
-                                    alert("Postgrado Actualizado!");
+                                    alert("Postgrado Actualizado");
                                 }
                             });
                         });
@@ -831,7 +857,7 @@
                                     cpass: Confirm
                                 },
                                 success: function () {
-                                    alert("Clave cambiada!");
+                                    alert("Clave actualizada!");
                                 },
                                 error: function() {
                                     alert("Error");
@@ -923,6 +949,7 @@
                                 <th class="tg-73oq"></th>
                             </tr>
                             <tr>
+
                             @foreach( $aux as $c)
 
                                 <tr>
@@ -934,7 +961,7 @@
                                     <td class="tg-73oq" width="9%" id="inLvl">{{$c->nivel_cargo->nombre}}</td>
                                     <td class="tg-73oq" width="10%" id="inDateS">{{$c->fecha_inicio}}</td>
                                     <td class="tg-73oq" width="10%" id="inDateE">{{$c->fecha_termino}}</td>
-                                    <td class="tg-73oq clp" width="10%" id="inSal">{{$c->sueldo}}</td>
+                                    <td class="tg-73oq clp" width="10%" id="inSal"><?php echo number_format($c->sueldo, 0,",",".");?></td>
                                     <td class="tg-73oq" width="10%" id="Area">{{$c->area->nombre}}</td>
                                     <td class="tg-73oq" width="20%" id="Rubro">{{$c->empresa->rubro->nombre}}</td>
                                     <td class="tg-vlcj" width="10%">
@@ -947,7 +974,7 @@
 
                                         <span class="table-remove2">
                                             <button type="button" class="btn btn-primary">
-                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                             </button>
                                         </span>
                                     </td>
@@ -966,7 +993,7 @@
                                 <td class="tg-73oq" width="9%" id="inLvlc"></td>
                                 <td class="tg-73oq" width="10%" id="inDateSc"></td>
                                 <td class="tg-73oq" width="10%" id="inDateEc"></td>
-                                <td class="tg-73oq" width="10%" id="inSalc"></td>
+                                <td class="tg-73oq clp" width="10%" id="inSalc"></td>
                                 <td class="tg-73oq" width="10%" id="Areac"></td>
                                 <td class="tg-73oq" width="20%" id="Rubroc"></td>
                                 <td class="tg-vlcj" width="10%" >
@@ -979,7 +1006,7 @@
 
                                     <span class="table-remove2">
                                                 <button type="button" class="btn btn-primary">
-                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                 </button>
                                             </span>
                                 </td>
@@ -989,6 +1016,12 @@
 
                     {{--script de la tabla trabajos--}}
                     <script>
+
+                        const formatter = new Intl.NumberFormat('es-CL', {
+                            //style: 'currency',
+                            //currency: 'CLP',
+                            minimumFractionDigits: 0
+                        })
 
                         var $TABLE2 = $('#laboral');
                         var emp={!! $tipoEmpresas !!};
@@ -1016,7 +1049,7 @@
                             document.getElementById("inLvlc").innerHTML=iTipoT;
                             document.getElementById("inDateSc").innerHTML=iDatS;
                             document.getElementById("inDateEc").innerHTML=iDatE;
-                            document.getElementById("inSalc").innerHTML=iSal;
+                            document.getElementById("inSalc").innerHTML=formatter.format(iSal);
                             document.getElementById("Areac").innerHTML=iArea;
                             document.getElementById("Rubroc").innerHTML=iRubro;
 
@@ -1046,7 +1079,7 @@
                                     $TABLE2.find('table').append($clone);
                                 },
                                 error: function(){
-                                    alert("Datos invalidas");
+                                    alert("Datos invalidos");
                                 }
                             });
                             $('#modEdit2').val($('#inputEName').val(""));
@@ -1095,7 +1128,10 @@
                             }
                             $('#modEdit2').val($('#edDateS').val(eDatS));
                             $('#modEdit2').val($('#edDateE').val(eDatE));
-                            $('#modEdit2').val($('#edSal').val(eSal));
+                            $('#modEdit2').val($('#edSaltext').val(eSal.replace(".", ",")));
+                            $('#modEdit2').val($('#edSal').val(eSal.replace(".", "")));
+
+                            //$('#modEdit2').val($('#edSal').val(eSal));
                             aux = $.trim(eArea);
                             for($i=0;$i<window.areat.length;$i++){
                                 if(areat[$i].nombre == aux){
@@ -1120,7 +1156,8 @@
                             $(pos2).parents('tr').find('td:nth-child(4)').text($('#edNivel option:selected').text());
                             $(pos2).parents('tr').find('td:nth-child(5)').text($('#edDateS').val());
                             $(pos2).parents('tr').find('td:nth-child(6)').text($('#edDateE').val());
-                            $(pos2).parents('tr').find('td:nth-child(7)').text($('#edSal').val());
+                            $(pos2).parents('tr').find('td:nth-child(7)').text(formatter.format($('#edSal').val()));
+                            //$(pos2).parents('tr').find('td:nth-child(7)').text($('#edSal').val());
                             $(pos2).parents('tr').find('td:nth-child(8)').text($('#edArea option:selected').text());
                             $(pos2).parents('tr').find('td:nth-child(9)').text($('#edRubro option:selected').text());
 
@@ -1150,7 +1187,7 @@
                                     id:idc2
                                 },
                                 success: function () {
-                                    alert("Datos Actualizado!");
+                                    alert("Trabajo Actualizado");
                                 }
                             });
                         });
@@ -1171,7 +1208,7 @@
                                         id:sendIdc
                                     },
                                     success: function () {
-                                        alert("Datos Eliminados");
+                                        alert("Trabajo Eliminado");
                                     }
                                 });
                             }

@@ -5,7 +5,7 @@
 
 <div class="container">
 
-    <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-7 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div id="signupbox" style=" margin-top:2%" class="mainbox col-md-7  col-sm-8">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <div class="panel-title">Registro</div>

@@ -6,17 +6,17 @@
             {{--<span class="icon-bar"></span>--}}
             {{--<span class="icon-bar"></span>--}}
         {{--</button>--}}
-        <a class="navbar-brand" href="index.html">Proyecto</a>
+        <a class="navbar-brand" href={{url('graph')}}>Tracker</a>
     </div>
     <!-- /.navbar-header -->
 
     <ul class="navbar-nav navbar-top-links navbar-right">
         @guest
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('user/create') }}">{{ __('Register') }}</a>
+                <a class="nav-link" href="{{ url('user/create') }}">{{ __('Registrarse') }}</a>
             </li>
         @else
             <li class="nav-item dropdown">
@@ -55,13 +55,13 @@
                     {{--<!-- /input-group -->--}}
                 {{--</li>--}}
                 <li>
-                    <a href={{url('graph')}}><i class="fa fa-dashboard fa-fw"></i> Grafico</a>
+                    <a href={{url('graph')}}><i class="fa fa-dashboard fa-fw"></i> Gráfico</a>
                 </li>
                 @Auth
 
                     @if(Auth::user()->roles->first()->name == 'admin')
                 <li>
-                    <a href={{url('otros')}}><i class="fa fa-dashboard fa-fw"></i> Administracion areas</a>
+                    <a href={{url('otros')}}><i class="fa fa-dashboard fa-fw"></i> Administración areas</a>
                 </li>
                     @endif
 

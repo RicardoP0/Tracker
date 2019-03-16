@@ -120,6 +120,7 @@ class PersonaController extends Controller
             'fecha_ingreso'=>'required|date',
             'fecha_egreso' =>'required|date',
         ]);
+        $persona->nombre=$request->username;
         $persona->situacion_laboral=$request->estado_trabajo;
         $persona->carreras()->detach();
         $persona->carreras()->attach($request->carrera,['tipo_tesis'=>$request->tipo_tesis,
