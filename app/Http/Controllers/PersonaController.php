@@ -126,6 +126,7 @@ class PersonaController extends Controller
             'fecha_ingreso'=>$request->fecha_ingreso,
             'fecha_egreso'=>$request->fecha_egreso,
             "fecha_titulacion"=>$request->fecha_titulacion]);
+        $persona->save();
 
         return redirect()->back()->with('Datos guardados');
     }
