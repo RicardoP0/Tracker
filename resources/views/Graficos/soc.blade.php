@@ -783,6 +783,8 @@
         </script>
 
         <script>
+
+
             $('.motionchart').motionchart({
                 title: "Motion Chart",
                 'data': dataArr,

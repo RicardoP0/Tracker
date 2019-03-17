@@ -173,21 +173,24 @@ class GraphController extends Controller
             $endYear =  Carbon::createFromFormat('Y-m-d',DB::table('cargos')->max('fecha_termino'))->year;
         }
         else{
-            $dataArr=["1995","NO DATA",0,0,0];
+            $dataArr=[[1995,"NO DATA",1,1,1],[1996,"NO DATA",1,1,1]];
             $dataArr=array_prepend($dataArr,['fecha',$maingroup,'avg_sueldo','cantidad_persona','avg_experencia']);
+
             return $dataArr;
         }
+
         $dataCollect = collect();
         $dataView = \App\DataView::all();
 
         $main_group = $dataView->groupBy($maingroup);
 
-        for($i=$startYear; $i<$endYear; $i++){
+        for($i=$startYear; $i<=$endYear; $i++){
             foreach ( $main_group as $item){
 
                 $row = $item->filter(function ($item) use($i) {
                     return (date('Y',strtotime(data_get($item, 'cargo_inicio'))) <= strval($i));
                 });
+
 
                 if (count($row)) {
                     if ($filters) {
@@ -208,24 +211,34 @@ class GraphController extends Controller
 
                     foreach ($row as $persona){
                         $aux_persona = $persona->unique('cargo_inicio');
-                        $cant_persona_exp+=1;
+
+
                         foreach ($aux_persona as $val ){
                             //Revisar anios experencia
+
                             $start_date = intval(date('Y',strtotime($val['cargo_inicio'])));
                             if($start_date <= $i){
                                 $end_date = intval(date('Y',strtotime($val['cargo_termino'])));
-                                if($end_date <= $i){
-                                    $sum_years = $sum_years+  $end_date -$start_date;
+
+                                if($end_date < $i){
+                                    continue;
+                                    //$sum_years = $sum_years+  $end_date -$start_date;
+
                                 }
                                 else{
+                                    $cant_persona_exp+=1;
                                     $sum_years  = $sum_years +  $i - $start_date;
                                     //Sumar sueldo para trabajo en la fecha actual
                                     $sum_sueldo += $val['sueldo_cargo'];
                                     $cant_persona_sueldo +=1;
+
                                 }
+
                             }
                         }
+
                     }
+
 
 //                    $row = $row->filter(function ($item) use($i) {
 //                        dd($item);
@@ -250,11 +263,13 @@ class GraphController extends Controller
                     if($cant_persona_sueldo != 0){
                         $aux_row = [$i,$item->first()[$maingroup],$sum_sueldo/$cant_persona_sueldo,$cant_persona_sueldo,$sum_years/$cant_persona_exp];
                         $dataCollect->push($aux_row);
+
                     }
                     else{
                         $aux_row = [$i,$item->first()[$maingroup],0,0,0];
                         $dataCollect->push($aux_row);
                     }
+
 
 
                 }

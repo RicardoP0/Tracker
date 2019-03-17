@@ -34,7 +34,7 @@
 				top: 39.5,
 				right: 39.5,
 				bottom: 39.5,
-				left: 39.5
+				left: 65
 			},
             width, height,
 			MapEnum = {
@@ -79,7 +79,7 @@
                 this.tooltips(); //Initialise ToolTip
                 this.table(); //Initialise Table
                 //this.resize(); //Initialise window Resizing
-                this.contextMenus(); //Initialise all context Menus
+                //this.contextMenus(); //Initialise all context Menus
                 this.initWindow(); //Initialise window dimensions
             },
             /**
@@ -1549,14 +1549,9 @@
 	 */
     var settings = {
         title: "SOCR HTML5 Motion Chart",
-        data: [
-            ["Year", "Kia", "Nissan", "Toyota", "Honda"],
-            ["2008", 10, 11, 12, 13],
-            ["2009", 20, 11, 14, 13],
-            ["2010", 30, 15, 12, 13]
-            ],
-        minWidth: 700,
-        minHeight: 300,
+        data: [],
+        minWidth: 800,
+        minHeight: 500,
 		loop: false,
 		play: false,
         speed: 3000,
