@@ -162,7 +162,7 @@
                                 <div class="columnInput">
                                     <select name="carrera">
                                         <option value="1" <?php if($carreras->count()>0 && $carreras->first()->nombre=="ICCI") echo('selected');?>>ICCI</option>
-                                        <option value="2" <?php if($carreras->count()>0 && $carreras->first()->nombre=="IenCI") echo('selected');?>>ICI</option>
+                                        <option value="2" <?php if($carreras->count()>0 && $carreras->first()->nombre=="IenCI") echo('selected');?>>IenCI</option>
                                     </select>
                                 </div>
                             </div>
@@ -225,7 +225,7 @@
                                             <option value="Proyecto" <?php if($carreras->count()>0 && $carreras->first()->pivot->tipo_tesis=="Proyecto") echo('selected');?>>Proyecto</option>
                                             <option value="Investigacion" <?php if($carreras->count()>0 && $carreras->first()->pivot->tipo_tesis=="Investigacion") echo('selected');?>>Investigacion</option>
                                             <option value="Capstone" <?php if($carreras->count()>0 && $carreras->first()->pivot->tipo_tesis=="Capstone") echo('selected');?>>Capstone</option>
-                                            <option value="Trabajo" <?php if($carreras->count()>0 && $carreras->first()->pivot->tipo_tesis=="Trabajo") echo('selected');?>>Trabajo</option>
+                                            <option value="Modalidad trabajo" <?php if($carreras->count()>0 && $carreras->first()->pivot->tipo_tesis=="Modalidad trabajo") echo('selected');?>>Modalidad trabajo</option>
                                         </select>
                                     </div>
                                 </div>
