@@ -21,8 +21,12 @@ class OtroAreaController extends Controller
     {
         $otros = Otro_area::all();
         $areas = \App\Area::all();
+        $universidades = \App\Universidad::where('sede',"otro")->get();
+        //99 es para niveles guardados como otro
+        $cargos = \App\Nivel_cargo::where('nivel',99)->get();
+        $niveles = \App\Nivel_cargo::where('nivel','<',99)->get();
         $request->user()->authorizeRoles(['admin']);
-        return view('otros_area', compact('otros','areas'));
+        return view('otros_area', compact('otros','areas','universidades','cargos','niveles'));
     }
 
     /**

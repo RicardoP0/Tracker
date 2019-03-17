@@ -36,5 +36,9 @@ Route::resource('persona','PersonaController');
 Auth::routes();
 Route::resource('otros', 'OtroAreaController');
 
+Route::post('universidad','UniversidadController@store');
+//Route::put('universidad/{universidad}','UniversidadController@update');
 
+Route::post('nivelcargo','NivelCargoController@store');
+Route::put('nivelcargo/{nivelcargo}','NivelCargoController@update');
 
