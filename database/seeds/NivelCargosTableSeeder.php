@@ -23,5 +23,9 @@ class NivelCargosTableSeeder extends Seeder
             'nombre' => 'Soporte',
             'nivel' =>1
         ]);
+        DB::table('nivel_cargos')->insert([
+            'nombre' => 'Otro',
+            'nivel' =>0
+        ]);
     }
 }

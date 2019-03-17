@@ -66,7 +66,7 @@
                     @endif
 
                     <li>
-                        <a href={{url('persona/'.Auth::user()->persona->id)}}><i class="fa fa-suitcase fa-fw"></i> Configuracion de perfil</a>
+                        <a href={{url('persona/'.Auth::user()->persona->id)}}><i class="fa fa-suitcase fa-fw"></i> Configuración de perfil</a>
                     </li>
                 @EndAuth
 

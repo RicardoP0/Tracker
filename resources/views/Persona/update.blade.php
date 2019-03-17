@@ -29,6 +29,22 @@
         display: block;
     }
 
+    #otroCargo {
+        display: none;
+    }
+
+    #otraCargo.show {
+        display: block;
+    }
+
+    #otroCargoed {
+        display: none;
+    }
+
+    #otraCargoed.show {
+        display: block;
+    }
+
     .columnLabel {
         float: left;
         width: 25%;
@@ -309,6 +325,15 @@
                                 }
                             }
 
+                            function hide3() {
+                                if(document.getElementById('inputNivel').value == "4") {
+                                    document.getElementById("otroCargo").classList.add("show");
+                                }else{
+                                    document.getElementById("otroCargo").classList.remove("show");
+                                }
+                            }
+
+
                             function checkTitulado($tipo,$fecha) {
                                 document.getElementById("Titulado").checked = true;
                                 document.getElementById("fechaTitulacion").value=$fecha;
@@ -470,12 +495,27 @@
 
                             <label data-error="wrong" data-success="right" for="inputOfficeInput">Nivel del cargo</label>
                             <div class="md-form mb-5">
-                                <select id="inputNivel" style="margin-bottom: 10px">
+                                <select id="inputNivel" style="margin-bottom: 10px" onchange="hide3()">
                                     <option value="0" disabled selected value> -- Seleccionar una opcion -- </option>
                                     @foreach($nivel as $n)
                                         <option value={{$n->id}}> {{$n->nombre}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+
+                            <div id="otroCargo" class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="inputOfficeInput">Otro</label>
+                                <div class="md-form mb-5">
+                                    <input id="otro_cargo" name="otroCargo" type="text" style="margin-bottom: 10px" />
+                                </div>
+                            </div>
+
+
+                            <div id="otroCargo" class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="inputOfficeInput">Otro</label>
+                                <div class="md-form mb-5">
+                                    <input id="otroCa_nombre" name="otro" type="text" style="margin-bottom: 10px" />
+                                </div>
                             </div>
 
                             <div class="row md-form mb-5">
@@ -578,12 +618,29 @@
 
                             <label data-error="wrong" data-success="right" for="inputOfficeInput">Nivel del cargo</label>
                             <div class="md-form mb-5">
-                                <select id="edNivel" style="margin-bottom: 10px">
+                                <select id="edNivel" style="margin-bottom: 10px" onchange="hide4()">
                                     @foreach($nivel as $n)
                                         <option value={{$n->id}}> {{$n->nombre}}</option>
                                     @endforeach
                                 </select>
                             </div>
+
+                            <div id="otroCargoed" class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="inputOfficeInput">Otro</label>
+                                <div class="md-form mb-5">
+                                    <input id="otro_cargoEd" name="otroCargoEd" type="text" style="margin-bottom: 10px" />
+                                </div>
+                            </div>
+
+                            <script>
+                                function hide4() {
+                                    if(document.getElementById('edNivel').value == "4") {
+                                        document.getElementById("otroCargoed").classList.add("show");
+                                    }else{
+                                        document.getElementById("otroCargoed").classList.remove("show");
+                                    }
+                                }
+                            </script>
 
                             <div class="md-form mb-5">
                                 <label data-error="wrong" data-success="right" for="inputAge">Fecha de inicio</label>

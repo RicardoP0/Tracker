@@ -23,7 +23,7 @@ class CreatePersonasTable extends Migration
             $table->string("situacion_laboral");
             $table->integer("user_id")->unsigned()->nullable();
             $table->foreign('user_id')->references('id')
-                ->on('users');
+                ->on('users')->onDelete('cascade');
         });
     }
 

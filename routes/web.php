@@ -12,6 +12,7 @@
 */
 
 Route::resource('user', 'UserController');
+Route::resource('permisos', 'UserController');
 Route::get('/', 'UserController@create');
 Route::resource('empresa','EmpresaController');
 
@@ -26,8 +27,14 @@ Route::post('cargoAdd/json', 'PersonaController@jsonAddCargo');
 Route::post('cargoEdit/json', 'PersonaController@jsonEditCargo');
 Route::post('cargoDelete/json', 'PersonaController@jsonDeleteCargo');
 
+//Route::post('userAdd/json', 'UserController@jsonAddUser');
+Route::post('userAdd/json', 'UserController@store');
+Route::post('userDel/json', 'UserController@destroy');
+//Route::post('userDel/json', 'UserController@destroy');
+
 Route::resource('persona','PersonaController');
 Auth::routes();
 Route::resource('otros', 'OtroAreaController');
+
 
 

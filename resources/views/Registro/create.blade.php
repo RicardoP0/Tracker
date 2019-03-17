@@ -28,6 +28,7 @@
                         </div>
                     </div>
 
+
                     <div id="div_id_email" class="form-group required">
                         <label for="id_email" class="control-label col-md-4  requiredField"> E-mail<span class="asteriskField">*</span> </label>
                         <div class="controls col-md-8 ">
@@ -45,7 +46,7 @@
                     <div id="div_id_password1" class="form-group required">
                         <label for="password-confirm" class="control-label col-md-4  requiredField">Confirm password<span class="asteriskField">*</span> </label>
                         <div class="controls col-md-8 ">
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Vuelva a escribir su contraseña" required>
                         </div>
                     </div>
 
@@ -64,6 +65,7 @@
                         </div>
                     </div>
 
+                    <input class="hide" id="op" type="date" name="op" value="0" style="margin-bottom: 10px">
 
                     <div class="form-group">
                         <div class="aab controls col-md-4 "></div>
@@ -72,6 +74,8 @@
                         </div>
                     </div>
 
+
+
                 </form>
 
 
@@ -79,5 +83,7 @@
             </div>
         </div>
     </div>
+
 </div>
+
 @endsection
