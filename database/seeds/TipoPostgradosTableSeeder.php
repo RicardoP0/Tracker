@@ -12,16 +12,16 @@ class TipoPostgradosTableSeeder extends Seeder
     public function run()
     {
         DB::table('tipo_postgrados')->insert([
-            'nombre' => 'magister',
+            'nombre' => 'Magíster',
         ]);
         DB::table('tipo_postgrados')->insert([
-            'nombre' => 'doctorado',
+            'nombre' => 'Doctorado',
         ]);
         DB::table('tipo_postgrados')->insert([
-            'nombre' => 'diplomado',
+            'nombre' => 'Diplomado',
         ]);
         DB::table('tipo_postgrados')->insert([
-            'nombre' => 'licenciado',
+            'nombre' => 'Licenciado',
         ]);
     }
 }

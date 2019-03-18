@@ -24,13 +24,13 @@ class DatabaseSeeder extends Seeder
 
          ]);
 
-
-        //factory(App\User::class, 5)->create();
-        //factory(App\Tipo_empresa::class, 20)->create();
-
-
-        //factory(App\Rubro::class, 10)->create();
-
+//
+//        factory(App\User::class, 5)->create();
+//        factory(App\Tipo_empresa::class, 20)->create();
+//
+//
+//        factory(App\Rubro::class, 10)->create();
+//
 
 //
 //        factory(App\Persona::class, 1)->create()->each(function ($u) {
