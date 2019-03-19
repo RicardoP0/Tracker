@@ -1550,7 +1550,7 @@
     var settings = {
         title: "SOCR HTML5 Motion Chart",
         data: [],
-        minWidth: 800,
+        minWidth: 780,
         minHeight: 500,
 		loop: false,
 		play: false,

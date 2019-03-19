@@ -172,6 +172,7 @@
         }
         .columnLegend{
             float: left;
+            /*width: 23%*/
             width: 23%;
             margin-left: 2%;
             padding: 5px;
@@ -648,7 +649,7 @@
 
             <div class="columnGraph">
                 <!--"width:800px; height:600px;"-->
-                <div id="graph" class="motionchart" style="width:100%; height:600px;"></div>
+                <div id="graph" class="motionchart" style="width:100%; height:600%;"></div>
             </div>
             <div class="columnLegend">
                 <div id="legend" class="legendbox">
