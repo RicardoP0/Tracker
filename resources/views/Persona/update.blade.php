@@ -45,6 +45,22 @@
         display: block;
     }
 
+    #otraUni {
+        display: none;
+    }
+
+    #otraUni.show {
+        display: block;
+    }
+
+    #otraUnied {
+        display: none;
+    }
+
+    #otraUnied.show {
+        display: block;
+    }
+
     .columnLabel {
         float: left;
         width: 25%;
@@ -333,6 +349,22 @@
                                 }
                             }
 
+                            function hide5() {
+                                if(document.getElementById('inputUni').value == "2") {
+                                    document.getElementById("otraUni").classList.add("show");
+                                }else{
+                                    document.getElementById("otraUni").classList.remove("show");
+                                }
+                            }
+
+                            function hide6() {
+                                if(document.getElementById('inputUnied').value == "2") {
+                                    document.getElementById("otraUnied").classList.add("show");
+                                }else{
+                                    document.getElementById("otraUnied").classList.remove("show");
+                                }
+                            }
+
 
                             function checkTitulado($tipo,$fecha) {
                                 document.getElementById("Titulado").checked = true;
@@ -355,6 +387,7 @@
             </div>
 
             <!---modal postgrados---->
+            <!---modal agregar---->
             <div method="post" action="/Postgrado" class="modal fade addNewInputs" id="modAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd"
                  aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -383,12 +416,19 @@
 
                             <label data-error="wrong" data-success="right" for="inputOfficeInput">Universidad</label>
                             <div class="md-form mb-5">
-                                <select id="inputUni" style="margin-bottom: 10px">
+                                <select id="inputUni" style="margin-bottom: 10px" onchange="hide5()">
                                     <option value="0" disabled selected value> -- Seleccionar una opcion -- </option>
                                     @foreach($universidades as $uni)
                                         <option value={{$uni->id}}> {{$uni->nombre}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+
+                            <div id="otraUni" class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="inputOfficeInput">Otra</label>
+                                <div class="md-form mb-5">
+                                    <input id="otra_uni" name="otra_Uni" type="text" style="margin-bottom: 10px" />
+                                </div>
                             </div>
 
                             <div class="md-form mb-5">
@@ -409,6 +449,7 @@
                 </div>
             </div>
 
+            <!---modal editar---->
             <div class="modal fade modalEditClass" id="modEdit" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -436,12 +477,19 @@
 
                             <label data-error="wrong" data-success="right" for="inputOfficeInput">Universidad</label>
                             <div class="md-form mb-5">
-                                <select id="inputUnie" style="margin-bottom: 10px">
+                                <select id="inputUnied" style="margin-bottom: 10px" onchange="hide6()">
                                     <!--<option disabled selected value> -- Seleccionar una opcion -- </option>-->
                                     @foreach($universidades as $uni)
                                         <option value={{$uni->id}}> {{$uni->nombre}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+
+                            <div id="otraUnied" class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="inputOfficeInput">Otro</label>
+                                <div class="md-form mb-5">
+                                    <input id="otra_unied" name="otro" type="text" style="margin-bottom: 10px" />
+                                </div>
                             </div>
 
                             <div class="md-form mb-5">
@@ -796,6 +844,7 @@
                             var iDat = $('#inputDate').val();
                             var sendTipo=$("#inputTipo").val();
                             var sendUni=$("#inputUni").val();
+                            var otra_uni=$("#otra_uni").val();
 
                             document.getElementById("inNamec").innerHTML=iName;
                             document.getElementById("inTipoc").innerHTML=iTipo;
@@ -810,7 +859,8 @@
                                     nombre: iName,
                                     tipo: sendTipo,
                                     univ: sendUni,
-                                    date :iDat
+                                    date :iDat,
+                                    otraUni: otra_uni
                                 },
                                 success: function (id) {
                                     document.getElementById("clone_id_ad").innerHTML=id;
@@ -832,12 +882,15 @@
                             $('#modAdd').val($('#inputTipo').val(0));
                             $('#modAdd').val($('#inputUni').val(0));
                             $('#modAdd').val($('#inputDate').val("dd-mm-aaaa"));
+                            document.getElementById("otraUni").classList.remove("show");
+
 
 
 
 
                         });
 
+                        //captura los datos de la tabla y la pasa al modal
                         $('.table-edit').click(function(){
 
                             var eName=$(this).parents('tr').find('td:nth-child(2)').html();
@@ -869,6 +922,7 @@
 
                         });
 
+                        //manda los cambios al controlador
                         $('.table-editm1').click(function(){
                             var id=$(pos).parents('tr').find('td:first').html();
                             $(pos).parents('tr').find('td:nth-child(2)').text($('#NameEdit').val());
@@ -881,6 +935,7 @@
                             var sendUn=$('#inputUnie').val();
                             var sendDate=$('#inputDateE').val();
                             var sendId=$.trim(id);
+                            var sendOtraUni=$('#otra_unied').val();
 
                             $.ajax({
                                 type: 'POST',
@@ -891,38 +946,46 @@
                                     tipo: sendTipo,
                                     univ: sendUn,
                                     date :sendDate,
-                                    id:sendId
+                                    id:sendId,
+                                    otraUni: sendOtraUni,
                                 },
                                 success: function () {
                                     alert("Postgrado Actualizado");
                                 }
                             });
+
+                            document.getElementById("otraUnied").classList.remove("show");
                         });
 
-                        $('.edit-pass').click(function(){
-                            var oldPass=$('#inputOldPass').val();
-                            var NewPass=$('#inputNewPass').val();
-                            var Confirm=$('#ConfirmPass').val();
+                        //script para cambiar la pass se mandan los datos al controlador de persona
+                        $('.edit-pass').click(function() {
+                            var oldPass = $('#inputOldPass').val();
+                            var NewPass = $('#inputNewPass').val();
+                            var Confirm = $('#ConfirmPass').val();
 
                             $.ajax({
                                 type: 'POST',
                                 url: "{{url('/personaPass/json')}}",
                                 data: {
                                     _token: "{{ csrf_token() }}",
-                                    npass: NewPass,
                                     opass: oldPass,
+                                    password: NewPass,
                                     password_confirmation: Confirm
                                 },
                                 success: function () {
                                     alert("Clave actualizada!");
                                 },
-                                error: function() {
+                                error: function () {
                                     alert("Error");
                                 },
                             });
+
+                            $('#modAdd').val($('#inputOldPass').val(""));
+                            $('#modAdd').val($('#inputNewPass').val(""));
+                            $('#modAdd').val($('#ConfirmPass').val(""));
+
+
                         });
-
-
 
 
                         $('.table-remove').click(function () {
@@ -951,6 +1014,8 @@
 
 
                         });
+
+
                         // A few jQuery helpers for exporting only
                         jQuery.fn.pop = [].pop;
                         jQuery.fn.shift = [].shift;
@@ -1099,6 +1164,7 @@
                             var iRubro = $('#inputRubro option:selected').text();
                             //obtener nombre otro y vaciar
                             var otro_nombre = $('#otro_nombre').val();
+                            var otro_cargo = $('#otro_cargo').val();
                             document.getElementById("otro_nombre").value="";
 
                             document.getElementById("inNameTc").innerHTML=iEName;
@@ -1127,7 +1193,8 @@
                                     nombre :iEName,
                                     tipoEmp:sendTemp,
                                     rubro:sendRu,
-                                    otro: otro_nombre
+                                    otro: otro_nombre,
+                                    otroCargo: otro_cargo,
                                 },
                                 success: function(idce) {
                                     document.getElementById("clone_id").innerHTML=idce;
@@ -1147,6 +1214,9 @@
                             $('#modEdit2').val($('#inputSalIn').val(""));
                             $('#modEdit2').val($('#inputArea').val(0));
                             $('#modEdit2').val($('#inputRubro').val(0));
+
+                            document.getElementById("otraArea").classList.remove("show");
+                            document.getElementById("otroCargo").classList.remove("show");
 
 
 
@@ -1226,6 +1296,8 @@
                             var datE=$('#edDateE').val();
                             var sal=$('#edSal').val();
                             var name=$('#edEName').val();
+                            var otro_cargo=$('#otro_cargoEd').val();
+
 
 
                             $.ajax({
@@ -1241,15 +1313,16 @@
                                     nombre :name,
                                     tipoEmp:sendTempe,
                                     rubro:sendRue,
-                                    id:idc2
+                                    id:idc2,
+                                    otroCargo: otro_cargo,
                                 },
                                 success: function () {
                                     alert("Trabajo Actualizado");
                                 }
                             });
+                            document.getElementById("otroCargoed").classList.remove("show");
+                            document.getElementById("otraAreaed").classList.remove("show");
                         });
-
-
 
                         $('.table-remove2').click(function () {
                             var result = confirm("Esta seguro de eliminarlo?");
