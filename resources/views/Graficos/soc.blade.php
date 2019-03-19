@@ -647,7 +647,8 @@
 
 
             <div class="columnGraph">
-                <div id="graph" class="motionchart" style="width:800px; height:600px;"></div>
+                <!--"width:800px; height:600px;"-->
+                <div id="graph" class="motionchart" style="width:100%; height:600px;"></div>
             </div>
             <div class="columnLegend">
                 <div id="legend" class="legendbox">
