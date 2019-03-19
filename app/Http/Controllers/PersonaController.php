@@ -291,8 +291,8 @@ class PersonaController extends Controller
     public  function jsonChangePass(Request $request)
     {
         $this->validate($request, [
-            'opass' => 'required|confirmed',
-            'npass' => 'required|min:6',
+            'opass' => 'required',
+            'password' => 'required|min:6|confirmed',
         ]);
 
         $user = Auth::user();
