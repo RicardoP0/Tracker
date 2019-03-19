@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Persona;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PersonaController extends Controller
 {
@@ -312,15 +313,13 @@ class PersonaController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
         $user = Auth::user();
-
         $pw=$request->opass;
         $hashed=$user->password;
-        dd(Hash::check($pw, $hashed));
         if(Hash::check($pw, $hashed)){
             $user->password = $request->password;
             $user->save();
         }else{
-
+            return new HttpStatusCodeResult(410, "Error contraseña antigua equivocada");
         }
 
     }
