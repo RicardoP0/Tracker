@@ -259,6 +259,15 @@ class PersonaController extends Controller
         $uni=$request->univ;
         $date=$request->date;
 
+        $otraUnivNueva = $request->otraUni;
+
+        if($otraUnivNueva !=""){
+            $nuevaUni = new \App\Universidad(['nombre'=>$otraUnivNueva,'sede'=>'otro']);
+            $nuevaUni->save();
+
+            $uni = $nuevaUni->id;
+        }
+
         $postgrado= new \App\Postgrado(['nombre'=>$nombre,
             'fecha_obtencion'=>$date,
             'tipoPostgrado_id'=>$tipo,

@@ -13,12 +13,12 @@ class UniversidadTableSeeder extends Seeder
     {
         DB::table('universidades')->insert([
             'nombre' => "Universidad catolica del norte",
-            'sede' =>'otro'
+            'sede' =>'placeholder'
         ]);
 
         DB::table('universidades')->insert([
             'nombre' => "Otra",
-            'sede' =>'otro'
+            'sede' =>'placeholder'
         ]);
 
     }

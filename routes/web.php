@@ -29,6 +29,7 @@ Route::post('cargoDelete/json', 'PersonaController@jsonDeleteCargo');
 
 //Route::post('userAdd/json', 'UserController@jsonAddUser');
 Route::post('userAdd/json', 'UserController@store');
+Route::post('userUp/json', 'UserController@update');
 Route::post('userDel/json', 'UserController@destroy');
 //Route::post('userDel/json', 'UserController@destroy');
 
