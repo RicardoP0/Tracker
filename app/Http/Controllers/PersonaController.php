@@ -165,6 +165,13 @@ class PersonaController extends Controller
         $tipEmp=$request->tipoEmp;
         $ru=$request->rubro;
 
+        $otroCargoNivel = $request->otroCargo;
+        if($otroCargoNivel !=""){
+            $nuevo_nivel = new \App\Nivel_cargo(['nombre'=>$otroCargoNivel,'nivel' => 99]);
+            $nuevo_nivel->save();
+            $nivel = $nuevo_nivel->id;
+        }
+
         $emp = new \App\Empresa(['nombre'=>$nombreEmp,
             'tipo_empresa_id'=>$tipEmp,
             'rubro_id'=>$ru]);
@@ -181,6 +188,7 @@ class PersonaController extends Controller
         if($otro !=""){
             $cargo->otro_area()->create(['nombre_area'=>$otro]);
         }
+
         return response()->json($cargo->id, 200);
     }
 
