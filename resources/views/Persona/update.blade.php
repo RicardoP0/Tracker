@@ -882,6 +882,8 @@
                             $('#modAdd').val($('#inputTipo').val(0));
                             $('#modAdd').val($('#inputUni').val(0));
                             $('#modAdd').val($('#inputDate').val("dd-mm-aaaa"));
+                            document.getElementById("otraUni").classList.remove("show");
+
 
 
 
@@ -920,7 +922,7 @@
 
                         });
 
-                        //mando los cambios al controlador
+                        //manda los cambios al controlador
                         $('.table-editm1').click(function(){
                             var id=$(pos).parents('tr').find('td:first').html();
                             $(pos).parents('tr').find('td:nth-child(2)').text($('#NameEdit').val());
@@ -951,6 +953,8 @@
                                     alert("Postgrado Actualizado");
                                 }
                             });
+
+                            document.getElementById("otraUnied").classList.remove("show");
                         });
 
                         //script para cambiar la pass se mandan los datos al controlador de persona
@@ -984,8 +988,6 @@
                         });
 
 
-
-
                         $('.table-remove').click(function () {
                             var result = confirm("Esta seguro de eliminarlo?");
                             var sendIdd=$(this).parents('tr').find('td:first').html();
@@ -1012,6 +1014,8 @@
 
 
                         });
+
+
                         // A few jQuery helpers for exporting only
                         jQuery.fn.pop = [].pop;
                         jQuery.fn.shift = [].shift;
@@ -1211,6 +1215,9 @@
                             $('#modEdit2').val($('#inputArea').val(0));
                             $('#modEdit2').val($('#inputRubro').val(0));
 
+                            document.getElementById("otraArea").classList.remove("show");
+                            document.getElementById("otroCargo").classList.remove("show");
+
 
 
 
@@ -1313,9 +1320,9 @@
                                     alert("Trabajo Actualizado");
                                 }
                             });
+                            document.getElementById("otroCargoed").classList.remove("show");
+                            document.getElementById("otraAreaed").classList.remove("show");
                         });
-
-
 
                         $('.table-remove2').click(function () {
                             var result = confirm("Esta seguro de eliminarlo?");

@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder
 
         $user = new User();
         $user->name = 'Admin';
-        $user->rut = '1234567890';
+        $user->rut = '123456789-0';
         $user->email = 'admin@example.com';
         $user->password = 'secret';
         $user->save();
@@ -30,7 +30,7 @@ class UserTableSeeder extends Seeder
         $persona=new Persona();
         $persona->nombre='Admin';
         $persona->situacion_laboral='Activo';
-        $persona->rut='123456789';
+        $persona->rut='123456789-0';
         $persona->genero='No definido';
         $persona->fecha_nacimiento='2019-03-14';
         $user->persona()->save($persona);
