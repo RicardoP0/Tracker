@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Role;
 use App\User;
+use App\Persona;
 class UserController extends Controller
 {
     /**
@@ -130,7 +131,7 @@ class UserController extends Controller
             'name'=>'required|max:120',
 //            'email'=>'required|email|unique:users',
             'rut' =>'required|max:30',
-            'gender' => 'required|string'
+            //'gender' => 'required|string'
         ]);
 
         $user=User::find($request->id);
@@ -139,7 +140,7 @@ class UserController extends Controller
         $user->email=$request->email;
 
         $persona=Persona::where('user_id',$request->id)->first();
-        $persona->genero=$request->gender;
+        //$persona->genero=$request->gender;
         $persona->save();
         $user->roles()->sync([$request->op]);
 

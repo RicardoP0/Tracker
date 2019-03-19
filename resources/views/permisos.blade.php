@@ -165,17 +165,17 @@
                                     </div>
                                 </div>
 
-                                <div class="row" style="margin-bottom: 10px">
-                                    <div class="columnLabel">
-                                        <label data-error="wrong" data-success="right">Genero</label>
-                                    </div>
-                                    <div class="columnInput">
-                                        <select name="gender" id="generoEd">
-                                            <option value="hombre">Masculino</option>
-                                            <option value="mujer">Femenino</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                {{--<div class="row" style="margin-bottom: 10px">--}}
+                                    {{--<div class="columnLabel">--}}
+                                        {{--<label data-error="wrong" data-success="right">Genero</label>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="columnInput">--}}
+                                        {{--<select name="gender" id="generoEd">--}}
+                                            {{--<option value="hombre">Masculino</option>--}}
+                                            {{--<option value="mujer">Femenino</option>--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
 
                                 <div class="row">
                                     <div class="columnLabel">
@@ -216,7 +216,7 @@
                             <th class="tg-73oq">Nombre</th>
                             <th class="tg-73oq">Rut<br></th>
                             <th class="tg-73oq">Email</th>
-                            <th class="tg-73oq">Genero</th>
+                            {{--<th class="tg-73oq">Genero</th>--}}
                             <th class="tg-73oq">Privilegio</th>
                             <th class="tg-73oq"></th>
                         </tr>
@@ -227,7 +227,7 @@
                                 <td class="tg-73oq" id="inName">{{$u->name}}</td>
                                 <td class="tg-73oq" id="inTipo">{{$u->rut}}</td>
                                 <td class="tg-73oq" id="inEmail">{{$u->email}}</td>
-                                <td class="tg-73oq" id="inGen">{{$u->persona->genero}}</td>
+                                {{--<td class="tg-73oq" id="inGen">{{$u->persona->genero}}</td>--}}
                                 <td class="tg-73oq" id="inPriv">{{$u->roles->first()->name}}</td>
 
                                 <td class="tg-vlcj">
@@ -251,7 +251,7 @@
                             <td class="tg-73oq" id="inNamec"></td>
                             <td class="tg-73oq" id="inRutc"></td>
                             <td class="tg-73oq" id="inEmailc"></td>
-                            <td class="tg-73oq" id="inGenc"></td>
+                            {{--<td class="tg-73oq" id="inGenc"></td>--}}
                             <td class="tg-73oq" id="inPrivc"></td>
                             <td class="tg-vlcj">
 
@@ -292,7 +292,7 @@
                         document.getElementById("inNamec").innerHTML=iName;
                         document.getElementById("inRutc").innerHTML=iRut;
                         document.getElementById("inEmailc").innerHTML=iEmail;
-                        document.getElementById("inGenc").innerHTML=gen;
+                        //document.getElementById("inGenc").innerHTML=gen;
                         document.getElementById("inPrivc").innerHTML=$('#op option:selected').text();
 
                         $.ajax({
@@ -334,13 +334,13 @@
                         var eName=$(this).parents('tr').find('td:nth-child(2)').html();
                         var eRut=$(this).parents('tr').find('td:nth-child(3)').html();
                         var eEmail=$(this).parents('tr').find('td:nth-child(4)').html();
-                        var eGen=$(this).parents('tr').find('td:nth-child(5)').html();
-                        var ePriv=$(this).parents('tr').find('td:nth-child(6)').html();
+                        //var eGen=$(this).parents('tr').find('td:nth-child(5)').html();
+                        var ePriv=$(this).parents('tr').find('td:nth-child(5)').html();
 
                         $('#modEdit').val($('#id_nameEd').val(eName));
                         $('#modEdit').val($('#id_rutEd').val(eRut));
                         $('#modEdit').val($('#id_emailEd').val(eEmail));
-                        $('#modEdit').val($('#generoEd').val(eGen));
+                        //$('#modEdit').val($('#generoEd').val(eGen));
                         if(ePriv=="user"){
                             ePriv=2;
                         }else{
@@ -379,7 +379,7 @@
                         var sendName=$('#id_nameEd').val();
                         var sendTipo=$('#id_rutEd').val();
                         var sendEmail=$('#id_emailEd').val();
-                        var sendGen=$('#generoEd').val();
+                        //var sendGen=$('#generoEd').val();
                         var sendOp=$('#opEd').val();
                         var sendId=$.trim(id);
 
@@ -392,7 +392,7 @@
                                 name: sendName,
                                 rut: sendTipo,
                                 email: sendEmail,
-                                gender: sendGen,
+                                //gender: sendGen,
                                 op: sendOp
                             },
                             success: function () {
@@ -400,12 +400,12 @@
                                 $(pos).parents('tr').find('td:nth-child(2)').text($('#id_nameEd').val());
                                 $(pos).parents('tr').find('td:nth-child(3)').text($('#id_rutEd').val());
                                 $(pos).parents('tr').find('td:nth-child(4)').text($('#id_emailEd').val());
-                                $(pos).parents('tr').find('td:nth-child(5)').text($('#generoEd').val());
+                                //$(pos).parents('tr').find('td:nth-child(5)').text($('#generoEd').val());
 
                                 if($('#opEd').val()==2){
-                                    $(pos).parents('tr').find('td:nth-child(6)').text("user");
+                                    $(pos).parents('tr').find('td:nth-child(5)').text("user");
                                 }else{
-                                    $(pos).parents('tr').find('td:nth-child(6)').text("admin");
+                                    $(pos).parents('tr').find('td:nth-child(5)').text("admin");
                                 }
                             },
                             error: function() {
