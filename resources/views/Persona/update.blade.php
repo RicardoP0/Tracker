@@ -911,7 +911,7 @@
                                     _token: "{{ csrf_token() }}",
                                     npass: NewPass,
                                     opass: oldPass,
-                                    cpass: Confirm
+                                    password_confirmation: Confirm
                                 },
                                 success: function () {
                                     alert("Clave actualizada!");

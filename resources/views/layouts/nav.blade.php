@@ -28,7 +28,7 @@
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
+                        {{ __('Salir') }}
                     </a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -55,13 +55,16 @@
                     {{--<!-- /input-group -->--}}
                 {{--</li>--}}
                 <li>
-                    <a href={{url('graph')}}><i class="fa fa-dashboard fa-fw"></i> Gráfico</a>
+                    <a href={{url('graph')}}><i class="fa fa-area-chart fa-fw"></i> Gráfico</a>
                 </li>
                 @Auth
 
                     @if(Auth::user()->roles->first()->name == 'admin')
                 <li>
-                    <a href={{url('otros')}}><i class="fa fa-dashboard fa-fw"></i> Administración areas</a>
+                    <a href={{url('otros')}}><i class="fa fa-wrench fa-fw"></i> Administración areas</a>
+                </li>
+                <li>
+                    <a href={{url('user')}}><i class="fa fa-wrench fa-fw"></i> Administración de usuarios</a>
                 </li>
                     @endif
 

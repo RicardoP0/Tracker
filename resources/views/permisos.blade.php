@@ -114,9 +114,9 @@
                                     </div>
                                     <div class="columnInput">
                                         <select id="op" style="margin-bottom: 10px">
-                                            <option value="0" disabled selected value> -- Seleccionar una opcion -- </option>
-                                            <option value="1">user</option>
-                                            <option value="2">admin</option>
+                                            {{--<option value="0" disabled selected value> -- Seleccionar una opcion -- </option>--}}
+                                            <option value="2">user</option>
+                                            <option value="1">admin</option>
                                         </select>
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@
                     </div>
                 </div>
 
-                <div class="modal fade modalEditClass" id="modEdit2" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade modalEditClass" id="modEdit" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header text-center">
@@ -144,84 +144,54 @@
                                 </button>
                             </div>
                             <div class="modal-body mx-3">
-                                <div class="md-form mb-5">
-                                    <label data-error="wrong" data-success="right" for="inputName">Empresa</label>
-                                    <input type="text" id="edEName" class="form-control validate" style="margin-bottom: 10px">
-                                </div>
-
-                                <label data-error="wrong" data-success="right" for="inputTip">Tipo</label>
-                                <div class="md-form mb-5">
-                                    {{--<select id="edETipo" style="margin-bottom: 10px">--}}
-                                    {{--@foreach($tipoEmpresas as $te)--}}
-                                    {{--<option value={{$te->id}}> {{$te->nombre}}</option>--}}
-                                    {{--@endforeach--}}
-                                    {{--</select>--}}
-                                </div>
-
-                                <label data-error="wrong" data-success="right" for="inputOfficeInput">Nivel del cargo</label>
-                                <div class="md-form mb-5">
-                                    {{--<select id="edNivel" style="margin-bottom: 10px">--}}
-                                    {{--@foreach($nivel as $n)--}}
-                                    {{--<option value={{$n->id}}> {{$n->nombre}}</option>--}}
-                                    {{--@endforeach--}}
-                                    {{--</select>--}}
-                                </div>
-
-                                <div class="md-form mb-5">
-                                    <label data-error="wrong" data-success="right" for="inputAge">Fecha de inicio</label>
-                                    <input type="date" id="edDateS" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
-                                </div>
-
-                                <div class="md-form mb-5">
-                                    <label data-error="wrong" data-success="right" for="inputAge">Fecha de termino</label>
-                                    <input type="date" id="edDateE" class="form-control" placeholder="Select Date" style="margin-bottom: 10px">
-                                </div>
-
-                                <div class="md-form mb-5">
-                                    <label data-error="wrong" data-success="right" for="inputAge">Sueldo</label><br>
-                                    <input type="text" id="edSaltext" name="quantity" style="margin-bottom: 10px">
-                                </div>
-
-                                <input class="hide" type="number" id="edSal">
-
-                                <script>
-                                    document.getElementById("edSaltext").onblur =function (){
-                                        this.value = parseFloat(this.value.replace(/,/g, ""))
-                                            .toFixed(0)
-                                            .toString()
-                                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                                        document.getElementById("edSal").value = this.value.replace(/,/g, "")
-                                    }
-                                </script>
-
-                                <label data-error="wrong" data-success="right" for="inputOfficeInput">Area</label>
-                                <div class="md-form mb-5">
-                                    {{--<select id="edArea" style="margin-bottom: 10px" onchange="hide()">--}}
-                                    {{--@foreach( $areas_trabajo as $ar)--}}
-                                    {{--<option value={{$ar->id}}> {{$ar->nombre}}</option>--}}
-                                    {{--@endforeach--}}
-                                    {{--</select>--}}
-                                </div>
-
-                                <div id="otraAreaed" class="md-form mb-5">
-                                    <label data-error="wrong" data-success="right" for="inputOfficeInput">Otro</label>
-                                    <div class="md-form mb-5">
-                                        <input id="otro_nombre" name="otro" type="text" style="margin-bottom: 10px" />
+                                <div class="row md-form mb-5">
+                                    <div class="col-md-7">
+                                        <label data-error="wrong" data-success="right">Nombre</label>
+                                        <input type="text" id="id_nameEd" name="name" class="form-control validate" style="margin-bottom: 10px">
                                     </div>
                                 </div>
 
+                                <div class="row md-form mb-5">
+                                    <div class="col-md-7">
+                                        <label data-error="wrong" data-success="right">Rut</label>
+                                        <input type="text" id="id_rutEd" name="rut" class="form-control validate" style="margin-bottom: 10px">
+                                    </div>
+                                </div>
 
-                                <label data-error="wrong" data-success="right" for="inputOfficeInput">Rubro</label>
-                                <div class="md-form mb-5">
-                                    {{--<select id="edRubro" style="margin-bottom: 10px">--}}
-                                    {{--@foreach($rubros as $ru)--}}
-                                    {{--<option value={{$ru->id}}> {{$ru->nombre}}</option>--}}
-                                    {{--@endforeach--}}
-                                    {{--</select>--}}
+                                <div class="row md-form mb-5">
+                                    <div class="col-md-7">
+                                        <label data-error="wrong" data-success="right">E-mail</label>
+                                        <input type="text" id="id_emailEd" name="email" class="form-control validate" style="margin-bottom: 10px">
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-bottom: 10px">
+                                    <div class="columnLabel">
+                                        <label data-error="wrong" data-success="right">Genero</label>
+                                    </div>
+                                    <div class="columnInput">
+                                        <select name="gender" id="generoEd">
+                                            <option value="hombre">Masculino</option>
+                                            <option value="mujer">Femenino</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="columnLabel">
+                                        <label data-error="wrong" data-success="right">Privilegio</label>
+                                    </div>
+                                    <div class="columnInput">
+                                        <select id="opEd" style="margin-bottom: 10px">
+                                            {{--<option value="0" disabled selected value> -- Seleccionar una opcion -- </option>--}}
+                                            <option value="2">user</option>
+                                            <option value="1">admin</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer d-flex justify-content-center editInsideWrapper">
-                                        <span class="table-editm2 float-right mb-3 mr-2">
+                                        <span class="table-editm float-right mb-3 mr-2">
                                             <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Aceptar
                                                 <i class="fa fa-paper-plane-o ml-1"></i>
                                             </button>
@@ -230,9 +200,9 @@
                         </div>
                     </div>
                 </div>
-                {{--------------------}}
+            {{--------------------}}
 
-                <!--tabla usuarios-->
+            <!--tabla usuarios-->
 
                 <div id="usuarios" class="table-editable">
 
@@ -246,6 +216,7 @@
                             <th class="tg-73oq">Nombre</th>
                             <th class="tg-73oq">Rut<br></th>
                             <th class="tg-73oq">Email</th>
+                            <th class="tg-73oq">Genero</th>
                             <th class="tg-73oq">Privilegio</th>
                             <th class="tg-73oq"></th>
                         </tr>
@@ -256,6 +227,7 @@
                                 <td class="tg-73oq" id="inName">{{$u->name}}</td>
                                 <td class="tg-73oq" id="inTipo">{{$u->rut}}</td>
                                 <td class="tg-73oq" id="inEmail">{{$u->email}}</td>
+                                <td class="tg-73oq" id="inGen">{{$u->persona->genero}}</td>
                                 <td class="tg-73oq" id="inPriv">{{$u->roles->first()->name}}</td>
 
                                 <td class="tg-vlcj">
@@ -279,6 +251,7 @@
                             <td class="tg-73oq" id="inNamec"></td>
                             <td class="tg-73oq" id="inRutc"></td>
                             <td class="tg-73oq" id="inEmailc"></td>
+                            <td class="tg-73oq" id="inGenc"></td>
                             <td class="tg-73oq" id="inPrivc"></td>
                             <td class="tg-vlcj">
 
@@ -316,10 +289,10 @@
                         var PassCon=$('#password-confirm').val();
                         var iop=$('#op').val();
 
-
                         document.getElementById("inNamec").innerHTML=iName;
                         document.getElementById("inRutc").innerHTML=iRut;
                         document.getElementById("inEmailc").innerHTML=iEmail;
+                        document.getElementById("inGenc").innerHTML=gen;
                         document.getElementById("inPrivc").innerHTML=$('#op option:selected').text();
 
                         $.ajax({
@@ -349,10 +322,9 @@
                         $('#modAdd').val($('#id_rut').val(""));
                         $('#modAdd').val($('#id_email').val(""));
                         $('#modAdd').val($('#id_password1').val(""));
+                        $('#modAdd').val($('#password-confirm').val(""));
                         $('#modAdd').val($('#genero').val(0));
                         $('#modAdd').val($('#date').val(""));
-
-
 
 
                     });
@@ -360,12 +332,24 @@
                     $('.table-edit').click(function(){
 
                         var eName=$(this).parents('tr').find('td:nth-child(2)').html();
-                        var eTipo=$(this).parents('tr').find('td:nth-child(3)').html();
-                        var eUni=$(this).parents('tr').find('td:nth-child(4)').html();
-                        var eDat=$(this).parents('tr').find('td:nth-child(5)').html();
+                        var eRut=$(this).parents('tr').find('td:nth-child(3)').html();
+                        var eEmail=$(this).parents('tr').find('td:nth-child(4)').html();
+                        var eGen=$(this).parents('tr').find('td:nth-child(5)').html();
+                        var ePriv=$(this).parents('tr').find('td:nth-child(6)').html();
 
-                        var aux = $.trim(eName);
-                        $('#modEdit').val($('#NameEdit').val(aux));
+                        $('#modEdit').val($('#id_nameEd').val(eName));
+                        $('#modEdit').val($('#id_rutEd').val(eRut));
+                        $('#modEdit').val($('#id_emailEd').val(eEmail));
+                        $('#modEdit').val($('#generoEd').val(eGen));
+                        if(ePriv=="user"){
+                            ePriv=2;
+                        }else{
+                            ePriv=1;
+                        }
+                        $('#modEdit').val($('#opEd').val(ePriv));
+
+                        // var aux = $.trim(eName);
+                        // $('#modEdit').val($('#NameEdit').val(aux));
                         // aux = $.trim(eTipo);
                         // for($i=0;$i<window.tipo.length;$i++){
                         //     if(tipo[$i].nombre == aux){
@@ -373,14 +357,14 @@
                         //         break;
                         //     }
                         // }
-                        aux = $.trim(eUni);
+                        // aux = $.trim(eUni);
                         // for($i=0;$i<window.uni.length;$i++){
                         //     if(uni[$i].nombre == aux){
                         //         $('#modEdit').val($('#inputUnie').val(uni[$i].id));
                         //         break;
                         //     }
                         // }
-                        $('#modEdit').val($('#inputDateE').val(eDat));
+                        // $('#modEdit').val($('#inputDateE').val(eDat));
                         pos=this;
 
 
@@ -388,33 +372,45 @@
 
                     });
 
-                    $('.table-editm1').click(function(){
+                    $('.table-editm').click(function(){
                         var id=$(pos).parents('tr').find('td:first').html();
-                        $(pos).parents('tr').find('td:nth-child(2)').text($('#NameEdit').val());
-                        $(pos).parents('tr').find('td:nth-child(3)').text($('#inputTipoe option:selected').text());
-                        $(pos).parents('tr').find('td:nth-child(4)').text($('#inputUnie option:selected').text());
-                        $(pos).parents('tr').find('td:nth-child(5)').text($('#inputDateE').val());
 
-                        var sendName=$('#NameEdit').val();
-                        var sendTipo=$('#inputTipoe').val();
-                        var sendUn=$('#inputUnie').val();
-                        var sendDate=$('#inputDateE').val();
+
+                        var sendName=$('#id_nameEd').val();
+                        var sendTipo=$('#id_rutEd').val();
+                        var sendEmail=$('#id_emailEd').val();
+                        var sendGen=$('#generoEd').val();
+                        var sendOp=$('#opEd').val();
                         var sendId=$.trim(id);
 
                         $.ajax({
                             type: 'POST',
-                            url: "{{url('/personaEdit/json')}}",
+                            url: "{{url('/userUp/json')}}",
                             data: {
                                 _token: "{{ csrf_token() }}",
-                                nombre: sendName,
-                                tipo: sendTipo,
-                                univ: sendUn,
-                                date :sendDate,
-                                id:sendId
+                                id: sendId,
+                                name: sendName,
+                                rut: sendTipo,
+                                email: sendEmail,
+                                gender: sendGen,
+                                op: sendOp
                             },
                             success: function () {
-                                alert("Postgrado Actualizado");
-                            }
+                                alert("Usuario Actualizado");
+                                $(pos).parents('tr').find('td:nth-child(2)').text($('#id_nameEd').val());
+                                $(pos).parents('tr').find('td:nth-child(3)').text($('#id_rutEd').val());
+                                $(pos).parents('tr').find('td:nth-child(4)').text($('#id_emailEd').val());
+                                $(pos).parents('tr').find('td:nth-child(5)').text($('#generoEd').val());
+
+                                if($('#opEd').val()==2){
+                                    $(pos).parents('tr').find('td:nth-child(6)').text("user");
+                                }else{
+                                    $(pos).parents('tr').find('td:nth-child(6)').text("admin");
+                                }
+                            },
+                            error: function() {
+                                alert("Error");
+                            },
                         });
                     });
 
@@ -423,9 +419,9 @@
                         var result = confirm("Esta seguro de eliminarlo?");
                         var sendIdd=$(this).parents('tr').find('td:first').html();
 
-                        if (result) {
+                        if (result && sendIdd!=1) {
                             //Logic to delete the item
-
+                            $(this).parents('tr').detach();
 
                             $.ajax({
                                 type: 'POST',
@@ -435,10 +431,16 @@
                                     id: sendIdd
                                 },
                                 success: function () {
-                                    $(this).parents('tr').detach();
-                                    alert("Usuario Eliminado");
+                                    if(sendIdd!=1){
+                                        alert("Usuario Eliminado");
+                                    }else{
+
+                                    }
                                 }
                             });
+                        }
+                        if(sendIdd==1){
+                            alert("Error no se puede eliminar el administrador original");
                         }
                     });
                     // A few jQuery helpers for exporting only
