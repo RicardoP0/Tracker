@@ -42,7 +42,7 @@
                             <label for="rut" >{{ __('Rut') }}</label>
                         </div>
                         <div class="columnInput">
-                            <input id="rut" type="text" class="form-control{{ $errors->has('rut') ? ' is-invalid' : '' }}" name="rut" value="{{ old('rut') }}" required autofocus>
+                            <input id="rut" type="text" class="form-control{{ $errors->has('rut') ? ' is-invalid' : '' }}" name="rut" value="{{ old('rut') }}" required autofocus placeholder="ingrese rut sin puntos y con guion">
 
                             @if ($errors->has('rut'))
                                 <span class="invalid-feedback" role="alert">
