@@ -303,10 +303,18 @@ class PersonaController extends Controller
             'opass' => 'required',
             'password' => 'required|min:6|confirmed',
         ]);
-
         $user = Auth::user();
-        $user->password = $request->npass;
-        $user->save();
+
+        $pw=$request->opass;
+        $hashed=$user->password;
+        dd(Hash::check($pw, $hashed));
+        if(Hash::check($pw, $hashed)){
+            $user->password = $request->password;
+            $user->save();
+        }else{
+
+        }
+
     }
 
 }
