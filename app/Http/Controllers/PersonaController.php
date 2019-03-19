@@ -169,7 +169,6 @@ class PersonaController extends Controller
         if($otroCargoNivel !=""){
             $nuevo_nivel = new \App\Nivel_cargo(['nombre'=>$otroCargoNivel,'nivel' => 99]);
             $nuevo_nivel->save();
-
             $nivel = $nuevo_nivel->id;
         }
 
